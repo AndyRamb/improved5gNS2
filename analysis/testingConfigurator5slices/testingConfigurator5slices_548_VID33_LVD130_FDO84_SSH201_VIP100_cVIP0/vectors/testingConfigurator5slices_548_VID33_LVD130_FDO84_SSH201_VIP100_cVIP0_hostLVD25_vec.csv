@@ -1,0 +1,10 @@
+numActiveSessions:vector baselineTestQoS.hostLVD[25].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,DASHBufferLength:vector baselineTestQoS.hostLVD[25].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,DASHVideoPlaybackPointer:vector baselineTestQoS.hostLVD[25].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,DASHVideoBitrate:vector baselineTestQoS.hostLVD[25].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,DASHVideoResolution:vector baselineTestQoS.hostLVD[25].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,DASHVideoPlaybackStatus:vector baselineTestQoS.hostLVD[25].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,txPk:vector(packetBytes) baselineTestQoS.hostLVD[25].ppp[0].ppp (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,rxPkOk:vector(packetBytes) baselineTestQoS.hostLVD[25].ppp[0].ppp (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,DASHliveDelay:vector baselineTestQoS.hostLVD[25].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,rtt:vector baselineTestQoS.hostLVD[25].tcp.conn-1787 (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,endToEndDelay:vector baselineTestQoS.hostLVD[25].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),
+0,0,0,0,0,0,0,124,0,240,0,0,0,51,0.080118808,51,0.080118808,0.080118807999999985,0.1631454512,0.083026643199999999,0.1632769872,0.042645909599999989
+0,1,,,,,,,,,,,0.080118808,47,0.1631454512,47,,,,,0.2435158712,0.122884793599999985
+,,,,,,,,,,,,0.080119184,247,0.1632769872,1499,,,,,0.999352189022,0.87872111142199993
+,,,,,,,,,,,,0.1632769872,47,0.2435158712,1499,,,,,2.198552189022,2.077921111421999526
+,,,,,,,,,,,,0.2435158712,47,0.999352189022,1499,,,,,3.397732269022,3.277101191422000062
+,,,,,,,,,,,,0.999352189022,47,2.198552189022,1499,,,,,4.596886018044,4.47625494044399905
+,,,,,,,,,,,,2.198552189022,47,3.397732269022,1499,,,,,,
+,,,,,,,,,,,,3.397732269022,47,4.596886018044,1499,,,,,,
+,,,,,,,,,,,,4.596886018044,47,,,,,,,,

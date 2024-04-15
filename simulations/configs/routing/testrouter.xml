@@ -1,0 +1,17 @@
+<config>
+    <interface hosts="hostVID[0]"
+        names="ppp0"
+        address="10.0.0.0"
+        netmask="255.255.255.252" />
+    <interface hosts="router0"
+        towards="hostVID[*]"
+        address="10.0.0.1"
+        netmask="255.255.255.252" />
+    <interface hosts="serverVID"
+        names="ppp0"
+        address="10.10.0.0"
+        netmask="255.255.255.252" />
+    <interface hosts="**"
+        address="10.x.x.x"
+        netmask="255.x.x.x" />
+</config>

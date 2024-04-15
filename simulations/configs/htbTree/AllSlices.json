@@ -1,0 +1,133 @@
+[
+    {
+        "burst": 1600,
+        "cburst": 1600,
+        "ceil": 100000,
+        "id": "root",
+        "level": 2,
+        "mbuffer": 60,
+        "parentId": "NULL",
+        "quantum": 1600,
+        "rate": 100000
+    },
+    {
+        "burst": 2000,
+        "cburst": 2000,
+        "ceil": 224000,
+        "id": "innerFDO",
+        "level": 1,
+        "mbuffer": 60,
+        "parentId": "root",
+        "quantum": 1500,
+        "rate": 224000
+    },
+    {
+        "burst": 2000,
+        "cburst": 2000,
+        "ceil": 112000,
+        "id": "innerVID",
+        "level": 1,
+        "mbuffer": 60,
+        "parentId": "root",
+        "quantum": 1500,
+        "rate": 112000
+    },
+    {
+        "burst": 2000,
+        "cburst": 2000,
+        "ceil": 182000,
+        "id": "innerLVD",
+        "level": 1,
+        "mbuffer": 60,
+        "parentId": "root",
+        "quantum": 1500,
+        "rate": 182000
+    },
+    {
+        "burst": 2000,
+        "cburst": 2000,
+        "ceil": 1000,
+        "id": "innerSSH",
+        "level": 1,
+        "mbuffer": 60,
+        "parentId": "root",
+        "quantum": 1500,
+        "rate": 1000
+    },
+    {
+        "burst": 2000,
+        "cburst": 2000,
+        "ceil": 3000,
+        "id": "innerVIP",
+        "level": 1,
+        "mbuffer": 60,
+        "parentId": "root",
+        "quantum": 1500,
+        "rate": 3000
+    },
+    {
+        "id":"leafhostVID0",
+        "parentId": "innerVID",
+        "rate": 100000,
+        "ceil": 100000,
+        "burst": 2000,
+        "cburst": 2000,
+        "level": 0,
+        "quantum": 1500,
+        "mbuffer": 60,
+        "priority": 0,
+        "queueNum": 0
+    },
+    {
+        "id":"leafhostFD0",
+        "parentId": "innerFDO",
+        "rate": 5000,
+        "ceil": 10000,
+        "burst": 2000,
+        "cburst": 2000,
+        "level": 0,
+        "quantum": 1500,
+        "mbuffer": 60,
+        "priority": 0,
+        "queueNum": 1
+    },
+    {
+        "id":"leafhostLVD0",
+        "parentId": "innerLVD",
+        "rate": 100000,
+        "ceil": 100000,
+        "burst": 2000,
+        "cburst": 2000,
+        "level": 0,
+        "quantum": 1500,
+        "mbuffer": 60,
+        "priority": 0,
+        "queueNum": 2
+    },
+    {
+        "id":"leafhostSSH0",
+        "parentId": "innerSSH",
+        "rate": 3000,
+        "ceil": 5000,
+        "burst": 2000,
+        "cburst": 2000,
+        "level": 0,
+        "quantum": 1500,
+        "mbuffer": 60,
+        "priority": 0,
+        "queueNum": 3
+    },
+    {
+        "id":"leafhostVIP0",
+        "parentId": "innerVIP",
+        "rate": 10000,
+        "ceil": 20000,
+        "burst": 2000,
+        "cburst": 2000,
+        "level": 0,
+        "quantum": 1500,
+        "mbuffer": 60,
+        "priority": 0,
+        "queueNum": 4
+    }
+]

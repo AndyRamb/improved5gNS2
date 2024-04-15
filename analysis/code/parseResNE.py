@@ -46,7 +46,8 @@ def filterDFType(df, filterType):
 def getFilteredDFtypeAndTS(df, filterType):
     filteredDF = filterDFType(df, filterType)
     if len(filteredDF.columns):
-        colNoTS = df.columns.get_loc(df.filter(filteredDF).columns[0])
+        print(filteredDF.columns[0])
+        colNoTS = df.columns.get_loc(filteredDF.columns[0]) #colNoTS = df.columns.get_loc(df.filter(filteredDF).columns[0])
         return df.iloc[:,[colNoTS,colNoTS+1]].dropna()
     else:
         return pandas.DataFrame(columns=['ts', 'tp'])
@@ -60,7 +61,7 @@ def calculateThrougputPerSecondDirection(df, direction, nodeIdent):
     while tB[1] <= maxSimTime:
         if DEBUG: print(tB, end =" -> Throughput: ")
         throughput = dirDF.loc[(dirDF['ts'] > tB[0]) & (dirDF['ts'] <= tB[1])]["bytes"].sum()
-        tpDirDF = tpDirDF.append({colName : throughput*8/1000}, ignore_index=True)
+        tpDirDF = pandas.concat([tpDirDF, pandas.DataFrame.from_records([{colName : throughput*8/100000}])]) #tpDirDF = tpDirDF.append({colName : throughput*8/1000}, ignore_index=True)
         if DEBUG: print(throughput*8/1000, end=" kbps\n")
         tB = [x+1 for x in tB]
     return tpDirDF

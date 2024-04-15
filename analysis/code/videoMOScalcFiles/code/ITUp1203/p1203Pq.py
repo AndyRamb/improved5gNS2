@@ -25,7 +25,7 @@ SOFTWARE.
 from itertools import groupby
 
 from scipy import signal
-import numpy as np
+import np as np
 
 from . import log
 from .errors import P1203StandaloneError

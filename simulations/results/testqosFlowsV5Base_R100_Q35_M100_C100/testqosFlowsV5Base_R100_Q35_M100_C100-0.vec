@@ -1,0 +1,281 @@
+version 3
+run testqosFlowsV5Base_R100_Q35_M100_C100-0-20230926-14:47:15-100671
+attr configname testqosFlowsV5Base_R100_Q35_M100_C100
+attr datetime 20230926-14:47:15
+attr datetimef 20230926-144715
+attr experiment testqosFlowsV5Base_R100_Q35_M100_C100
+attr inifile QoEStudies.ini
+attr iterationvars ""
+attr iterationvarsd ""
+attr iterationvarsf ""
+attr measurement ""
+attr network baselineTestQoS
+attr processid 100671
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+config image-path ../../../Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/images
+config description "Configuration week 38 for qosFlowsV5Base_R100_Q35_M100_C100. All five applications. QoS employed. Guarantee Multiplier: 1.0; Ceil multiplier: 1.0"
+config extends liteCbaselineTestTokenQoS_base
+config *.configurator.config "xmldoc(\"configs/routing/testrouter.xml\")"
+config *.nVID 1
+config *.router*.ppp[0].queue.typename HtbQueue
+config *.router*.ppp[0].queue.numQueues 121
+config *.router*.ppp[0].queue.queue[*].typename DropTailQueue
+config *.router*.ppp[0].queue.packetCapacity -1
+config *.router*.ppp[0].queue.htbHysterisis false
+config *.router*.ppp[0].queue.scheduler.adjustHTBTreeValuesForCorectness false
+config *.router*.ppp[0].queue.scheduler.checkHTBTreeValuesForCorectness false
+config *.router*.ppp[0].queue.htbTreeConfig "xmldoc(\"configs/htbTree/test.xml\")"
+config *.router*.ppp[0].queue.classifier.defaultGateIndex 0
+config *.router0.ppp[0].queue.classifier.packetFilters "[expr(ipv4.srcAddress.str() =~ \"10.0.0.0\")]"
+config *.router1.ppp[0].queue.classifier.packetFilters "[expr(ipv4.destAddress.str() =~ \"10.0.0.0\")]"
+config **.connFIX0.datarate 100000000bps
+config **.connFIX0.delay 40ms
+config description "All five applications - base configuration without any resource allocation"
+config network baselineTestQoS
+config sim-time-limit 400s
+config output-vector-file results/testqosFlowsV5Base_R100_Q35_M100_C100/testqosFlowsV5Base_R100_Q35_M100_C100-0.vec
+config output-scalar-file results/testqosFlowsV5Base_R100_Q35_M100_C100/testqosFlowsV5Base_R100_Q35_M100_C100-0.sca
+config **.crcMode "\"computed\""
+config *.host*.numApps 1
+config *.hostFDO[*].hasTcp true
+config *.hostFDO[*].app[0].typename TcpFileDownloadApp
+config *.hostFDO[*].app[0].localAddress "\"\""
+config *.hostFDO[*].app[0].localPort -1
+config *.hostFDO[*].app[0].connectAddress "\"serverFDO\""
+config *.hostFDO[*].app[0].connectPort 1042
+config *.hostFDO[*].app[0].startTime uniform(0.01s,1s)
+config *.hostFDO[*].app[0].stopTime -1s
+config *.hostFDO[*].app[0].numRequestsPerSession 1
+config *.hostFDO[*].app[0].requestLength 800B
+config *.hostFDO[*].app[0].replyLength 10000KiB
+config *.hostFDO[*].app[0].thinkTime 0.01s
+config *.hostFDO[*].app[0].idleInterval 1s
+config *.hostFDO[*].app[0].reconnectInterval 1s
+config *.hostFDO[*].app[0].stopOperationExtraTime -1s
+config *.hostFDO[*].app[0].stopOperationTimeout 2s
+config *.serverFDO.hasTcp true
+config *.serverFDO.numApps 1
+config *.serverFDO.app[0].typename TcpGenericServerApp
+config *.serverFDO.app[0].localAddress "\"\""
+config *.serverFDO.app[0].localPort 1042
+config *.serverFDO.app[0].replyDelay 0s
+config *.serverFDO.app[0].stopOperationExtraTime -1s
+config *.serverFDO.app[0].stopOperationTimeout 2s
+config **.hostVID[*].hasTcp true
+config **.hostVID[*].app[0].typename improved5gns.apps.TCPVideoStreamCliAppV2lite
+config **.hostVID[*].app[0].localAddress "\"\""
+config **.hostVID[*].app[0].localPort -1
+config **.hostVID[*].app[0].connectAddress "\"serverVID\""
+config **.hostVID[*].app[0].connectPort 1042
+config **.hostVID[*].app[0].dataTransferMode "\"object\""
+config **.hostVID[*].app[0].startTime uniform(0.01s,1s)
+config **.hostVID[*].app[0].stopTime -1s
+config **.hostVID[*].app[0].idleInterval 1s
+config **.hostVID[*].app[0].requestLength 200B
+config **.hostVID[*].app[0].reconnectInterval 1s
+config **.hostVID[*].app[0].numRequestsPerSession 1
+config **.hostVID[*].app[0].thinkTime 1s
+config **.hostVID[*].app[0].video_resolution "\"360 480 720 1080\""
+config **.hostVID[*].app[0].manifest_size 100000
+config **.hostVID[*].app[0].video_buffer_max_length 40s
+config **.hostVID[*].app[0].video_duration int(uniform(240s,320s))
+config **.hostVID[*].app[0].segment_length 5s
+config **.hostVID[*].app[0].useFlexibleBitrate "\"flexible\""
+config *.serverVID.hasTcp true
+config *.serverVID.numApps 1
+config *.serverVID.app[0].typename TcpGenericServerApp
+config *.serverVID.app[0].localAddress "\"\""
+config *.serverVID.app[0].localPort 1042
+config *.serverVID.app[0].replyDelay 0s
+config *.serverVID.app[0].stopOperationExtraTime -1s
+config *.serverVID.app[0].stopOperationTimeout 2s
+config **.hostLVD[*].hasTcp true
+config **.hostLVD[*].app[0].typename TCPLiveVideoStreamCliAppLite
+config **.hostLVD[*].app[0].localAddress "\"\""
+config **.hostLVD[*].app[0].localPort -1
+config **.hostLVD[*].app[0].connectAddress "\"serverLVD\""
+config **.hostLVD[*].app[0].connectPort 1043
+config **.hostLVD[*].app[0].dataTransferMode "\"object\""
+config **.hostLVD[*].app[0].startTime uniform(0.01s,1s)
+config **.hostLVD[*].app[0].stopTime -1s
+config **.hostLVD[*].app[0].idleInterval 1s
+config **.hostLVD[*].app[0].requestLength 200B
+config **.hostLVD[*].app[0].reconnectInterval 1s
+config **.hostLVD[*].app[0].numRequestsPerSession 1
+config **.hostLVD[*].app[0].thinkTime 1s
+config **.hostLVD[*].app[0].video_resolution "\"240 360 480 720 1080\""
+config **.hostLVD[*].app[0].manifest_size 100000
+config **.hostLVD[*].app[0].video_buffer_max_length 6s
+config **.hostLVD[*].app[0].video_duration int(uniform(40s,70s))
+config **.hostLVD[*].app[0].segment_length 1s
+config **.hostLVD[*].app[0].useFlexibleBitrate "\"flexible\""
+config **.hostLVD[*].app[0].video_type "\"live\""
+config **.hostLVD[*].app[0].delay_threshold 4
+config **.hostLVD[*].app[0].speedup_rate 1.05
+config *.serverLVD.hasTcp true
+config *.serverLVD.numApps 1
+config *.serverLVD.app[0].typename TcpGenericServerApp
+config *.serverLVD.app[0].localAddress "\"\""
+config *.serverLVD.app[0].localPort 1043
+config *.serverLVD.app[0].replyDelay 0s
+config *.serverLVD.app[0].stopOperationExtraTime -1s
+config *.serverLVD.app[0].stopOperationTimeout 2s
+config **.hostSSH[*].hasTcp true
+config **.hostSSH[*].app[0].typename TcpSimpleSshAppV2lite
+config **.hostSSH[*].app[0].localAddress "\"\""
+config **.hostSSH[*].app[0].localPort -1
+config **.hostSSH[*].app[0].connectAddress "\"serverSSH\""
+config **.hostSSH[*].app[0].connectPort 22
+config **.hostSSH[*].app[0].startTime uniform(0.01s,1s)
+config **.hostSSH[*].app[0].stopTime -1s
+config **.hostSSH[*].app[0].numCommands 1
+config **.hostSSH[*].app[0].commandLength 10B
+config **.hostSSH[*].app[0].keyPressDelay 0.05s
+config **.hostSSH[*].app[0].commandOutputLength 500B
+config **.hostSSH[*].app[0].thinkTime 1s
+config **.hostSSH[*].app[0].idleInterval 1s
+config **.hostSSH[*].app[0].reconnectInterval 1s
+config **.hostSSH[*].app[0].stopOperationExtraTime -1s
+config **.hostSSH[*].app[0].stopOperationTimeout 2s
+config *.serverSSH.hasTcp true
+config *.serverSSH.numApps 1
+config *.serverSSH.app[*].typename TcpGenericServerApp
+config *.serverSSH.app[*].localAddress "\"\""
+config *.serverSSH.app[*].localPort 22
+config *.serverSSH.app[*].replyDelay 0s
+config *.serverSSH.app[*].stopOperationExtraTime -1s
+config *.serverSSH.app[*].stopOperationTimeout 2s
+config **.hostVIP[*].hasUdp true
+config **.hostVIP[*].app[0].typename SimpleVoipReceiver
+config **.hostVIP[*].app[0].localPort 2000
+config **.hostVIP[*].app[0].emodelIe 5
+config **.hostVIP[*].app[0].emodelBpl 10
+config **.hostVIP[*].app[0].emodelA 5
+config **.hostVIP[*].app[0].emodelRo 93.2
+config **.hostVIP[*].app[0].playoutDelay 20ms
+config **.hostVIP[*].app[0].adaptivePlayoutDelay false
+config **.hostVIP[*].app[0].bufferSpace 20
+config **.hostVIP[*].app[0].mosSpareTime 1s
+config **.serverVIP.hasUdp true
+config **.serverVIP.numApps parent.nVIP
+config **.serverVIP.app[*].typename SimpleVoipSender
+config **.serverVIP.app[*].localPort -1
+config **.serverVIP.app[*].destAddress "\"hostVIP[\" + string(index) + \"]\""
+config **.serverVIP.app[*].destPort 2000
+config **.serverVIP.app[*].talkPacketSize 40B
+config **.serverVIP.app[*].talkspurtDuration "weibull(1.423s, 0.824s)"
+config **.serverVIP.app[*].silenceDuration "weibull(0.899s, 1.089s)"
+config **.serverVIP.app[*].packetizationInterval 20ms
+config **.serverVIP.app[*].startTime uniform(0.01s,1s)
+config **.serverVIP.app[*].stopTime -1s
+config **.hostcVIP[*].hasUdp true
+config **.hostcVIP[*].app[0].typename improved5gns.apps.SimpleVoipReceiverCustom
+config **.hostcVIP[*].app[0].localPort 2000
+config **.hostcVIP[*].app[0].emodelIe 5
+config **.hostcVIP[*].app[0].emodelBpl 10
+config **.hostcVIP[*].app[0].emodelA 5
+config **.hostcVIP[*].app[0].emodelRo 93.2
+config **.hostcVIP[*].app[0].playoutDelay 20ms
+config **.hostcVIP[*].app[0].adaptivePlayoutDelay false
+config **.hostcVIP[*].app[0].bufferSpace 20
+config **.hostcVIP[*].app[0].mosSpareTime 1s
+config **.servercVIP.hasUdp true
+config **.servercVIP.numApps parent.ncVIP
+config **.servercVIP.app[*].typename improved5gns.apps.SimpleVoipSenderCustom
+config **.servercVIP.app[*].localPort -1
+config **.servercVIP.app[*].destPort 2000
+config **.servercVIP.app[*].destAddress "\"hostcVIP[\" + string(index) + \"]\""
+config **.servercVIP.app[*].talkPacketSize 40B
+config **.servercVIP.app[*].talkspurtDuration "weibull(1.423s, 0.824s)"
+config **.servercVIP.app[*].silenceDuration "weibull(0.899s, 1.089s)"
+config **.servercVIP.app[*].packetizationInterval 2ms
+config **.servercVIP.app[*].startTime uniform(0.01s,1s)
+config **.servercVIP.app[*].stopTime -1s
+config sim-time-limit 250s
+config num-rngs 1
+config seed-0-mt 5
+config output-scalar-file-append false
+config record-eventlog false
+config *.visualizer.*.interfaceTableVisualizer.displayInterfaceTables true
+config **.tcp.typename Tcp
+config **.udp.typename Udp
+config **.packetCapacity 500
+config **.tcp.advertisedWindow 65535
+config **.tcp.delayedAcksEnabled false
+config **.tcp.nagleEnabled true
+config **.tcp.limitedTransmitEnabled false
+config **.tcp.increasedIWEnabled false
+config **.tcp.sackSupport false
+config **.tcp.windowScalingSupport false
+config **.tcp.timestampSupport false
+config **.tcp.mss 1452
+config **.tcp.tcpAlgorithmClass "\"TcpReno\""
+config **.tcp.*.*.vector-recording true
+config **.tcp.*.rtt.result-recording-modes +vector
+config **.tcp.*.*.result-recording-modes -vector
+config **.host*.app*.*.vector-recording true
+config **.ppp.*xPk*.vector-recording true
+config **.vector-recording false
+
+vector 0 baselineTestQoS.hostVID[0].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 1 baselineTestQoS.hostLVD[0].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 2 baselineTestQoS.hostFDO[0].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 3 baselineTestQoS.hostSSH[0].app[0] numActiveSessions:vector ETV
+attr "" ""
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 4 baselineTestQoS.hostVID[0].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 5 baselineTestQoS.hostVID[0].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 6 baselineTestQoS.hostVID[0].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 7 baselineTestQoS.hostVID[0].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 8 baselineTestQoS.hostLVD[0].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 9 baselineTestQoS.hostLVD[0].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 10 baselineTestQoS.hostLVD[0].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 11 baselineTestQoS.hostLVD[0].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+0	0	0	0
+1	0	0	0
+2	0	0	0
+3	0	0	0
+4	0	0	0
+5	0	0	0
+6	0	0	384
+7	0	0	360
+8	0	0	0
+9	0	0	0
+10	0	0	93
+11	0	0	240
+

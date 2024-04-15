@@ -27,7 +27,7 @@ import re
 import json
 import os
 import sys
-import numpy as np
+import np as np
 
 from .errors import P1203StandaloneError
 from . import log

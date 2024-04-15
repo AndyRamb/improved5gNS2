@@ -1,0 +1,14 @@
+#
+# Usage:
+#    make -f makemakefiles
+# or, for Microsoft Visual C++:
+#    nmake -f makemakefiles MMOPT=-n
+#
+
+MAKEMAKE=opp_makemake $(MMOPT)
+
+INET4_5_PROJ=../../Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5
+INETGPL_PROJ=../inet-gpl
+
+all:
+	cd src && $(MAKEMAKE) -f --deep -O out -KINET4_5_PROJ=/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5 -KINETGPL_PROJ=../../inet-gpl -DINET_IMPORT -DINETGPL_IMPORT -I. -I$$\(INET4_5_PROJ\)/src -I$$\(INETGPL_PROJ\)/src -L$$\(INET4_5_PROJ\)/src -L$$\(INETGPL_PROJ\)/src -lINET$$\(D\) -lINETGPL$$\(D\)

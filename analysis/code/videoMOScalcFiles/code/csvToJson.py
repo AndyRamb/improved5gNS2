@@ -111,7 +111,7 @@ def get_stalling(ds):
         st=st.drop(st.index[len(st)-1]) #except for the last one which is the end of the video
 
     # if the last line of tsPlaybackStatus is 1, it means the video is interrupted
-    durations=a.values-b.values #duration, numpy
+    durations=a.values-b.values #duration, np
     st=st.values
 
     # print('number of stallings:',len(durations),', total stalling duration: ',durations.sum())

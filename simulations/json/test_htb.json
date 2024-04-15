@@ -1,0 +1,26 @@
+[
+    {
+        "id":"root",
+        "parentId": "NULL",
+        "rate": 100000,
+        "ceil": 100000,
+        "burst": 2000,
+        "cburst": 2000,
+        "level": 1,
+        "quantum": 1500,
+        "mbuffer": 60
+    },
+    {
+        "id":"leafhostVID0",
+        "parentId": "root",
+        "rate": 100000,
+        "ceil": 100000,
+        "burst": 2000,
+        "cburst": 2000,
+        "level": 0,
+        "quantum": 1500,
+        "mbuffer": 60,
+        "priority": 0,
+        "queueNum": 0
+    }
+]

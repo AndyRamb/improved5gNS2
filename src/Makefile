@@ -53,8 +53,8 @@ MSGFILES =
 # SM files
 SMFILES =
 
-INET_PROJ=/Users/marijagajic/omnetpp-6.0/inet
-INETGPL_PROJ=/Users/marijagajic/omnetpp-6.0/inet-gpl
+INET_PROJ=/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5
+INETGPL_PROJ=/home/andy/git/inet-gpl
 
 #------------------------------------------------------------------------------
 

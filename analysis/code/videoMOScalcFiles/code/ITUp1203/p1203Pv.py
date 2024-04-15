@@ -24,7 +24,7 @@ SOFTWARE.
 """
 
 import math
-import numpy as np
+import np as np
 import json
 
 from . import log

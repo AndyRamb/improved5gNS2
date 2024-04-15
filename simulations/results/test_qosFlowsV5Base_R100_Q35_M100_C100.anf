@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<analysis version="2">
+    <inputs>
+        <input pattern="/improved5gNS/simulations/results/test_qosFlowsV5Base_R100_Q35_M100_C100/test_qosFlowsV5Base_R100_Q35_M100_C100-*.vec"/>
+        <input pattern="/improved5gNS/simulations/results/test_qosFlowsV5Base_R100_Q35_M100_C100/test_qosFlowsV5Base_R100_Q35_M100_C100-*.sca"/>
+    </inputs>
+    <charts/>
+</analysis>

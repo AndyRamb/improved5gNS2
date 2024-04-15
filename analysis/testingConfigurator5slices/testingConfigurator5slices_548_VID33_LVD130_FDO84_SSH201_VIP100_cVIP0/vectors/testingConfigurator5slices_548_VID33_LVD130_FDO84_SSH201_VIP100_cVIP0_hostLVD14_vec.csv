@@ -1,0 +1,10 @@
+numActiveSessions:vector baselineTestQoS.hostLVD[14].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,DASHBufferLength:vector baselineTestQoS.hostLVD[14].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,DASHVideoPlaybackPointer:vector baselineTestQoS.hostLVD[14].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,DASHVideoBitrate:vector baselineTestQoS.hostLVD[14].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,DASHVideoResolution:vector baselineTestQoS.hostLVD[14].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,DASHVideoPlaybackStatus:vector baselineTestQoS.hostLVD[14].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,txPk:vector(packetBytes) baselineTestQoS.hostLVD[14].ppp[0].ppp (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,rxPkOk:vector(packetBytes) baselineTestQoS.hostLVD[14].ppp[0].ppp (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,DASHliveDelay:vector baselineTestQoS.hostLVD[14].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,rtt:vector baselineTestQoS.hostLVD[14].tcp.conn-1776 (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,endToEndDelay:vector baselineTestQoS.hostLVD[14].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),
+0,0,0,0,0,0,0,120,0,240,0,0,0,51,0.080073928,51,0.080073928,0.080073927999999988,0.1617849712,0.081711043199999999,0.1619165072,0.041544149599999996
+0,1,,,,,,,,,,,0.080073928,47,0.1617849712,47,,,,,0.2421676312,0.121795273600000003
+,,,,,,,,,,,,0.080074304,247,0.1619165072,1499,,,,,0.998033069022,0.877660711421999856
+,,,,,,,,,,,,0.1619165072,47,0.2421676312,1499,,,,,2.197233069022,2.076860711421999452
+,,,,,,,,,,,,0.2421676312,47,0.998033069022,1499,,,,,3.396313149022,3.27594079142199933
+,,,,,,,,,,,,0.998033069022,47,2.197233069022,1499,,,,,4.595566898044,4.475194540443998982
+,,,,,,,,,,,,2.197233069022,47,3.396313149022,1499,,,,,,
+,,,,,,,,,,,,3.396313149022,47,4.595566898044,1499,,,,,,
+,,,,,,,,,,,,4.595566898044,47,,,,,,,,

@@ -1,0 +1,9 @@
+numActiveSessions:vector baselineTestQoS.hostVID[13].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,DASHBufferLength:vector baselineTestQoS.hostVID[13].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,DASHVideoPlaybackPointer:vector baselineTestQoS.hostVID[13].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,DASHVideoBitrate:vector baselineTestQoS.hostVID[13].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,DASHVideoResolution:vector baselineTestQoS.hostVID[13].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,DASHVideoPlaybackStatus:vector baselineTestQoS.hostVID[13].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,txPk:vector(packetBytes) baselineTestQoS.hostVID[13].ppp[0].ppp (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,rxPkOk:vector(packetBytes) baselineTestQoS.hostVID[13].ppp[0].ppp (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,rtt:vector baselineTestQoS.hostVID[13].tcp.conn-2605 (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,endToEndDelay:vector baselineTestQoS.hostVID[13].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),
+0,0,0,0,0,0,0,283,0,360,1,0,1,51,1.080069848,51,1.1616564904,0.081586642399999992,1.1617880264,0.041439188799999998
+1,1,,,,,,,,,,,1.080069848,47,1.1616564904,47,,,1.2420269104,0.12167807279999998
+,,,,,,,,,,,,1.080070224,247,1.1617880264,1499,,,1.997793229022,0.877444391422000031
+,,,,,,,,,,,,1.1617880264,47,1.2420269104,1499,,,3.197013149022,2.076664311421999356
+,,,,,,,,,,,,1.2420269104,47,1.997793229022,1499,,,4.396278662844,3.27592982524399988
+,,,,,,,,,,,,1.997793229022,47,3.197013149022,1499,,,,
+,,,,,,,,,,,,3.197013149022,47,4.396278662844,1499,,,,
+,,,,,,,,,,,,4.396278662844,47,,,,,,

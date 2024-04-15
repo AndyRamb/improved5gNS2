@@ -1,0 +1,11 @@
+numActiveSessions:vector baselineTestQoS.hostLVD[87].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,DASHBufferLength:vector baselineTestQoS.hostLVD[87].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,DASHVideoPlaybackPointer:vector baselineTestQoS.hostLVD[87].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,DASHVideoBitrate:vector baselineTestQoS.hostLVD[87].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,DASHVideoResolution:vector baselineTestQoS.hostLVD[87].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,DASHVideoPlaybackStatus:vector baselineTestQoS.hostLVD[87].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,txPk:vector(packetBytes) baselineTestQoS.hostLVD[87].ppp[0].ppp (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,rxPkOk:vector(packetBytes) baselineTestQoS.hostLVD[87].ppp[0].ppp (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,DASHliveDelay:vector baselineTestQoS.hostLVD[87].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,rtt:vector baselineTestQoS.hostLVD[87].tcp.conn-1849 (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,endToEndDelay:vector baselineTestQoS.hostLVD[87].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),
+0,0,0,0,0,0,0,119,0,240,0,0,0,51,0.0836334576,51,0.0836334576,0.083633457599999988,0.465585924,0.381952466400000021,0.46591746,0.289288988799999978
+0,1,,,,,,,,,,,0.0836334576,47,0.465585924,47,,,,,1.2813313416,1.104702870399999697
+,,,,,,,,,,,,0.0836338336,247,0.46591746,1499,,,,,1.2866412344,1.110012763199999859
+,,,,,,,,,,,,0.46591746,47,1.2813313416,1499,,,,,2.93258830858,2.755959837379999815
+,,,,,,,,,,,,1.2813313416,47,1.2866412344,1499,,,,,2.93791182858,2.761283357379999962
+,,,,,,,,,,,,1.2866412344,47,2.93258830858,1499,,,,,2.94330030858,2.766671837379999652
+,,,,,,,,,,,,2.93258830858,47,2.93791182858,1499,,,,,2.948591152222,2.77196268102199993
+,,,,,,,,,,,,2.93791182858,47,2.94330030858,1499,,,,,,
+,,,,,,,,,,,,2.94330030858,47,2.948591152222,1499,,,,,,
+,,,,,,,,,,,,2.948591152222,47,,,,,,,,

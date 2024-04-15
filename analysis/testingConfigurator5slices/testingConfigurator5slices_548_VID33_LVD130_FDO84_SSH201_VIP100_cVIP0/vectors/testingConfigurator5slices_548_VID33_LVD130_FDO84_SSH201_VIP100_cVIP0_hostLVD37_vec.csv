@@ -1,0 +1,15 @@
+numActiveSessions:vector baselineTestQoS.hostLVD[37].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,DASHBufferLength:vector baselineTestQoS.hostLVD[37].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,DASHVideoPlaybackPointer:vector baselineTestQoS.hostLVD[37].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,DASHVideoBitrate:vector baselineTestQoS.hostLVD[37].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,DASHVideoResolution:vector baselineTestQoS.hostLVD[37].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,DASHVideoPlaybackStatus:vector baselineTestQoS.hostLVD[37].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,txPk:vector(packetBytes) baselineTestQoS.hostLVD[37].ppp[0].ppp (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,rxPkOk:vector(packetBytes) baselineTestQoS.hostLVD[37].ppp[0].ppp (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,DASHliveDelay:vector baselineTestQoS.hostLVD[37].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,rtt:vector baselineTestQoS.hostLVD[37].tcp.conn-1799 (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,endToEndDelay:vector baselineTestQoS.hostLVD[37].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),
+0,0,0,0,0,0,0,70,0,240,0,0,0,51,0.081036808,51,0.081036808,0.081036807999999987,0.189522524,0.108485715999999981,0.18985406,0.062448022399999996
+0,1,,,,,,,,,,,0.081036808,47,0.189522524,47,,,,,0.7459802152,0.618574177599999994
+,,,,,,,,,,,,0.081037184,247,0.18985406,1499,,,,,0.7512927336,0.623886696000000016
+,,,,,,,,,,,,0.18985406,47,0.7459802152,1499,,,,,1.827409258622,1.700003221021999957
+,,,,,,,,,,,,0.7459802152,47,0.7512927336,1499,,,,,1.832715201022,1.705309163421999666
+,,,,,,,,,,,,0.7512927336,47,1.827409258622,1499,,,,,1.838049721822,1.710643684222000075
+,,,,,,,,,,,,1.827409258622,47,1.832715201022,1499,,,,,1.843399932,1.715993894399999935
+,,,,,,,,,,,,1.832715201022,47,1.838049721822,1499,,,,,3.8426577064,3.715251668799999665
+,,,,,,,,,,,,1.838049721822,47,1.843399932,1499,,,,,3.848019550422,3.720613512822000127
+,,,,,,,,,,,,1.843399932,47,3.8426577064,1499,,,,,,
+,,,,,,,,,,,,3.8426577064,47,3.848019550422,1499,,,,,,
+,,,,,,,,,,,,3.848019550422,47,3.853323214044,1499,,,,,,
+,,,,,,,,,,,,3.853323214044,47,3.858680818844,1499,,,,,,
+,,,,,,,,,,,,3.858680818844,47,,,,,,,,

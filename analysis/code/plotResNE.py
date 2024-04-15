@@ -380,6 +380,8 @@ def plotUtilityCdfAllApps(testName, numCLI, nodeTypes, nodeSplit, nodeTypesToPlo
     partialCDFEnd(fig,ax1,'', 'Utility', prePath+makeFullScenarioName(testName, numCLI, nodeTypes, nodeSplit)+'_'+str(globalCounter)+'_cdf' + dataIdent + str(nodeTypesToPlot) + '.pdf')
     partialCDFEndPNG(fig,ax1,'', 'Utility', prePath+makeFullScenarioName(testName, numCLI, nodeTypes, nodeSplit)+'_'+str(globalCounter)+'_cdf' + dataIdent + str(nodeTypesToPlot) + '.png')
 
+#plotUtilityCdfAllApps('testing5slices1client', 5, ['hostVID', 'hostLVD', 'hostFDO', 'hostSSH', 'hostVIP', 'hostcVIP'], [1,1,1,1,1,0], ['hostVID', 'hostLVD', 'hostFDO', 'hostSSH', 'hostVIP', 'hostcVIP'])
+
 # plotUtilityCdfAllApps('baselineTest', 250, ['hostVID', 'hostLVD', 'hostFDO', 'hostSSH', 'hostVIP'], [50 for x in range(5)], ['hostVID', 'hostLVD', 'hostFDO', 'hostSSH', 'hostVIP'])
 # plotUtilityCdfAllApps('baselineTestNS_2sli_LVD-BWS_AlgoTest_alpha05', 250, ['hostVID', 'hostLVD', 'hostFDO', 'hostSSH', 'hostVIP'], [50 for x in range(5)], ['hostVID', 'hostLVD', 'hostFDO', 'hostSSH', 'hostVIP'])
 # plotUtilityCdfAllApps('baselineTestNS_5sli_AlgoTest_alpha05', 250, ['hostVID', 'hostLVD', 'hostFDO', 'hostSSH', 'hostVIP'], [50 for x in range(5)], ['hostVID', 'hostLVD', 'hostFDO', 'hostSSH', 'hostVIP'])
@@ -542,11 +544,15 @@ def plotTPdirection(testName, numCLI, nodeTypes, nodeSplit, numSlices, direction
     df = importDFextended(testName, numCLI, nodeTypes, nodeSplit, 'throughputs', '_' + direction[0])
     fig, ax1 = plt.subplots(1, figsize=(16,12))
     times = range(1,maxSimTime+1,1)
+    print(nodeSplit)
     for nodeType,numNodes in zip(nodeTypes,nodeSplit):
+        if numNodes == 0:
+            continue
         tempDF = pd.DataFrame()
         for nodeNum in range(numNodes):
             colName = direction[0] + " Throughput " + makeNodeIdentifier(nodeType, nodeNum)
             tempDF = pd.concat([tempDF,df[colName]],axis=1,ignore_index=False)
+        print(nodeType)
         ax1.plot(times, [x/1000 for x in tempDF.sum(axis=1).tolist()], label=chooseName(nodeType), marker='o', ls='-', color=chooseColor(nodeType))
     for sliceNum in range(numSlices):
         linkDF = filterDFType(df, direction[0] + ' Throughput resAllocLink' + str(sliceNum))
@@ -565,6 +571,8 @@ def plotTPScdfDirection(testName, numCLI, nodeTypes, nodeSplit, numSlices, direc
     fig, ax1 = partialCDFBegin(1)
     maxTPS = 0
     for nodeType,numNodes in zip(nodeTypes,nodeSplit):
+        if numNodes == 0:
+            continue
         tempTPSall = []
         for nodeNum in range(numNodes):
             colName = direction[0] + " Throughput " + makeNodeIdentifier(nodeType, nodeNum)
@@ -590,6 +598,8 @@ def plotMeanTPScdfDirection(testName, numCLI, nodeTypes, nodeSplit, direction, c
     fig, ax1 = partialCDFBegin(1)
     maxTPS = 0
     for nodeType,numNodes in zip(nodeTypes,nodeSplit):
+        if numNodes == 0:
+            continue
         tempTPSall = []
         for nodeNum in range(numNodes):
             colName = direction[0] + " Throughput " + makeNodeIdentifier(nodeType, nodeNum)
@@ -608,6 +618,8 @@ def plotMeanTPScdfDirectionComp(testNameMain, testNameSecondary, numCLI, nodeTyp
     fig, ax = partialCDFBegin(2)
     maxTPS = 0
     for nodeType,numNodes in zip(nodeTypes,nodeSplit):
+        if numNodes == 0:
+            continue
         tempTPSall = []
         tempTPSall2 = []
         for nodeNum in range(numNodes):

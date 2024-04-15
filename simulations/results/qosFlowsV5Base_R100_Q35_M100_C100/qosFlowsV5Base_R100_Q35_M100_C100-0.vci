@@ -1,0 +1,1781 @@
+file 78859 1695801656                                           
+version 3
+run qosFlowsV5Base_R100_Q35_M100_C100-0-20230927-10:00:48-109940
+attr configname qosFlowsV5Base_R100_Q35_M100_C100
+attr datetime 20230927-10:00:48
+attr datetimef 20230927-100048
+attr experiment qosFlowsV5Base_R100_Q35_M100_C100
+attr inifile QoEStudies.ini
+attr iterationvars ""
+attr iterationvarsd ""
+attr iterationvarsf ""
+attr measurement ""
+attr network baselineTestQoS
+attr processid 109940
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+config image-path ../../../Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/images
+config description "Configuration week 38 for qosFlowsV5Base_R100_Q35_M100_C100. All five applications. QoS employed. Guarantee Multiplier: 1.0; Ceil multiplier: 1.0"
+config extends liteCbaselineTestTokenQoS_base
+config *.configurator.config "xmldoc(\"configs/routing/qosFlowsV5Base_R100_Q35_M100_C100Routing.xml\")"
+config *.nVID 47
+config *.nLVD 19
+config *.nFDO 5
+config *.nSSH 10
+config *.nVIP 40
+config *.router*.ppp[0].queue.typename HtbQueue
+config *.router*.ppp[0].queue.numQueues 121
+config *.router*.ppp[0].queue.queue[*].typename DropTailQueue
+config *.router*.ppp[0].queue.packetCapacity -1
+config *.router*.ppp[0].queue.htbHysterisis false
+config *.router*.ppp[0].queue.scheduler.adjustHTBTreeValuesForCorectness false
+config *.router*.ppp[0].queue.scheduler.checkHTBTreeValuesForCorectness false
+config *.router*.ppp[0].queue.htbTreeConfig "xmldoc(\"configs/htbTree/qosFlowsV5Base_R100_Q35_M100_C100HTB.xml\")"
+config *.router*.ppp[0].queue.classifier.defaultGateIndex 0
+config *.router0.ppp[0].queue.classifier.packetFilters "[expr(ipv4.srcAddress.str() =~ \"10.0.0.0\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.4\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.8\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.12\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.16\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.24\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.28\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.32\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.36\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.40\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.44\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.48\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.52\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.56\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.60\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.64\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.68\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.72\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.76\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.80\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.84\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.88\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.92\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.96\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.100\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.104\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.108\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.112\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.116\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.120\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.124\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.128\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.132\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.136\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.140\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.144\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.148\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.152\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.156\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.160\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.164\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.168\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.172\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.176\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.180\"),expr(ipv4.srcAddress.str() =~ \"10.0.0.184\"),expr(ipv4.srcAddress.str() =~ \"10.1.0.0\"),expr(ipv4.srcAddress.str() =~ \"10.1.0.4\"),expr(ipv4.srcAddress.str() =~ \"10.1.0.8\"),expr(ipv4.srcAddress.str() =~ \"10.1.0.12\"),expr(ipv4.srcAddress.str() =~ \"10.1.0.16\"),expr(ipv4.srcAddress.str() =~ \"10.1.0.20\"),expr(ipv4.srcAddress.str() =~ \"10.1.0.24\"),expr(ipv4.srcAddress.str() =~ \"10.1.0.28\"),expr(ipv4.srcAddress.str() =~ \"10.1.0.32\"),expr(ipv4.srcAddress.str() =~ \"10.1.0.36\"),expr(ipv4.srcAddress.str() =~ \"10.1.0.40\"),expr(ipv4.srcAddress.str() =~ \"10.1.0.44\"),expr(ipv4.srcAddress.str() =~ \"10.1.0.48\"),expr(ipv4.srcAddress.str() =~ \"10.1.0.52\"),expr(ipv4.srcAddress.str() =~ \"10.1.0.56\"),expr(ipv4.srcAddress.str() =~ \"10.1.0.60\"),expr(ipv4.srcAddress.str() =~ \"10.1.0.64\"),expr(ipv4.srcAddress.str() =~ \"10.1.0.68\"),expr(ipv4.srcAddress.str() =~ \"10.1.0.72\"),expr(ipv4.srcAddress.str() =~ \"10.2.0.0\"),expr(ipv4.srcAddress.str() =~ \"10.2.0.4\"),expr(ipv4.srcAddress.str() =~ \"10.2.0.8\"),expr(ipv4.srcAddress.str() =~ \"10.2.0.12\"),expr(ipv4.srcAddress.str() =~ \"10.2.0.16\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.0\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.4\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.8\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.12\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.16\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.20\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.24\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.28\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.32\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.36\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.40\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.44\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.48\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.52\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.56\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.60\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.64\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.68\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.72\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.76\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.80\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.84\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.88\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.92\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.96\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.100\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.104\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.108\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.112\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.116\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.120\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.122\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.124\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.128\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.132\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.136\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.140\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.144\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.148\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.152\"),expr(ipv4.srcAddress.str() =~ \"10.3.0.156\"),expr(ipv4.srcAddress.str() =~ \"10.4.0.0\"),expr(ipv4.srcAddress.str() =~ \"10.4.0.4\"),expr(ipv4.srcAddress.str() =~ \"10.4.0.8\"),expr(ipv4.srcAddress.str() =~ \"10.4.0.12\"),expr(ipv4.srcAddress.str() =~ \"10.4.0.16\"),expr(ipv4.srcAddress.str() =~ \"10.4.0.20\"),expr(ipv4.srcAddress.str() =~ \"10.4.0.24\"),expr(ipv4.srcAddress.str() =~ \"10.4.0.28\"),expr(ipv4.srcAddress.str() =~ \"10.4.0.32\"),expr(ipv4.srcAddress.str() =~ \"10.4.0.36\")]"
+config *.router1.ppp[0].queue.classifier.packetFilters "[expr(ipv4.destAddress.str() =~ \"10.0.0.0\"),expr(ipv4.destAddress.str() =~ \"10.0.0.4\"),expr(ipv4.destAddress.str() =~ \"10.0.0.8\"),expr(ipv4.destAddress.str() =~ \"10.0.0.12\"),expr(ipv4.destAddress.str() =~ \"10.0.0.16\"),expr(ipv4.destAddress.str() =~ \"10.0.0.20\"),expr(ipv4.destAddress.str() =~ \"10.0.0.24\"),expr(ipv4.destAddress.str() =~ \"10.0.0.28\"),expr(ipv4.destAddress.str() =~ \"10.0.0.32\"),expr(ipv4.destAddress.str() =~ \"10.0.0.36\"),expr(ipv4.destAddress.str() =~ \"10.0.0.40\"),expr(ipv4.destAddress.str() =~ \"10.0.0.44\"),expr(ipv4.destAddress.str() =~ \"10.0.0.48\"),expr(ipv4.destAddress.str() =~ \"10.0.0.52\"),expr(ipv4.destAddress.str() =~ \"10.0.0.56\"),expr(ipv4.destAddress.str() =~ \"10.0.0.60\"),expr(ipv4.destAddress.str() =~ \"10.0.0.64\"),expr(ipv4.destAddress.str() =~ \"10.0.0.68\"),expr(ipv4.destAddress.str() =~ \"10.0.0.72\"),expr(ipv4.destAddress.str() =~ \"10.0.0.76\"),expr(ipv4.destAddress.str() =~ \"10.0.0.80\"),expr(ipv4.destAddress.str() =~ \"10.0.0.84\"),expr(ipv4.destAddress.str() =~ \"10.0.0.88\"),expr(ipv4.destAddress.str() =~ \"10.0.0.92\"),expr(ipv4.destAddress.str() =~ \"10.0.0.96\"),expr(ipv4.destAddress.str() =~ \"10.0.0.100\"),expr(ipv4.destAddress.str() =~ \"10.0.0.104\"),expr(ipv4.destAddress.str() =~ \"10.0.0.108\"),expr(ipv4.destAddress.str() =~ \"10.0.0.112\"),expr(ipv4.destAddress.str() =~ \"10.0.0.116\"),expr(ipv4.destAddress.str() =~ \"10.0.0.120\"),expr(ipv4.destAddress.str() =~ \"10.0.0.124\"),expr(ipv4.destAddress.str() =~ \"10.0.0.128\"),expr(ipv4.destAddress.str() =~ \"10.0.0.132\"),expr(ipv4.destAddress.str() =~ \"10.0.0.136\"),expr(ipv4.destAddress.str() =~ \"10.0.0.140\"),expr(ipv4.destAddress.str() =~ \"10.0.0.144\"),expr(ipv4.destAddress.str() =~ \"10.0.0.148\"),expr(ipv4.destAddress.str() =~ \"10.0.0.152\"),expr(ipv4.destAddress.str() =~ \"10.0.0.156\"),expr(ipv4.destAddress.str() =~ \"10.0.0.160\"),expr(ipv4.destAddress.str() =~ \"10.0.0.164\"),expr(ipv4.destAddress.str() =~ \"10.0.0.168\"),expr(ipv4.destAddress.str() =~ \"10.0.0.172\"),expr(ipv4.destAddress.str() =~ \"10.0.0.176\"),expr(ipv4.destAddress.str() =~ \"10.0.0.180\"),expr(ipv4.destAddress.str() =~ \"10.0.0.184\"),expr(ipv4.destAddress.str() =~ \"10.1.0.0\"),expr(ipv4.destAddress.str() =~ \"10.1.0.4\"),expr(ipv4.destAddress.str() =~ \"10.1.0.8\"),expr(ipv4.destAddress.str() =~ \"10.1.0.12\"),expr(ipv4.destAddress.str() =~ \"10.1.0.16\"),expr(ipv4.destAddress.str() =~ \"10.1.0.20\"),expr(ipv4.destAddress.str() =~ \"10.1.0.24\"),expr(ipv4.destAddress.str() =~ \"10.1.0.28\"),expr(ipv4.destAddress.str() =~ \"10.1.0.32\"),expr(ipv4.destAddress.str() =~ \"10.1.0.36\"),expr(ipv4.destAddress.str() =~ \"10.1.0.40\"),expr(ipv4.destAddress.str() =~ \"10.1.0.44\"),expr(ipv4.destAddress.str() =~ \"10.1.0.48\"),expr(ipv4.destAddress.str() =~ \"10.1.0.52\"),expr(ipv4.destAddress.str() =~ \"10.1.0.56\"),expr(ipv4.destAddress.str() =~ \"10.1.0.60\"),expr(ipv4.destAddress.str() =~ \"10.1.0.64\"),expr(ipv4.destAddress.str() =~ \"10.1.0.68\"),expr(ipv4.destAddress.str() =~ \"10.1.0.72\"),expr(ipv4.destAddress.str() =~ \"10.2.0.0\"),expr(ipv4.destAddress.str() =~ \"10.2.0.4\"),expr(ipv4.destAddress.str() =~ \"10.2.0.8\"),expr(ipv4.destAddress.str() =~ \"10.2.0.12\"),expr(ipv4.destAddress.str() =~ \"10.3.0.0\"),expr(ipv4.destAddress.str() =~ \"10.3.0.4\"),expr(ipv4.destAddress.str() =~ \"10.3.0.8\"),expr(ipv4.destAddress.str() =~ \"10.3.0.12\"),expr(ipv4.destAddress.str() =~ \"10.3.0.16\"),expr(ipv4.destAddress.str() =~ \"10.3.0.20\"),expr(ipv4.destAddress.str() =~ \"10.3.0.24\"),expr(ipv4.destAddress.str() =~ \"10.3.0.28\"),expr(ipv4.destAddress.str() =~ \"10.3.0.32\"),expr(ipv4.destAddress.str() =~ \"10.3.0.36\"),expr(ipv4.destAddress.str() =~ \"10.3.0.40\"),expr(ipv4.destAddress.str() =~ \"10.3.0.44\"),expr(ipv4.destAddress.str() =~ \"10.3.0.48\"),expr(ipv4.destAddress.str() =~ \"10.3.0.52\"),expr(ipv4.destAddress.str() =~ \"10.3.0.56\"),expr(ipv4.destAddress.str() =~ \"10.3.0.60\"),expr(ipv4.destAddress.str() =~ \"10.3.0.64\"),expr(ipv4.destAddress.str() =~ \"10.3.0.68\"),expr(ipv4.destAddress.str() =~ \"10.3.0.72\"),expr(ipv4.destAddress.str() =~ \"10.3.0.76\"),expr(ipv4.destAddress.str() =~ \"10.3.0.80\"),expr(ipv4.destAddress.str() =~ \"10.3.0.84\"),expr(ipv4.destAddress.str() =~ \"10.3.0.88\"),expr(ipv4.destAddress.str() =~ \"10.3.0.92\"),expr(ipv4.destAddress.str() =~ \"10.3.0.96\"),expr(ipv4.destAddress.str() =~ \"10.3.0.100\"),expr(ipv4.destAddress.str() =~ \"10.3.0.104\"),expr(ipv4.destAddress.str() =~ \"10.3.0.108\"),expr(ipv4.destAddress.str() =~ \"10.3.0.112\"),expr(ipv4.destAddress.str() =~ \"10.3.0.116\"),expr(ipv4.destAddress.str() =~ \"10.3.0.120\"),expr(ipv4.destAddress.str() =~ \"10.3.0.124\"),expr(ipv4.destAddress.str() =~ \"10.3.0.128\"),expr(ipv4.destAddress.str() =~ \"10.3.0.132\"),expr(ipv4.destAddress.str() =~ \"10.3.0.136\"),expr(ipv4.destAddress.str() =~ \"10.3.0.140\"),expr(ipv4.destAddress.str() =~ \"10.3.0.144\"),expr(ipv4.destAddress.str() =~ \"10.3.0.148\"),expr(ipv4.destAddress.str() =~ \"10.3.0.152\"),expr(ipv4.destAddress.str() =~ \"10.3.0.156\"),expr(ipv4.destAddress.str() =~ \"10.4.0.0\"),expr(ipv4.destAddress.str() =~ \"10.4.0.4\"),expr(ipv4.destAddress.str() =~ \"10.4.0.8\"),expr(ipv4.destAddress.str() =~ \"10.4.0.12\"),expr(ipv4.destAddress.str() =~ \"10.4.0.16\"),expr(ipv4.destAddress.str() =~ \"10.4.0.20\"),expr(ipv4.destAddress.str() =~ \"10.4.0.24\"),expr(ipv4.destAddress.str() =~ \"10.4.0.28\"),expr(ipv4.destAddress.str() =~ \"10.4.0.32\"),expr(ipv4.destAddress.str() =~ \"10.4.0.36\")]"
+config **.connFIX0.datarate 100000000bps
+config **.connFIX0.delay 40ms
+config description "All five applications - base configuration without any resource allocation"
+config network baselineTestQoS
+config sim-time-limit 400s
+config output-vector-file results/qosFlowsV5Base_R100_Q35_M100_C100/qosFlowsV5Base_R100_Q35_M100_C100-0.vec
+config output-scalar-file results/qosFlowsV5Base_R100_Q35_M100_C100/qosFlowsV5Base_R100_Q35_M100_C100-0.sca
+config **.crcMode "\"computed\""
+config *.host*.numApps 1
+config *.hostFDO[*].hasTcp true
+config *.hostFDO[*].app[0].typename TcpFileDownloadApp
+config *.hostFDO[*].app[0].localAddress "\"\""
+config *.hostFDO[*].app[0].localPort -1
+config *.hostFDO[*].app[0].connectAddress "\"serverFDO\""
+config *.hostFDO[*].app[0].connectPort 1042
+config *.hostFDO[*].app[0].startTime uniform(0.01s,1s)
+config *.hostFDO[*].app[0].stopTime -1s
+config *.hostFDO[*].app[0].numRequestsPerSession 1
+config *.hostFDO[*].app[0].requestLength 800B
+config *.hostFDO[*].app[0].replyLength 10000KiB
+config *.hostFDO[*].app[0].thinkTime 0.01s
+config *.hostFDO[*].app[0].idleInterval 1s
+config *.hostFDO[*].app[0].reconnectInterval 1s
+config *.hostFDO[*].app[0].stopOperationExtraTime -1s
+config *.hostFDO[*].app[0].stopOperationTimeout 2s
+config *.serverFDO.hasTcp true
+config *.serverFDO.numApps 1
+config *.serverFDO.app[0].typename TcpGenericServerApp
+config *.serverFDO.app[0].localAddress "\"\""
+config *.serverFDO.app[0].localPort 1042
+config *.serverFDO.app[0].replyDelay 0s
+config *.serverFDO.app[0].stopOperationExtraTime -1s
+config *.serverFDO.app[0].stopOperationTimeout 2s
+config **.hostVID[*].hasTcp true
+config **.hostVID[*].app[0].typename improved5gns.apps.TCPVideoStreamCliAppV2lite
+config **.hostVID[*].app[0].localAddress "\"\""
+config **.hostVID[*].app[0].localPort -1
+config **.hostVID[*].app[0].connectAddress "\"serverVID\""
+config **.hostVID[*].app[0].connectPort 1042
+config **.hostVID[*].app[0].dataTransferMode "\"object\""
+config **.hostVID[*].app[0].startTime uniform(0.01s,1s)
+config **.hostVID[*].app[0].stopTime -1s
+config **.hostVID[*].app[0].idleInterval 1s
+config **.hostVID[*].app[0].requestLength 200B
+config **.hostVID[*].app[0].reconnectInterval 1s
+config **.hostVID[*].app[0].numRequestsPerSession 1
+config **.hostVID[*].app[0].thinkTime 1s
+config **.hostVID[*].app[0].video_resolution "\"360 480 720 1080\""
+config **.hostVID[*].app[0].manifest_size 100000
+config **.hostVID[*].app[0].video_buffer_max_length 40s
+config **.hostVID[*].app[0].video_duration int(uniform(240s,320s))
+config **.hostVID[*].app[0].segment_length 5s
+config **.hostVID[*].app[0].useFlexibleBitrate "\"flexible\""
+config *.serverVID.hasTcp true
+config *.serverVID.numApps 1
+config *.serverVID.app[0].typename TcpGenericServerApp
+config *.serverVID.app[0].localAddress "\"\""
+config *.serverVID.app[0].localPort 1042
+config *.serverVID.app[0].replyDelay 0s
+config *.serverVID.app[0].stopOperationExtraTime -1s
+config *.serverVID.app[0].stopOperationTimeout 2s
+config **.hostLVD[*].hasTcp true
+config **.hostLVD[*].app[0].typename TCPLiveVideoStreamCliAppLite
+config **.hostLVD[*].app[0].localAddress "\"\""
+config **.hostLVD[*].app[0].localPort -1
+config **.hostLVD[*].app[0].connectAddress "\"serverLVD\""
+config **.hostLVD[*].app[0].connectPort 1043
+config **.hostLVD[*].app[0].dataTransferMode "\"object\""
+config **.hostLVD[*].app[0].startTime uniform(0.01s,1s)
+config **.hostLVD[*].app[0].stopTime -1s
+config **.hostLVD[*].app[0].idleInterval 1s
+config **.hostLVD[*].app[0].requestLength 200B
+config **.hostLVD[*].app[0].reconnectInterval 1s
+config **.hostLVD[*].app[0].numRequestsPerSession 1
+config **.hostLVD[*].app[0].thinkTime 1s
+config **.hostLVD[*].app[0].video_resolution "\"240 360 480 720 1080\""
+config **.hostLVD[*].app[0].manifest_size 100000
+config **.hostLVD[*].app[0].video_buffer_max_length 6s
+config **.hostLVD[*].app[0].video_duration int(uniform(40s,70s))
+config **.hostLVD[*].app[0].segment_length 1s
+config **.hostLVD[*].app[0].useFlexibleBitrate "\"flexible\""
+config **.hostLVD[*].app[0].video_type "\"live\""
+config **.hostLVD[*].app[0].delay_threshold 4
+config **.hostLVD[*].app[0].speedup_rate 1.05
+config *.serverLVD.hasTcp true
+config *.serverLVD.numApps 1
+config *.serverLVD.app[0].typename TcpGenericServerApp
+config *.serverLVD.app[0].localAddress "\"\""
+config *.serverLVD.app[0].localPort 1043
+config *.serverLVD.app[0].replyDelay 0s
+config *.serverLVD.app[0].stopOperationExtraTime -1s
+config *.serverLVD.app[0].stopOperationTimeout 2s
+config **.hostSSH[*].hasTcp true
+config **.hostSSH[*].app[0].typename TcpSimpleSshAppV2lite
+config **.hostSSH[*].app[0].localAddress "\"\""
+config **.hostSSH[*].app[0].localPort -1
+config **.hostSSH[*].app[0].connectAddress "\"serverSSH\""
+config **.hostSSH[*].app[0].connectPort 22
+config **.hostSSH[*].app[0].startTime uniform(0.01s,1s)
+config **.hostSSH[*].app[0].stopTime -1s
+config **.hostSSH[*].app[0].numCommands 1
+config **.hostSSH[*].app[0].commandLength 10B
+config **.hostSSH[*].app[0].keyPressDelay 0.05s
+config **.hostSSH[*].app[0].commandOutputLength 500B
+config **.hostSSH[*].app[0].thinkTime 1s
+config **.hostSSH[*].app[0].idleInterval 1s
+config **.hostSSH[*].app[0].reconnectInterval 1s
+config **.hostSSH[*].app[0].stopOperationExtraTime -1s
+config **.hostSSH[*].app[0].stopOperationTimeout 2s
+config *.serverSSH.hasTcp true
+config *.serverSSH.numApps 1
+config *.serverSSH.app[*].typename TcpGenericServerApp
+config *.serverSSH.app[*].localAddress "\"\""
+config *.serverSSH.app[*].localPort 22
+config *.serverSSH.app[*].replyDelay 0s
+config *.serverSSH.app[*].stopOperationExtraTime -1s
+config *.serverSSH.app[*].stopOperationTimeout 2s
+config **.hostVIP[*].hasUdp true
+config **.hostVIP[*].app[0].typename SimpleVoipReceiver
+config **.hostVIP[*].app[0].localPort 2000
+config **.hostVIP[*].app[0].emodelIe 5
+config **.hostVIP[*].app[0].emodelBpl 10
+config **.hostVIP[*].app[0].emodelA 5
+config **.hostVIP[*].app[0].emodelRo 93.2
+config **.hostVIP[*].app[0].playoutDelay 20ms
+config **.hostVIP[*].app[0].adaptivePlayoutDelay false
+config **.hostVIP[*].app[0].bufferSpace 20
+config **.hostVIP[*].app[0].mosSpareTime 1s
+config **.serverVIP.hasUdp true
+config **.serverVIP.numApps parent.nVIP
+config **.serverVIP.app[*].typename SimpleVoipSender
+config **.serverVIP.app[*].localPort -1
+config **.serverVIP.app[*].destAddress "\"hostVIP[\" + string(index) + \"]\""
+config **.serverVIP.app[*].destPort 2000
+config **.serverVIP.app[*].talkPacketSize 40B
+config **.serverVIP.app[*].talkspurtDuration "weibull(1.423s, 0.824s)"
+config **.serverVIP.app[*].silenceDuration "weibull(0.899s, 1.089s)"
+config **.serverVIP.app[*].packetizationInterval 20ms
+config **.serverVIP.app[*].startTime uniform(0.01s,1s)
+config **.serverVIP.app[*].stopTime -1s
+config **.hostcVIP[*].hasUdp true
+config **.hostcVIP[*].app[0].typename improved5gns.apps.SimpleVoipReceiverCustom
+config **.hostcVIP[*].app[0].localPort 2000
+config **.hostcVIP[*].app[0].emodelIe 5
+config **.hostcVIP[*].app[0].emodelBpl 10
+config **.hostcVIP[*].app[0].emodelA 5
+config **.hostcVIP[*].app[0].emodelRo 93.2
+config **.hostcVIP[*].app[0].playoutDelay 20ms
+config **.hostcVIP[*].app[0].adaptivePlayoutDelay false
+config **.hostcVIP[*].app[0].bufferSpace 20
+config **.hostcVIP[*].app[0].mosSpareTime 1s
+config **.servercVIP.hasUdp true
+config **.servercVIP.numApps parent.ncVIP
+config **.servercVIP.app[*].typename improved5gns.apps.SimpleVoipSenderCustom
+config **.servercVIP.app[*].localPort -1
+config **.servercVIP.app[*].destPort 2000
+config **.servercVIP.app[*].destAddress "\"hostcVIP[\" + string(index) + \"]\""
+config **.servercVIP.app[*].talkPacketSize 40B
+config **.servercVIP.app[*].talkspurtDuration "weibull(1.423s, 0.824s)"
+config **.servercVIP.app[*].silenceDuration "weibull(0.899s, 1.089s)"
+config **.servercVIP.app[*].packetizationInterval 2ms
+config **.servercVIP.app[*].startTime uniform(0.01s,1s)
+config **.servercVIP.app[*].stopTime -1s
+config sim-time-limit 250s
+config num-rngs 1
+config seed-0-mt 5
+config output-scalar-file-append false
+config record-eventlog false
+config *.visualizer.*.interfaceTableVisualizer.displayInterfaceTables true
+config **.tcp.typename Tcp
+config **.udp.typename Udp
+config **.packetCapacity 500
+config **.tcp.advertisedWindow 65535
+config **.tcp.delayedAcksEnabled false
+config **.tcp.nagleEnabled true
+config **.tcp.limitedTransmitEnabled false
+config **.tcp.increasedIWEnabled false
+config **.tcp.sackSupport false
+config **.tcp.windowScalingSupport false
+config **.tcp.timestampSupport false
+config **.tcp.mss 1452
+config **.tcp.tcpAlgorithmClass "\"TcpReno\""
+config **.tcp.*.*.vector-recording true
+config **.tcp.*.rtt.result-recording-modes +vector
+config **.tcp.*.*.result-recording-modes -vector
+config **.host*.app*.*.vector-recording true
+config **.ppp.*xPk*.vector-recording true
+config **.vector-recording false
+
+vector 0 baselineTestQoS.hostVID[0].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 1 baselineTestQoS.hostVID[1].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 2 baselineTestQoS.hostVID[2].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 3 baselineTestQoS.hostVID[3].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 4 baselineTestQoS.hostVID[4].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 5 baselineTestQoS.hostVID[5].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 6 baselineTestQoS.hostVID[6].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 7 baselineTestQoS.hostVID[7].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 8 baselineTestQoS.hostVID[8].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 9 baselineTestQoS.hostVID[9].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 10 baselineTestQoS.hostVID[10].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 11 baselineTestQoS.hostVID[11].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 12 baselineTestQoS.hostVID[12].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 13 baselineTestQoS.hostVID[13].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 14 baselineTestQoS.hostVID[14].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 15 baselineTestQoS.hostVID[15].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 16 baselineTestQoS.hostVID[16].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 17 baselineTestQoS.hostVID[17].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 18 baselineTestQoS.hostVID[18].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 19 baselineTestQoS.hostVID[19].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 20 baselineTestQoS.hostVID[20].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 21 baselineTestQoS.hostVID[21].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 22 baselineTestQoS.hostVID[22].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 23 baselineTestQoS.hostVID[23].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 24 baselineTestQoS.hostVID[24].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 25 baselineTestQoS.hostVID[25].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 26 baselineTestQoS.hostVID[26].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 27 baselineTestQoS.hostVID[27].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 28 baselineTestQoS.hostVID[28].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 29 baselineTestQoS.hostVID[29].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 30 baselineTestQoS.hostVID[30].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 31 baselineTestQoS.hostVID[31].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 32 baselineTestQoS.hostVID[32].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 33 baselineTestQoS.hostVID[33].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 34 baselineTestQoS.hostVID[34].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 35 baselineTestQoS.hostVID[35].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 36 baselineTestQoS.hostVID[36].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 37 baselineTestQoS.hostVID[37].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 38 baselineTestQoS.hostVID[38].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 39 baselineTestQoS.hostVID[39].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 40 baselineTestQoS.hostVID[40].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 41 baselineTestQoS.hostVID[41].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 42 baselineTestQoS.hostVID[42].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 43 baselineTestQoS.hostVID[43].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 44 baselineTestQoS.hostVID[44].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 45 baselineTestQoS.hostVID[45].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 46 baselineTestQoS.hostVID[46].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 47 baselineTestQoS.hostLVD[0].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 48 baselineTestQoS.hostLVD[1].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 49 baselineTestQoS.hostLVD[2].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 50 baselineTestQoS.hostLVD[3].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 51 baselineTestQoS.hostLVD[4].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 52 baselineTestQoS.hostLVD[5].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 53 baselineTestQoS.hostLVD[6].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 54 baselineTestQoS.hostLVD[7].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 55 baselineTestQoS.hostLVD[8].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 56 baselineTestQoS.hostLVD[9].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 57 baselineTestQoS.hostLVD[10].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 58 baselineTestQoS.hostLVD[11].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 59 baselineTestQoS.hostLVD[12].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 60 baselineTestQoS.hostLVD[13].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 61 baselineTestQoS.hostLVD[14].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 62 baselineTestQoS.hostLVD[15].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 63 baselineTestQoS.hostLVD[16].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 64 baselineTestQoS.hostLVD[17].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 65 baselineTestQoS.hostLVD[18].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 66 baselineTestQoS.hostFDO[0].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 67 baselineTestQoS.hostFDO[1].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 68 baselineTestQoS.hostFDO[2].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 69 baselineTestQoS.hostFDO[3].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 70 baselineTestQoS.hostFDO[4].app[0] numActiveSessions:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 71 baselineTestQoS.hostSSH[0].app[0] numActiveSessions:vector ETV
+attr "" ""
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 72 baselineTestQoS.hostSSH[1].app[0] numActiveSessions:vector ETV
+attr "" ""
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 73 baselineTestQoS.hostSSH[2].app[0] numActiveSessions:vector ETV
+attr "" ""
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 74 baselineTestQoS.hostSSH[3].app[0] numActiveSessions:vector ETV
+attr "" ""
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 75 baselineTestQoS.hostSSH[4].app[0] numActiveSessions:vector ETV
+attr "" ""
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 76 baselineTestQoS.hostSSH[5].app[0] numActiveSessions:vector ETV
+attr "" ""
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 77 baselineTestQoS.hostSSH[6].app[0] numActiveSessions:vector ETV
+attr "" ""
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 78 baselineTestQoS.hostSSH[7].app[0] numActiveSessions:vector ETV
+attr "" ""
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 79 baselineTestQoS.hostSSH[8].app[0] numActiveSessions:vector ETV
+attr "" ""
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 80 baselineTestQoS.hostSSH[9].app[0] numActiveSessions:vector ETV
+attr "" ""
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source sum(connect)
+attr title "number of active sessions"
+vector 81 baselineTestQoS.hostVID[0].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 82 baselineTestQoS.hostVID[0].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 83 baselineTestQoS.hostVID[0].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 84 baselineTestQoS.hostVID[0].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 85 baselineTestQoS.hostVID[1].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 86 baselineTestQoS.hostVID[1].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 87 baselineTestQoS.hostVID[1].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 88 baselineTestQoS.hostVID[1].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 89 baselineTestQoS.hostVID[2].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 90 baselineTestQoS.hostVID[2].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 91 baselineTestQoS.hostVID[2].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 92 baselineTestQoS.hostVID[2].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 93 baselineTestQoS.hostVID[3].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 94 baselineTestQoS.hostVID[3].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 95 baselineTestQoS.hostVID[3].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 96 baselineTestQoS.hostVID[3].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 97 baselineTestQoS.hostVID[4].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 98 baselineTestQoS.hostVID[4].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 99 baselineTestQoS.hostVID[4].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 100 baselineTestQoS.hostVID[4].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 101 baselineTestQoS.hostVID[5].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 102 baselineTestQoS.hostVID[5].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 103 baselineTestQoS.hostVID[5].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 104 baselineTestQoS.hostVID[5].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 105 baselineTestQoS.hostVID[6].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 106 baselineTestQoS.hostVID[6].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 107 baselineTestQoS.hostVID[6].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 108 baselineTestQoS.hostVID[6].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 109 baselineTestQoS.hostVID[7].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 110 baselineTestQoS.hostVID[7].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 111 baselineTestQoS.hostVID[7].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 112 baselineTestQoS.hostVID[7].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 113 baselineTestQoS.hostVID[8].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 114 baselineTestQoS.hostVID[8].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 115 baselineTestQoS.hostVID[8].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 116 baselineTestQoS.hostVID[8].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 117 baselineTestQoS.hostVID[9].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 118 baselineTestQoS.hostVID[9].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 119 baselineTestQoS.hostVID[9].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 120 baselineTestQoS.hostVID[9].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 121 baselineTestQoS.hostVID[10].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 122 baselineTestQoS.hostVID[10].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 123 baselineTestQoS.hostVID[10].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 124 baselineTestQoS.hostVID[10].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 125 baselineTestQoS.hostVID[11].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 126 baselineTestQoS.hostVID[11].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 127 baselineTestQoS.hostVID[11].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 128 baselineTestQoS.hostVID[11].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 129 baselineTestQoS.hostVID[12].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 130 baselineTestQoS.hostVID[12].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 131 baselineTestQoS.hostVID[12].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 132 baselineTestQoS.hostVID[12].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 133 baselineTestQoS.hostVID[13].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 134 baselineTestQoS.hostVID[13].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 135 baselineTestQoS.hostVID[13].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 136 baselineTestQoS.hostVID[13].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 137 baselineTestQoS.hostVID[14].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 138 baselineTestQoS.hostVID[14].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 139 baselineTestQoS.hostVID[14].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 140 baselineTestQoS.hostVID[14].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 141 baselineTestQoS.hostVID[15].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 142 baselineTestQoS.hostVID[15].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 143 baselineTestQoS.hostVID[15].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 144 baselineTestQoS.hostVID[15].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 145 baselineTestQoS.hostVID[16].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 146 baselineTestQoS.hostVID[16].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 147 baselineTestQoS.hostVID[16].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 148 baselineTestQoS.hostVID[16].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 149 baselineTestQoS.hostVID[17].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 150 baselineTestQoS.hostVID[17].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 151 baselineTestQoS.hostVID[17].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 152 baselineTestQoS.hostVID[17].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 153 baselineTestQoS.hostVID[18].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 154 baselineTestQoS.hostVID[18].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 155 baselineTestQoS.hostVID[18].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 156 baselineTestQoS.hostVID[18].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 157 baselineTestQoS.hostVID[19].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 158 baselineTestQoS.hostVID[19].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 159 baselineTestQoS.hostVID[19].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 160 baselineTestQoS.hostVID[19].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 161 baselineTestQoS.hostVID[20].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 162 baselineTestQoS.hostVID[20].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 163 baselineTestQoS.hostVID[20].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 164 baselineTestQoS.hostVID[20].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 165 baselineTestQoS.hostVID[21].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 166 baselineTestQoS.hostVID[21].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 167 baselineTestQoS.hostVID[21].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 168 baselineTestQoS.hostVID[21].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 169 baselineTestQoS.hostVID[22].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 170 baselineTestQoS.hostVID[22].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 171 baselineTestQoS.hostVID[22].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 172 baselineTestQoS.hostVID[22].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 173 baselineTestQoS.hostVID[23].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 174 baselineTestQoS.hostVID[23].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 175 baselineTestQoS.hostVID[23].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 176 baselineTestQoS.hostVID[23].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 177 baselineTestQoS.hostVID[24].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 178 baselineTestQoS.hostVID[24].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 179 baselineTestQoS.hostVID[24].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 180 baselineTestQoS.hostVID[24].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 181 baselineTestQoS.hostVID[25].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 182 baselineTestQoS.hostVID[25].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 183 baselineTestQoS.hostVID[25].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 184 baselineTestQoS.hostVID[25].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 185 baselineTestQoS.hostVID[26].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 186 baselineTestQoS.hostVID[26].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 187 baselineTestQoS.hostVID[26].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 188 baselineTestQoS.hostVID[26].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 189 baselineTestQoS.hostVID[27].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 190 baselineTestQoS.hostVID[27].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 191 baselineTestQoS.hostVID[27].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 192 baselineTestQoS.hostVID[27].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 193 baselineTestQoS.hostVID[28].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 194 baselineTestQoS.hostVID[28].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 195 baselineTestQoS.hostVID[28].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 196 baselineTestQoS.hostVID[28].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 197 baselineTestQoS.hostVID[29].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 198 baselineTestQoS.hostVID[29].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 199 baselineTestQoS.hostVID[29].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 200 baselineTestQoS.hostVID[29].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 201 baselineTestQoS.hostVID[30].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 202 baselineTestQoS.hostVID[30].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 203 baselineTestQoS.hostVID[30].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 204 baselineTestQoS.hostVID[30].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 205 baselineTestQoS.hostVID[31].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 206 baselineTestQoS.hostVID[31].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 207 baselineTestQoS.hostVID[31].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 208 baselineTestQoS.hostVID[31].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 209 baselineTestQoS.hostVID[32].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 210 baselineTestQoS.hostVID[32].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 211 baselineTestQoS.hostVID[32].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 212 baselineTestQoS.hostVID[32].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 213 baselineTestQoS.hostVID[33].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 214 baselineTestQoS.hostVID[33].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 215 baselineTestQoS.hostVID[33].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 216 baselineTestQoS.hostVID[33].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 217 baselineTestQoS.hostVID[34].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 218 baselineTestQoS.hostVID[34].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 219 baselineTestQoS.hostVID[34].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 220 baselineTestQoS.hostVID[34].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 221 baselineTestQoS.hostVID[35].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 222 baselineTestQoS.hostVID[35].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 223 baselineTestQoS.hostVID[35].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 224 baselineTestQoS.hostVID[35].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 225 baselineTestQoS.hostVID[36].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 226 baselineTestQoS.hostVID[36].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 227 baselineTestQoS.hostVID[36].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 228 baselineTestQoS.hostVID[36].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 229 baselineTestQoS.hostVID[37].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 230 baselineTestQoS.hostVID[37].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 231 baselineTestQoS.hostVID[37].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 232 baselineTestQoS.hostVID[37].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 233 baselineTestQoS.hostVID[38].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 234 baselineTestQoS.hostVID[38].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 235 baselineTestQoS.hostVID[38].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 236 baselineTestQoS.hostVID[38].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 237 baselineTestQoS.hostVID[39].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 238 baselineTestQoS.hostVID[39].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 239 baselineTestQoS.hostVID[39].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 240 baselineTestQoS.hostVID[39].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 241 baselineTestQoS.hostVID[40].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 242 baselineTestQoS.hostVID[40].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 243 baselineTestQoS.hostVID[40].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 244 baselineTestQoS.hostVID[40].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 245 baselineTestQoS.hostVID[41].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 246 baselineTestQoS.hostVID[41].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 247 baselineTestQoS.hostVID[41].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 248 baselineTestQoS.hostVID[41].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 249 baselineTestQoS.hostVID[42].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 250 baselineTestQoS.hostVID[42].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 251 baselineTestQoS.hostVID[42].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 252 baselineTestQoS.hostVID[42].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 253 baselineTestQoS.hostVID[43].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 254 baselineTestQoS.hostVID[43].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 255 baselineTestQoS.hostVID[43].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 256 baselineTestQoS.hostVID[43].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 257 baselineTestQoS.hostVID[44].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 258 baselineTestQoS.hostVID[44].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 259 baselineTestQoS.hostVID[44].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 260 baselineTestQoS.hostVID[44].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 261 baselineTestQoS.hostVID[45].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 262 baselineTestQoS.hostVID[45].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 263 baselineTestQoS.hostVID[45].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 264 baselineTestQoS.hostVID[45].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 265 baselineTestQoS.hostVID[46].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 266 baselineTestQoS.hostVID[46].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 267 baselineTestQoS.hostVID[46].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 268 baselineTestQoS.hostVID[46].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 269 baselineTestQoS.hostLVD[0].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 270 baselineTestQoS.hostLVD[0].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 271 baselineTestQoS.hostLVD[0].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 272 baselineTestQoS.hostLVD[0].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 273 baselineTestQoS.hostLVD[1].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 274 baselineTestQoS.hostLVD[1].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 275 baselineTestQoS.hostLVD[1].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 276 baselineTestQoS.hostLVD[1].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 277 baselineTestQoS.hostLVD[2].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 278 baselineTestQoS.hostLVD[2].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 279 baselineTestQoS.hostLVD[2].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 280 baselineTestQoS.hostLVD[2].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 281 baselineTestQoS.hostLVD[3].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 282 baselineTestQoS.hostLVD[3].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 283 baselineTestQoS.hostLVD[3].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 284 baselineTestQoS.hostLVD[3].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 285 baselineTestQoS.hostLVD[4].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 286 baselineTestQoS.hostLVD[4].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 287 baselineTestQoS.hostLVD[4].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 288 baselineTestQoS.hostLVD[4].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 289 baselineTestQoS.hostLVD[5].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 290 baselineTestQoS.hostLVD[5].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 291 baselineTestQoS.hostLVD[5].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 292 baselineTestQoS.hostLVD[5].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 293 baselineTestQoS.hostLVD[6].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 294 baselineTestQoS.hostLVD[6].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 295 baselineTestQoS.hostLVD[6].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 296 baselineTestQoS.hostLVD[6].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 297 baselineTestQoS.hostLVD[7].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 298 baselineTestQoS.hostLVD[7].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 299 baselineTestQoS.hostLVD[7].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 300 baselineTestQoS.hostLVD[7].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 301 baselineTestQoS.hostLVD[8].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 302 baselineTestQoS.hostLVD[8].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 303 baselineTestQoS.hostLVD[8].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 304 baselineTestQoS.hostLVD[8].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 305 baselineTestQoS.hostLVD[9].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 306 baselineTestQoS.hostLVD[9].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 307 baselineTestQoS.hostLVD[9].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 308 baselineTestQoS.hostLVD[9].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 309 baselineTestQoS.hostLVD[10].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 310 baselineTestQoS.hostLVD[10].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 311 baselineTestQoS.hostLVD[10].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 312 baselineTestQoS.hostLVD[10].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 313 baselineTestQoS.hostLVD[11].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 314 baselineTestQoS.hostLVD[11].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 315 baselineTestQoS.hostLVD[11].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 316 baselineTestQoS.hostLVD[11].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 317 baselineTestQoS.hostLVD[12].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 318 baselineTestQoS.hostLVD[12].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 319 baselineTestQoS.hostLVD[12].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 320 baselineTestQoS.hostLVD[12].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 321 baselineTestQoS.hostLVD[13].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 322 baselineTestQoS.hostLVD[13].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 323 baselineTestQoS.hostLVD[13].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 324 baselineTestQoS.hostLVD[13].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 325 baselineTestQoS.hostLVD[14].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 326 baselineTestQoS.hostLVD[14].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 327 baselineTestQoS.hostLVD[14].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 328 baselineTestQoS.hostLVD[14].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 329 baselineTestQoS.hostLVD[15].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 330 baselineTestQoS.hostLVD[15].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 331 baselineTestQoS.hostLVD[15].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 332 baselineTestQoS.hostLVD[15].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 333 baselineTestQoS.hostLVD[16].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 334 baselineTestQoS.hostLVD[16].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 335 baselineTestQoS.hostLVD[16].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 336 baselineTestQoS.hostLVD[16].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 337 baselineTestQoS.hostLVD[17].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 338 baselineTestQoS.hostLVD[17].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 339 baselineTestQoS.hostLVD[17].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 340 baselineTestQoS.hostLVD[17].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+vector 341 baselineTestQoS.hostLVD[18].app[0] DASHBufferLength:vector ETV
+attr recordingmode vector
+attr title "Video buffer length (in seconds)"
+vector 342 baselineTestQoS.hostLVD[18].app[0] DASHVideoPlaybackPointer:vector ETV
+attr recordingmode vector
+attr title "Video playback pointer"
+vector 343 baselineTestQoS.hostLVD[18].app[0] DASHVideoBitrate:vector ETV
+attr recordingmode vector
+attr title "Requested video bitrate"
+vector 344 baselineTestQoS.hostLVD[18].app[0] DASHVideoResolution:vector ETV
+attr recordingmode vector
+attr title "Requested video resolution"
+0	75257 8 0 0 0 0 1 0 0 0 0
+1	75265 8 0 0 0 0 1 0 0 0 0
+2	75273 8 0 0 0 0 1 0 0 0 0
+3	75281 8 0 0 0 0 1 0 0 0 0
+4	75289 8 0 0 0 0 1 0 0 0 0
+5	75297 8 0 0 0 0 1 0 0 0 0
+6	75305 8 0 0 0 0 1 0 0 0 0
+7	75313 8 0 0 0 0 1 0 0 0 0
+8	75321 8 0 0 0 0 1 0 0 0 0
+9	75329 8 0 0 0 0 1 0 0 0 0
+10	75337 9 0 0 0 0 1 0 0 0 0
+11	75346 9 0 0 0 0 1 0 0 0 0
+12	75355 9 0 0 0 0 1 0 0 0 0
+13	75364 9 0 0 0 0 1 0 0 0 0
+14	75373 9 0 0 0 0 1 0 0 0 0
+15	75382 9 0 0 0 0 1 0 0 0 0
+16	75391 9 0 0 0 0 1 0 0 0 0
+17	75400 9 0 0 0 0 1 0 0 0 0
+18	75409 9 0 0 0 0 1 0 0 0 0
+19	75418 9 0 0 0 0 1 0 0 0 0
+20	75427 9 0 0 0 0 1 0 0 0 0
+21	75436 9 0 0 0 0 1 0 0 0 0
+22	75445 9 0 0 0 0 1 0 0 0 0
+23	75454 9 0 0 0 0 1 0 0 0 0
+24	75463 9 0 0 0 0 1 0 0 0 0
+25	75472 9 0 0 0 0 1 0 0 0 0
+26	75481 9 0 0 0 0 1 0 0 0 0
+27	75490 9 0 0 0 0 1 0 0 0 0
+28	75499 9 0 0 0 0 1 0 0 0 0
+29	75508 9 0 0 0 0 1 0 0 0 0
+30	75517 9 0 0 0 0 1 0 0 0 0
+31	75526 9 0 0 0 0 1 0 0 0 0
+32	75535 9 0 0 0 0 1 0 0 0 0
+33	75544 9 0 0 0 0 1 0 0 0 0
+34	75553 9 0 0 0 0 1 0 0 0 0
+35	75562 9 0 0 0 0 1 0 0 0 0
+36	75571 9 0 0 0 0 1 0 0 0 0
+37	75580 9 0 0 0 0 1 0 0 0 0
+38	75589 9 0 0 0 0 1 0 0 0 0
+39	75598 9 0 0 0 0 1 0 0 0 0
+40	75607 9 0 0 0 0 1 0 0 0 0
+41	75616 9 0 0 0 0 1 0 0 0 0
+42	75625 9 0 0 0 0 1 0 0 0 0
+43	75634 9 0 0 0 0 1 0 0 0 0
+44	75643 9 0 0 0 0 1 0 0 0 0
+45	75652 9 0 0 0 0 1 0 0 0 0
+46	75661 9 0 0 0 0 1 0 0 0 0
+47	75670 9 0 0 0 0 1 0 0 0 0
+48	75679 9 0 0 0 0 1 0 0 0 0
+49	75688 9 0 0 0 0 1 0 0 0 0
+50	75697 9 0 0 0 0 1 0 0 0 0
+51	75706 9 0 0 0 0 1 0 0 0 0
+52	75715 9 0 0 0 0 1 0 0 0 0
+53	75724 9 0 0 0 0 1 0 0 0 0
+54	75733 9 0 0 0 0 1 0 0 0 0
+55	75742 9 0 0 0 0 1 0 0 0 0
+56	75751 9 0 0 0 0 1 0 0 0 0
+57	75760 9 0 0 0 0 1 0 0 0 0
+58	75769 9 0 0 0 0 1 0 0 0 0
+59	75778 9 0 0 0 0 1 0 0 0 0
+60	75787 9 0 0 0 0 1 0 0 0 0
+61	75796 9 0 0 0 0 1 0 0 0 0
+62	75805 9 0 0 0 0 1 0 0 0 0
+63	75814 9 0 0 0 0 1 0 0 0 0
+64	75823 9 0 0 0 0 1 0 0 0 0
+65	75832 9 0 0 0 0 1 0 0 0 0
+66	75841 9 0 0 0 0 1 0 0 0 0
+67	75850 9 0 0 0 0 1 0 0 0 0
+68	75859 9 0 0 0 0 1 0 0 0 0
+69	75868 9 0 0 0 0 1 0 0 0 0
+70	75877 9 0 0 0 0 1 0 0 0 0
+71	75886 9 0 0 0 0 1 0 0 0 0
+72	75895 9 0 0 0 0 1 0 0 0 0
+73	75904 9 0 0 0 0 1 0 0 0 0
+74	75913 9 0 0 0 0 1 0 0 0 0
+75	75922 9 0 0 0 0 1 0 0 0 0
+76	75931 9 0 0 0 0 1 0 0 0 0
+77	75940 9 0 0 0 0 1 0 0 0 0
+78	75949 9 0 0 0 0 1 0 0 0 0
+79	75958 9 0 0 0 0 1 0 0 0 0
+80	75967 9 0 0 0 0 1 0 0 0 0
+81	75976 9 0 0 0 0 1 0 0 0 0
+82	75985 9 0 0 0 0 1 0 0 0 0
+83	75994 11 0 0 0 0 1 277 277 277 76729
+84	76005 11 0 0 0 0 1 360 360 360 129600
+85	76016 9 0 0 0 0 1 0 0 0 0
+86	76025 9 0 0 0 0 1 0 0 0 0
+87	76034 11 0 0 0 0 1 388 388 388 150544
+88	76045 11 0 0 0 0 1 360 360 360 129600
+89	76056 9 0 0 0 0 1 0 0 0 0
+90	76065 9 0 0 0 0 1 0 0 0 0
+91	76074 11 0 0 0 0 1 244 244 244 59536
+92	76085 11 0 0 0 0 1 360 360 360 129600
+93	76096 9 0 0 0 0 1 0 0 0 0
+94	76105 9 0 0 0 0 1 0 0 0 0
+95	76114 11 0 0 0 0 1 324 324 324 104976
+96	76125 11 0 0 0 0 1 360 360 360 129600
+97	76136 9 0 0 0 0 1 0 0 0 0
+98	76145 9 0 0 0 0 1 0 0 0 0
+99	76154 11 0 0 0 0 1 396 396 396 156816
+100	76165 12 0 0 0 0 1 360 360 360 129600
+101	76177 10 0 0 0 0 1 0 0 0 0
+102	76187 10 0 0 0 0 1 0 0 0 0
+103	76197 12 0 0 0 0 1 336 336 336 112896
+104	76209 12 0 0 0 0 1 360 360 360 129600
+105	76221 10 0 0 0 0 1 0 0 0 0
+106	76231 10 0 0 0 0 1 0 0 0 0
+107	76241 12 0 0 0 0 1 340 340 340 115600
+108	76253 12 0 0 0 0 1 360 360 360 129600
+109	76265 10 0 0 0 0 1 0 0 0 0
+110	76275 10 0 0 0 0 1 0 0 0 0
+111	76285 12 0 0 0 0 1 272 272 272 73984
+112	76297 12 0 0 0 0 1 360 360 360 129600
+113	76309 10 0 0 0 0 1 0 0 0 0
+114	76319 10 0 0 0 0 1 0 0 0 0
+115	76329 12 0 0 0 0 1 334 334 334 111556
+116	76341 12 0 0 0 0 1 360 360 360 129600
+117	76353 10 0 0 0 0 1 0 0 0 0
+118	76363 10 0 0 0 0 1 0 0 0 0
+119	76373 12 0 0 0 0 1 367 367 367 134689
+120	76385 12 0 0 0 0 1 360 360 360 129600
+121	76397 10 0 0 0 0 1 0 0 0 0
+122	76407 10 0 0 0 0 1 0 0 0 0
+123	76417 12 0 0 0 0 1 288 288 288 82944
+124	76429 12 0 0 0 0 1 360 360 360 129600
+125	76441 10 0 0 0 0 1 0 0 0 0
+126	76451 10 0 0 0 0 1 0 0 0 0
+127	76461 12 0 0 0 0 1 256 256 256 65536
+128	76473 12 0 0 0 0 1 360 360 360 129600
+129	76485 10 0 0 0 0 1 0 0 0 0
+130	76495 10 0 0 0 0 1 0 0 0 0
+131	76505 12 0 0 0 0 1 344 344 344 118336
+132	76517 12 0 0 0 0 1 360 360 360 129600
+133	76529 10 0 0 0 0 1 0 0 0 0
+134	76539 10 0 0 0 0 1 0 0 0 0
+135	76549 12 0 0 0 0 1 292 292 292 85264
+136	76561 12 0 0 0 0 1 360 360 360 129600
+137	76573 10 0 0 0 0 1 0 0 0 0
+138	76583 10 0 0 0 0 1 0 0 0 0
+139	76593 12 0 0 0 0 1 357 357 357 127449
+140	76605 12 0 0 0 0 1 360 360 360 129600
+141	76617 10 0 0 0 0 1 0 0 0 0
+142	76627 10 0 0 0 0 1 0 0 0 0
+143	76637 12 0 0 0 0 1 395 395 395 156025
+144	76649 12 0 0 0 0 1 360 360 360 129600
+145	76661 10 0 0 0 0 1 0 0 0 0
+146	76671 10 0 0 0 0 1 0 0 0 0
+147	76681 12 0 0 0 0 1 337 337 337 113569
+148	76693 12 0 0 0 0 1 360 360 360 129600
+149	76705 10 0 0 0 0 1 0 0 0 0
+150	76715 10 0 0 0 0 1 0 0 0 0
+151	76725 12 0 0 0 0 1 400 400 400 160000
+152	76737 12 0 0 0 0 1 360 360 360 129600
+153	76749 10 0 0 0 0 1 0 0 0 0
+154	76759 10 0 0 0 0 1 0 0 0 0
+155	76769 12 0 0 0 0 1 363 363 363 131769
+156	76781 12 0 0 0 0 1 360 360 360 129600
+157	76793 10 0 0 0 0 1 0 0 0 0
+158	76803 10 0 0 0 0 1 0 0 0 0
+159	76813 12 0 0 0 0 1 336 336 336 112896
+160	76825 12 0 0 0 0 1 360 360 360 129600
+161	76837 10 0 0 0 0 1 0 0 0 0
+162	76847 10 0 0 0 0 1 0 0 0 0
+163	76857 12 0 0 0 0 1 391 391 391 152881
+164	76869 12 0 0 0 0 1 360 360 360 129600
+165	76881 10 0 0 0 0 1 0 0 0 0
+166	76891 10 0 0 0 0 1 0 0 0 0
+167	76901 12 0 0 0 0 1 319 319 319 101761
+168	76913 12 0 0 0 0 1 360 360 360 129600
+169	76925 10 0 0 0 0 1 0 0 0 0
+170	76935 10 0 0 0 0 1 0 0 0 0
+171	76945 12 0 0 0 0 1 408 408 408 166464
+172	76957 12 0 0 0 0 1 360 360 360 129600
+173	76969 10 0 0 0 0 1 0 0 0 0
+174	76979 10 0 0 0 0 1 0 0 0 0
+175	76989 12 0 0 0 0 1 428 428 428 183184
+176	77001 12 0 0 0 0 1 360 360 360 129600
+177	77013 10 0 0 0 0 1 0 0 0 0
+178	77023 10 0 0 0 0 1 0 0 0 0
+179	77033 12 0 0 0 0 1 267 267 267 71289
+180	77045 12 0 0 0 0 1 360 360 360 129600
+181	77057 10 0 0 0 0 1 0 0 0 0
+182	77067 10 0 0 0 0 1 0 0 0 0
+183	77077 12 0 0 0 0 1 419 419 419 175561
+184	77089 12 0 0 0 0 1 360 360 360 129600
+185	77101 10 0 0 0 0 1 0 0 0 0
+186	77111 10 0 0 0 0 1 0 0 0 0
+187	77121 12 0 0 0 0 1 400 400 400 160000
+188	77133 12 0 0 0 0 1 360 360 360 129600
+189	77145 10 0 0 0 0 1 0 0 0 0
+190	77155 10 0 0 0 0 1 0 0 0 0
+191	77165 12 0 0 0 0 1 329 329 329 108241
+192	77177 12 0 0 0 0 1 360 360 360 129600
+193	77189 10 0 0 0 0 1 0 0 0 0
+194	77199 10 0 0 0 0 1 0 0 0 0
+195	77209 12 0 0 0 0 1 264 264 264 69696
+196	77221 12 0 0 0 0 1 360 360 360 129600
+197	77233 10 0 0 0 0 1 0 0 0 0
+198	77243 10 0 0 0 0 1 0 0 0 0
+199	77253 12 0 0 0 0 1 266 266 266 70756
+200	77265 12 0 0 0 0 1 360 360 360 129600
+201	77277 10 0 0 0 0 1 0 0 0 0
+202	77287 10 0 0 0 0 1 0 0 0 0
+203	77297 12 0 0 0 0 1 289 289 289 83521
+204	77309 12 0 0 0 0 1 360 360 360 129600
+205	77321 10 0 0 0 0 1 0 0 0 0
+206	77331 10 0 0 0 0 1 0 0 0 0
+207	77341 12 0 0 0 0 1 322 322 322 103684
+208	77353 12 0 0 0 0 1 360 360 360 129600
+209	77365 10 0 0 0 0 1 0 0 0 0
+210	77375 10 0 0 0 0 1 0 0 0 0
+211	77385 12 0 0 0 0 1 314 314 314 98596
+212	77397 12 0 0 0 0 1 360 360 360 129600
+213	77409 10 0 0 0 0 1 0 0 0 0
+214	77419 10 0 0 0 0 1 0 0 0 0
+215	77429 12 0 0 0 0 1 354 354 354 125316
+216	77441 12 0 0 0 0 1 360 360 360 129600
+217	77453 10 0 0 0 0 1 0 0 0 0
+218	77463 10 0 0 0 0 1 0 0 0 0
+219	77473 12 0 0 0 0 1 301 301 301 90601
+220	77485 12 0 0 0 0 1 360 360 360 129600
+221	77497 10 0 0 0 0 1 0 0 0 0
+222	77507 10 0 0 0 0 1 0 0 0 0
+223	77517 12 0 0 0 0 1 363 363 363 131769
+224	77529 12 0 0 0 0 1 360 360 360 129600
+225	77541 10 0 0 0 0 1 0 0 0 0
+226	77551 10 0 0 0 0 1 0 0 0 0
+227	77561 12 0 0 0 0 1 322 322 322 103684
+228	77573 12 0 0 0 0 1 360 360 360 129600
+229	77585 10 0 0 0 0 1 0 0 0 0
+230	77595 10 0 0 0 0 1 0 0 0 0
+231	77605 12 0 0 0 0 1 280 280 280 78400
+232	77617 12 0 0 0 0 1 360 360 360 129600
+233	77629 10 0 0 0 0 1 0 0 0 0
+234	77639 10 0 0 0 0 1 0 0 0 0
+235	77649 12 0 0 0 0 1 293 293 293 85849
+236	77661 12 0 0 0 0 1 360 360 360 129600
+237	77673 10 0 0 0 0 1 0 0 0 0
+238	77683 10 0 0 0 0 1 0 0 0 0
+239	77693 12 0 0 0 0 1 327 327 327 106929
+240	77705 12 0 0 0 0 1 360 360 360 129600
+241	77717 10 0 0 0 0 1 0 0 0 0
+242	77727 10 0 0 0 0 1 0 0 0 0
+243	77737 12 0 0 0 0 1 335 335 335 112225
+244	77749 12 0 0 0 0 1 360 360 360 129600
+245	77761 10 0 0 0 0 1 0 0 0 0
+246	77771 10 0 0 0 0 1 0 0 0 0
+247	77781 12 0 0 0 0 1 323 323 323 104329
+248	77793 12 0 0 0 0 1 360 360 360 129600
+249	77805 10 0 0 0 0 1 0 0 0 0
+250	77815 10 0 0 0 0 1 0 0 0 0
+251	77825 12 0 0 0 0 1 352 352 352 123904
+252	77837 12 0 0 0 0 1 360 360 360 129600
+253	77849 10 0 0 0 0 1 0 0 0 0
+254	77859 10 0 0 0 0 1 0 0 0 0
+255	77869 12 0 0 0 0 1 408 408 408 166464
+256	77881 12 0 0 0 0 1 360 360 360 129600
+257	77893 10 0 0 0 0 1 0 0 0 0
+258	77903 10 0 0 0 0 1 0 0 0 0
+259	77913 12 0 0 0 0 1 317 317 317 100489
+260	77925 12 0 0 0 0 1 360 360 360 129600
+261	77937 10 0 0 0 0 1 0 0 0 0
+262	77947 10 0 0 0 0 1 0 0 0 0
+263	77957 12 0 0 0 0 1 349 349 349 121801
+264	77969 12 0 0 0 0 1 360 360 360 129600
+265	77981 10 0 0 0 0 1 0 0 0 0
+266	77991 10 0 0 0 0 1 0 0 0 0
+267	78001 12 0 0 0 0 1 417 417 417 173889
+268	78013 12 0 0 0 0 1 360 360 360 129600
+269	78025 10 0 0 0 0 1 0 0 0 0
+270	78035 10 0 0 0 0 1 0 0 0 0
+271	78045 12 0 0 0 0 1 113 113 113 12769
+272	78057 12 0 0 0 0 1 240 240 240 57600
+273	78069 10 0 0 0 0 1 0 0 0 0
+274	78079 10 0 0 0 0 1 0 0 0 0
+275	78089 12 0 0 0 0 1 128 128 128 16384
+276	78101 12 0 0 0 0 1 240 240 240 57600
+277	78113 10 0 0 0 0 1 0 0 0 0
+278	78123 10 0 0 0 0 1 0 0 0 0
+279	78133 12 0 0 0 0 1 134 134 134 17956
+280	78145 12 0 0 0 0 1 240 240 240 57600
+281	78157 10 0 0 0 0 1 0 0 0 0
+282	78167 10 0 0 0 0 1 0 0 0 0
+283	78177 12 0 0 0 0 1 114 114 114 12996
+284	78189 12 0 0 0 0 1 240 240 240 57600
+285	78201 10 0 0 0 0 1 0 0 0 0
+286	78211 10 0 0 0 0 1 0 0 0 0
+287	78221 11 0 0 0 0 1 74 74 74 5476
+288	78232 12 0 0 0 0 1 240 240 240 57600
+289	78244 10 0 0 0 0 1 0 0 0 0
+290	78254 10 0 0 0 0 1 0 0 0 0
+291	78264 11 0 0 0 0 1 99 99 99 9801
+292	78275 12 0 0 0 0 1 240 240 240 57600
+293	78287 10 0 0 0 0 1 0 0 0 0
+294	78297 10 0 0 0 0 1 0 0 0 0
+295	78307 12 0 0 0 0 1 110 110 110 12100
+296	78319 12 0 0 0 0 1 240 240 240 57600
+297	78331 10 0 0 0 0 1 0 0 0 0
+298	78341 10 0 0 0 0 1 0 0 0 0
+299	78351 12 0 0 0 0 1 142 142 142 20164
+300	78363 12 0 0 0 0 1 240 240 240 57600
+301	78375 10 0 0 0 0 1 0 0 0 0
+302	78385 10 0 0 0 0 1 0 0 0 0
+303	78395 12 0 0 0 0 1 123 123 123 15129
+304	78407 12 0 0 0 0 1 240 240 240 57600
+305	78419 10 0 0 0 0 1 0 0 0 0
+306	78429 10 0 0 0 0 1 0 0 0 0
+307	78439 12 0 0 0 0 1 144 144 144 20736
+308	78451 12 0 0 0 0 1 240 240 240 57600
+309	78463 10 0 0 0 0 1 0 0 0 0
+310	78473 10 0 0 0 0 1 0 0 0 0
+311	78483 12 0 0 0 0 1 119 119 119 14161
+312	78495 12 0 0 0 0 1 240 240 240 57600
+313	78507 10 0 0 0 0 1 0 0 0 0
+314	78517 10 0 0 0 0 1 0 0 0 0
+315	78527 12 0 0 0 0 1 132 132 132 17424
+316	78539 12 0 0 0 0 1 240 240 240 57600
+317	78551 10 0 0 0 0 1 0 0 0 0
+318	78561 10 0 0 0 0 1 0 0 0 0
+319	78571 12 0 0 0 0 1 106 106 106 11236
+320	78583 12 0 0 0 0 1 240 240 240 57600
+321	78595 10 0 0 0 0 1 0 0 0 0
+322	78605 10 0 0 0 0 1 0 0 0 0
+323	78615 12 0 0 0 0 1 134 134 134 17956
+324	78627 12 0 0 0 0 1 240 240 240 57600
+325	78639 10 0 0 0 0 1 0 0 0 0
+326	78649 10 0 0 0 0 1 0 0 0 0
+327	78659 12 0 0 0 0 1 110 110 110 12100
+328	78671 12 0 0 0 0 1 240 240 240 57600
+329	78683 10 0 0 0 0 1 0 0 0 0
+330	78693 10 0 0 0 0 1 0 0 0 0
+331	78703 12 0 0 0 0 1 108 108 108 11664
+332	78715 12 0 0 0 0 1 240 240 240 57600
+333	78727 10 0 0 0 0 1 0 0 0 0
+334	78737 10 0 0 0 0 1 0 0 0 0
+335	78747 12 0 0 0 0 1 128 128 128 16384
+336	78759 12 0 0 0 0 1 240 240 240 57600
+337	78771 10 0 0 0 0 1 0 0 0 0
+338	78781 10 0 0 0 0 1 0 0 0 0
+339	78791 11 0 0 0 0 1 97 97 97 9409
+340	78802 12 0 0 0 0 1 240 240 240 57600
+341	78814 10 0 0 0 0 1 0 0 0 0
+342	78824 10 0 0 0 0 1 0 0 0 0
+343	78834 12 0 0 0 0 1 128 128 128 16384
+344	78846 12 0 0 0 0 1 240 240 240 57600
+

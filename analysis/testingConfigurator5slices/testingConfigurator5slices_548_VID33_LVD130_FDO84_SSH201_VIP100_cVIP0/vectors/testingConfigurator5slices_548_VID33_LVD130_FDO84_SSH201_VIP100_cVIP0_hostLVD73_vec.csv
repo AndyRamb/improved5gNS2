@@ -1,0 +1,11 @@
+numActiveSessions:vector baselineTestQoS.hostLVD[73].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,DASHBufferLength:vector baselineTestQoS.hostLVD[73].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,DASHVideoPlaybackPointer:vector baselineTestQoS.hostLVD[73].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,DASHVideoBitrate:vector baselineTestQoS.hostLVD[73].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,DASHVideoResolution:vector baselineTestQoS.hostLVD[73].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,DASHVideoPlaybackStatus:vector baselineTestQoS.hostLVD[73].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,txPk:vector(packetBytes) baselineTestQoS.hostLVD[73].ppp[0].ppp (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,rxPkOk:vector(packetBytes) baselineTestQoS.hostLVD[73].ppp[0].ppp (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,DASHliveDelay:vector baselineTestQoS.hostLVD[73].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,rtt:vector baselineTestQoS.hostLVD[73].tcp.conn-1835 (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),,endToEndDelay:vector baselineTestQoS.hostLVD[73].app[0] (#0 - testingConfigurator5slices-0-20240408-14:54:13-23197),
+0,0,0,0,0,0,0,80,0,240,0,0,0,51,0.081183688,51,0.081183688,0.081183688000000003,0.388336932,0.30715324399999999,0.388568468,0.226669276799999984
+0,1,,,,,,,,,,,0.081183688,47,0.388336932,47,,,,,1.131409314613,0.96951012341299991
+,,,,,,,,,,,,0.081184064,247,0.388568468,1499,,,,,1.136812037022,0.974912845821999991
+,,,,,,,,,,,,0.388568468,47,1.131409314613,1499,,,,,2.63274264298,2.470843451779999525
+,,,,,,,,,,,,1.131409314613,47,1.136812037022,1499,,,,,2.638140392222,2.476241201021999837
+,,,,,,,,,,,,1.136812037022,47,2.63274264298,1499,,,,,2.643457044222,2.48155785302200015
+,,,,,,,,,,,,2.63274264298,47,2.638140392222,1499,,,,,2.6488239168,2.486924725599999767
+,,,,,,,,,,,,2.638140392222,47,2.643457044222,1499,,,,,,
+,,,,,,,,,,,,2.643457044222,47,2.6488239168,1499,,,,,,
+,,,,,,,,,,,,2.6488239168,47,,,,,,,,

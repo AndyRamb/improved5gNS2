@@ -100,9 +100,9 @@ def algorithm(sliceAssignment, initialBandAssignment, rbSize, alpha, beta, numAl
 
 
     for algRound in range(0, numAlgRounds):
-        print(CRED + '-- Round ' + str(algRound) + ' --' + CEND, end='')
+        #print(CRED + '-- Round ' + str(algRound) + ' --' + CEND, end='')
         if algRound == 0:
-            print('')
+            #print('')
             currMeanBandPerHostSlice, currEstDelayPerHostSlice, currEstMosPerHostSlice, minMos, maxMos, avgMos, mosFairness = esimateBandMosDel(numHostsSlice, qoeEstimators, sliceAssignment, bandAssignment, rbSize, printFlag)
             roundMeanBandPerHostSlice[algRound] = currMeanBandPerHostSlice.copy()
             roundEstDelayPerHostSlice[algRound] = currEstDelayPerHostSlice.copy()
@@ -127,8 +127,8 @@ def algorithm(sliceAssignment, initialBandAssignment, rbSize, alpha, beta, numAl
             numSame = i
             if revLastResults[i] != revLastResults[i-1]:
                 break
-        if numSame > 1: print('\tLast ' + str(numSame) + ' rounds resulted in the same resource assignment')
-        else: print('')
+        #if numSame > 1: print('\tLast ' + str(numSame) + ' rounds resulted in the same resource assignment')
+        #else: print('')
         
         
         if printFlag: print('Offset: ' + str(numSame))
@@ -150,11 +150,11 @@ def algorithm(sliceAssignment, initialBandAssignment, rbSize, alpha, beta, numAl
                 objectiveFunctionVal = objectiveFunction(alpha, beta, testMinMos, testAvgMos, testMosFairness, False)
                 # print(objectiveFunctionVal)
                 if objectiveFunctionVal > maxObjectiveFunction:
-                    print(CGREEN + '\tWe have found a better configuration in this round! Cause: ' + str(objectiveFunctionVal) + ' > ' + str(maxObjectiveFunction) + CEND)
-                    print(CGREEN + '\tMean utility: ' + str(testAvgMos) + '; Min utility : ' + str(testMinMos) + '; Fairness: ' + str(testMosFairness) + ';' + CEND)
+                    #print(CGREEN + '\tWe have found a better configuration in this round! Cause: ' + str(objectiveFunctionVal) + ' > ' + str(maxObjectiveFunction) + CEND)
+                    #print(CGREEN + '\tMean utility: ' + str(testAvgMos) + '; Min utility : ' + str(testMinMos) + '; Fairness: ' + str(testMosFairness) + ';' + CEND)
                     maxObjectiveFunction = objectiveFunctionVal
                     bestAssignment = testBandAssignment
-                    print(CGREEN + '\tResource allocation: ' + str(bestAssignment) + CEND)
+                    #print(CGREEN + '\tResource allocation: ' + str(bestAssignment) + CEND)
         
         # print(bestAssignment)
         if printFlag: print(CGREEN + 'New configuration:' + CEND)
@@ -172,13 +172,13 @@ def algorithm(sliceAssignment, initialBandAssignment, rbSize, alpha, beta, numAl
         roundObjectiveFunction[algRound] = newObjectiveFunction
 
         if numSame >= sameLimit:
-            print(CGREENBG+"Last "+str(sameLimit)+" rounds resulted in the same resource assignment! Algorithm is done!"+CEND)
+            #print(CGREENBG+"Last "+str(sameLimit)+" rounds resulted in the same resource assignment! Algorithm is done!"+CEND)
             break
-    print('Number of rounds required to find the last assignment: ' + str(algRound) + '(numAlgRounds) - ' + str(numSame) + '(numLastSameAssignment) = ' + str(algRound - numSame))
-    print('Final, recommended, assignment:')
-    esimateBandMosDel(numHostsSlice, qoeEstimators, sliceAssignment, bestAssignment, rbSize, True)
-    objectiveFunction(alpha, beta, newMinMos, newAvgMos, newMosFairness, True)
-    print('')
+    #print('Number of rounds required to find the last assignment: ' + str(algRound) + '(numAlgRounds) - ' + str(numSame) + '(numLastSameAssignment) = ' + str(algRound - numSame))
+    #print('Final, recommended, assignment:')
+    esimateBandMosDel(numHostsSlice, qoeEstimators, sliceAssignment, bestAssignment, rbSize, False)
+    objectiveFunction(alpha, beta, newMinMos, newAvgMos, newMosFairness, False)
+    #print('')
 
     return roundBandAssignment[algRound], roundObjectiveFunction[algRound], roundMinMos[algRound], roundMaxMos[algRound], roundAvgMos[algRound], roundMosFairness[algRound], roundMeanBandPerHostSlice[algRound], roundEstDelayPerHostSlice[algRound], roundEstMosPerHostSlice[algRound]
 
@@ -203,10 +203,10 @@ def alphaBetaTester(sliceAssignment, initialBandAssignment, rbSize, numAlgRounds
                 maxMosVals.append(maxMos)
                 avgMosVals.append(avgMos)
                 mosFairnessVals.append(mosFairness)
-                print(alpha, beta, assign, objFuncVal, minMos, maxMos, avgMos, mosFairness)
+                #print(alpha, beta, assign, objFuncVal, minMos, maxMos, avgMos, mosFairness)
     
-    for i in range(len(testedAlpha)):
-        print(testedAlpha[i], testedBeta[i], assignments[i], objFuncVals[i])
+    #for i in range(len(testedAlpha)):
+        #print(testedAlpha[i], testedBeta[i], assignments[i], objFuncVals[i])
     
     with open(testName+'.csv', mode='w') as writeFile:
         fw = csv.writer(writeFile, delimiter=',', quotechar='"', quoting=csv.QUOTE_NONNUMERIC)
@@ -245,10 +245,10 @@ def alphaTester(sliceAssignment, initialBandAssignment, rbSize, numAlgRounds, te
             meanBandSliceVals.append(meanBandSlice)
             estimDelaySliceVals.append(estimDelaySlice)
             estMosSliceVals.append(estMosSlice)
-            print(alpha, 0.0, assign, objFuncVal, minMos, maxMos, avgMos, mosFairness, meanBandSlice, estimDelaySlice, estMosSlice)
+            #print(alpha, 0.0, assign, objFuncVal, minMos, maxMos, avgMos, mosFairness, meanBandSlice, estimDelaySlice, estMosSlice)
     
-    for i in range(len(testedAlpha)):
-        print(testedAlpha[i], testedBeta[i], assignments[i], objFuncVals[i])
+    #for i in range(len(testedAlpha)):
+        #print(testedAlpha[i], testedBeta[i], assignments[i], objFuncVals[i])
     
     with open(testName+'.csv', mode='w') as writeFile:
         fw = csv.writer(writeFile, delimiter=',', quotechar='"', quoting=csv.QUOTE_NONNUMERIC)
@@ -274,12 +274,12 @@ def rbSizeTester(sliceAssignment, initialBandAssignmentPercentage, rbSizes, link
     mosFairnessVals = []
     for rbSize in rbSizes:
         numRBs = linkMaxSpeed / rbSize
-        print(numRBs)
+        #print(numRBs)
         initialBandAssignment = {}
         for sli in list(initialBandAssignmentPercentage):
             initialBandAssignment[sli] = initialBandAssignmentPercentage[sli]*numRBs
-        print(initialBandAssignment)
-        print(numRBs/len(list(initialBandAssignment)))
+        #print(initialBandAssignment)
+        #print(numRBs/len(list(initialBandAssignment)))
         assign, objFuncVal, minMos, maxMos, avgMos, mosFairness, _, _, _ = algorithm(sliceAssignment, initialBandAssignment, rbSize, alpha, beta, numAlgRounds, max(100,numRBs/len(list(initialBandAssignment))), False)
         assignments.append(assign)
         objFuncVals.append(objFuncVal)
@@ -287,10 +287,10 @@ def rbSizeTester(sliceAssignment, initialBandAssignmentPercentage, rbSizes, link
         maxMosVals.append(maxMos)
         avgMosVals.append(avgMos)
         mosFairnessVals.append(mosFairness)
-        print(alpha, beta, assign, objFuncVal, minMos, maxMos, avgMos, mosFairness)
+        #print(alpha, beta, assign, objFuncVal, minMos, maxMos, avgMos, mosFairness)
     
-    for i in range(len(rbSizes)):
-        print(rbSizes[i], assignments[i], objFuncVals[i])
+    #for i in range(len(rbSizes)):
+        #print(rbSizes[i], assignments[i], objFuncVals[i])
     
     with open(testName+'.csv', mode='w') as writeFile:
         fw = csv.writer(writeFile, delimiter=',', quotechar='"', quoting=csv.QUOTE_NONNUMERIC)
@@ -492,7 +492,9 @@ if __name__ == "__main__":
     print('MAIN')
     # 5 slices algorithm
 
-    # algorithm({'sliceSSH' : {'hostSSH' : 50}, 'sliceVIP' : {'hostVIP' : 50}, 'sliceVID' : {'hostVID' : 50}, 'sliceLVD' : {'hostLVD' : 50}, 'sliceFDO' : {'hostFDO' : 50}}, {'sliceSSH' : 20, 'sliceVIP' : 20, 'sliceVID' : 20, 'sliceLVD' : 20, 'sliceFDO' : 20}, 1000, 0.0, 0, 1000, 100, False)
+    
+    assignment = algorithm({'sliceSSH' : {'hostSSH' : 40}, 'sliceVIP' : {'hostVIP' : 50}, 'sliceVID' : {'hostVID' : 50}, 'sliceLVD' : {'hostLVD' : 50}, 'sliceFDO' : {'hostFDO' : 50}}, {'sliceSSH' : 20, 'sliceVIP' : 20, 'sliceVID' : 20, 'sliceLVD' : 20, 'sliceFDO' : 20}, 1000, 0.0, 0, 1000, 100, False)
+    print(assignment[0])
     # algorithm({'sliceSSH' : {'hostSSH' : 50}, 'sliceVIP' : {'hostVIP' : 50}, 'sliceVID' : {'hostVID' : 50}, 'sliceLVD' : {'hostLVD' : 50}, 'sliceFDO' : {'hostFDO' : 50}}, {'sliceSSH' : 20, 'sliceVIP' : 20, 'sliceVID' : 20, 'sliceLVD' : 20, 'sliceFDO' : 20}, 1000, 0.5, 0, 1000, 100, False)
     # algorithm({'sliceSSH' : {'hostSSH' : 50}, 'sliceVIP' : {'hostVIP' : 50}, 'sliceVID' : {'hostVID' : 50}, 'sliceLVD' : {'hostLVD' : 50}, 'sliceFDO' : {'hostFDO' : 50}}, {'sliceSSH' : 20, 'sliceVIP' : 20, 'sliceVID' : 20, 'sliceLVD' : 20, 'sliceFDO' : 20}, 1000, 1.0, 0, 1000, 100, False)
 
