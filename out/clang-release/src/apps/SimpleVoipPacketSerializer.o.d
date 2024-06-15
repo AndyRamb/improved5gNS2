@@ -1,134 +1,133 @@
-out/clang-release//src/apps/SimpleVoipPacketSerializer.o: \
-  src/apps/SimpleVoipPacketSerializer.cc \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/applications/voip/SimpleVoipPacket_m.h \
-  /home/andy/Downloads/omnetpp-6.0.1/include/omnetpp.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/INETDefs_m.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/INETDefs.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/precompiled_release.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/precompiled.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/opp_defines.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/features.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/Compat.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/InitStages.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/InitStageRegistry.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/packet/chunk/Chunk_m.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/Units_m.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/Units.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/INETMath.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/packet/chunk/BitCountChunk.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/packet/chunk/Chunk.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/IPrintableObject.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/MemoryInputStream.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/linklayer/common/MacAddress.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/networklayer/contract/ipv4/Ipv4Address.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/networklayer/contract/ipv6/Ipv6Address.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/networklayer/common/InterfaceToken.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/MemoryOutputStream.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/Ptr.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/IntrusivePtr.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/TemporarySharedPtr.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/packet/tag/IRegionTaggedObject.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/packet/tag/SharingRegionTagSet.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/TagBase.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/packet/chunk/BitsChunk.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/packet/chunk/ByteCountChunk.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/packet/chunk/BytesChunk.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/packet/chunk/cPacketChunk.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/packet/chunk/EmptyChunk.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/packet/chunk/StreamBufferChunk.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/packet/chunk/EncryptedChunk.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/packet/chunk/FieldsChunk.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/packet/chunk/SequenceChunk.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/packet/chunk/SliceChunk.h \
-  src/apps/SimpleVoipPacketSerializer.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/packet/serializer/FieldsChunkSerializer.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/packet/serializer/ChunkSerializer.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/packet/serializer/ChunkSerializerRegistry.h
+../out/clang-release/src/apps/SimpleVoipPacketSerializer.o: \
+  apps/SimpleVoipPacketSerializer.cc \
+  ../../inet4.5/src/inet/applications/voip/SimpleVoipPacket_m.h \
+  /home/akramber/Omnet/omnetpp-6.0.2/include/omnetpp.h \
+  ../../inet4.5/src/inet/common/INETDefs_m.h \
+  ../../inet4.5/src/inet/common/INETDefs.h \
+  ../../inet4.5/src/inet/common/precompiled_release.h \
+  ../../inet4.5/src/inet/common/precompiled.h \
+  ../../inet4.5/src/inet/opp_defines.h ../../inet4.5/src/inet/features.h \
+  ../../inet4.5/src/inet/common/Compat.h \
+  ../../inet4.5/src/inet/common/InitStages.h \
+  ../../inet4.5/src/inet/common/InitStageRegistry.h \
+  ../../inet4.5/src/inet/common/packet/chunk/Chunk_m.h \
+  ../../inet4.5/src/inet/common/Units_m.h \
+  ../../inet4.5/src/inet/common/Units.h \
+  ../../inet4.5/src/inet/common/INETMath.h \
+  ../../inet4.5/src/inet/common/packet/chunk/BitCountChunk.h \
+  ../../inet4.5/src/inet/common/packet/chunk/Chunk.h \
+  ../../inet4.5/src/inet/common/IPrintableObject.h \
+  ../../inet4.5/src/inet/common/MemoryInputStream.h \
+  ../../inet4.5/src/inet/linklayer/common/MacAddress.h \
+  ../../inet4.5/src/inet/networklayer/contract/ipv4/Ipv4Address.h \
+  ../../inet4.5/src/inet/networklayer/contract/ipv6/Ipv6Address.h \
+  ../../inet4.5/src/inet/networklayer/common/InterfaceToken.h \
+  ../../inet4.5/src/inet/common/MemoryOutputStream.h \
+  ../../inet4.5/src/inet/common/Ptr.h \
+  ../../inet4.5/src/inet/common/IntrusivePtr.h \
+  ../../inet4.5/src/inet/common/TemporarySharedPtr.h \
+  ../../inet4.5/src/inet/common/packet/tag/IRegionTaggedObject.h \
+  ../../inet4.5/src/inet/common/packet/tag/SharingRegionTagSet.h \
+  ../../inet4.5/src/inet/common/TagBase.h \
+  ../../inet4.5/src/inet/common/packet/chunk/BitsChunk.h \
+  ../../inet4.5/src/inet/common/packet/chunk/ByteCountChunk.h \
+  ../../inet4.5/src/inet/common/packet/chunk/BytesChunk.h \
+  ../../inet4.5/src/inet/common/packet/chunk/cPacketChunk.h \
+  ../../inet4.5/src/inet/common/packet/chunk/EmptyChunk.h \
+  ../../inet4.5/src/inet/common/packet/chunk/StreamBufferChunk.h \
+  ../../inet4.5/src/inet/common/packet/chunk/EncryptedChunk.h \
+  ../../inet4.5/src/inet/common/packet/chunk/FieldsChunk.h \
+  ../../inet4.5/src/inet/common/packet/chunk/SequenceChunk.h \
+  ../../inet4.5/src/inet/common/packet/chunk/SliceChunk.h \
+  apps/SimpleVoipPacketSerializer.h \
+  ../../inet4.5/src/inet/common/packet/serializer/FieldsChunkSerializer.h \
+  ../../inet4.5/src/inet/common/packet/serializer/ChunkSerializer.h \
+  ../../inet4.5/src/inet/common/packet/serializer/ChunkSerializerRegistry.h
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/applications/voip/SimpleVoipPacket_m.h:
+../../inet4.5/src/inet/applications/voip/SimpleVoipPacket_m.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/include/omnetpp.h:
+/home/akramber/Omnet/omnetpp-6.0.2/include/omnetpp.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/INETDefs_m.h:
+../../inet4.5/src/inet/common/INETDefs_m.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/INETDefs.h:
+../../inet4.5/src/inet/common/INETDefs.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/precompiled_release.h:
+../../inet4.5/src/inet/common/precompiled_release.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/precompiled.h:
+../../inet4.5/src/inet/common/precompiled.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/opp_defines.h:
+../../inet4.5/src/inet/opp_defines.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/features.h:
+../../inet4.5/src/inet/features.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/Compat.h:
+../../inet4.5/src/inet/common/Compat.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/InitStages.h:
+../../inet4.5/src/inet/common/InitStages.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/InitStageRegistry.h:
+../../inet4.5/src/inet/common/InitStageRegistry.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/packet/chunk/Chunk_m.h:
+../../inet4.5/src/inet/common/packet/chunk/Chunk_m.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/Units_m.h:
+../../inet4.5/src/inet/common/Units_m.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/Units.h:
+../../inet4.5/src/inet/common/Units.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/INETMath.h:
+../../inet4.5/src/inet/common/INETMath.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/packet/chunk/BitCountChunk.h:
+../../inet4.5/src/inet/common/packet/chunk/BitCountChunk.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/packet/chunk/Chunk.h:
+../../inet4.5/src/inet/common/packet/chunk/Chunk.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/IPrintableObject.h:
+../../inet4.5/src/inet/common/IPrintableObject.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/MemoryInputStream.h:
+../../inet4.5/src/inet/common/MemoryInputStream.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/linklayer/common/MacAddress.h:
+../../inet4.5/src/inet/linklayer/common/MacAddress.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/networklayer/contract/ipv4/Ipv4Address.h:
+../../inet4.5/src/inet/networklayer/contract/ipv4/Ipv4Address.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/networklayer/contract/ipv6/Ipv6Address.h:
+../../inet4.5/src/inet/networklayer/contract/ipv6/Ipv6Address.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/networklayer/common/InterfaceToken.h:
+../../inet4.5/src/inet/networklayer/common/InterfaceToken.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/MemoryOutputStream.h:
+../../inet4.5/src/inet/common/MemoryOutputStream.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/Ptr.h:
+../../inet4.5/src/inet/common/Ptr.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/IntrusivePtr.h:
+../../inet4.5/src/inet/common/IntrusivePtr.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/TemporarySharedPtr.h:
+../../inet4.5/src/inet/common/TemporarySharedPtr.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/packet/tag/IRegionTaggedObject.h:
+../../inet4.5/src/inet/common/packet/tag/IRegionTaggedObject.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/packet/tag/SharingRegionTagSet.h:
+../../inet4.5/src/inet/common/packet/tag/SharingRegionTagSet.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/TagBase.h:
+../../inet4.5/src/inet/common/TagBase.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/packet/chunk/BitsChunk.h:
+../../inet4.5/src/inet/common/packet/chunk/BitsChunk.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/packet/chunk/ByteCountChunk.h:
+../../inet4.5/src/inet/common/packet/chunk/ByteCountChunk.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/packet/chunk/BytesChunk.h:
+../../inet4.5/src/inet/common/packet/chunk/BytesChunk.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/packet/chunk/cPacketChunk.h:
+../../inet4.5/src/inet/common/packet/chunk/cPacketChunk.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/packet/chunk/EmptyChunk.h:
+../../inet4.5/src/inet/common/packet/chunk/EmptyChunk.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/packet/chunk/StreamBufferChunk.h:
+../../inet4.5/src/inet/common/packet/chunk/StreamBufferChunk.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/packet/chunk/EncryptedChunk.h:
+../../inet4.5/src/inet/common/packet/chunk/EncryptedChunk.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/packet/chunk/FieldsChunk.h:
+../../inet4.5/src/inet/common/packet/chunk/FieldsChunk.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/packet/chunk/SequenceChunk.h:
+../../inet4.5/src/inet/common/packet/chunk/SequenceChunk.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/packet/chunk/SliceChunk.h:
+../../inet4.5/src/inet/common/packet/chunk/SliceChunk.h:
 
-src/apps/SimpleVoipPacketSerializer.h:
+apps/SimpleVoipPacketSerializer.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/packet/serializer/FieldsChunkSerializer.h:
+../../inet4.5/src/inet/common/packet/serializer/FieldsChunkSerializer.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/packet/serializer/ChunkSerializer.h:
+../../inet4.5/src/inet/common/packet/serializer/ChunkSerializer.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/packet/serializer/ChunkSerializerRegistry.h:
+../../inet4.5/src/inet/common/packet/serializer/ChunkSerializerRegistry.h:

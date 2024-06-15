@@ -1,13 +1,13 @@
 #
-# OMNeT++/OMNEST Makefile for improved5gNS
+# OMNeT++/OMNEST Makefile for improved5gNS2
 #
 # This file was generated with the command:
-#  opp_makemake -f --deep
+#  opp_makemake -f --deep -O out -KINET4_5_PROJ=../../inet4.5 -KINET_GPLUS_PROJ=../../inet-gplus -DINET_IMPORT -DINETGPL_IMPORT -I. -I$(INET4_5_PROJ)/src -I$(INET_GPLUS_PROJ)/src -L$(INET4_5_PROJ)/src -L$(INET_GPLUS_PROJ)/src -lINET$(D) -linet-gplus$(D)
 #
 
 # Name of target to be created (-o option)
 TARGET_DIR = .
-TARGET_NAME = improved5gNS$(D)
+TARGET_NAME = improved5gNS2$(D)
 TARGET = $(TARGET_NAME)$(EXE_SUFFIX)
 TARGET_IMPLIB = $(TARGET_NAME)$(IMPLIB_SUFFIX)
 TARGET_IMPDEF = $(TARGET_NAME)$(IMPDEF_SUFFIX)
@@ -19,13 +19,13 @@ USERIF_LIBS = $(ALL_ENV_LIBS) # that is, $(QTENV_LIBS) $(CMDENV_LIBS)
 #USERIF_LIBS = $(QTENV_LIBS)
 
 # C++ include paths (with -I)
-INCLUDE_PATH =  -I/src -I$(INET_PROJ)/src -I$(INETGPL_PROJ)/src
+INCLUDE_PATH = -I. -I$(INET4_5_PROJ)/src -I$(INET_GPLUS_PROJ)/src
 
 # Additional object and library files to link with
-EXTRA_OBJS =  $(LDFLAG_LIBPATH)$(INET_PROJ)/src  -lINET$(D) $(LDFLAG_LIBPATH)$(INETGPL_PROJ)/src  -lINETGPL$(D)
+EXTRA_OBJS =
 
 # Additional libraries (-L, -l options)
-LIBS =
+LIBS = $(LDFLAG_LIBPATH)$(INET4_5_PROJ)/src $(LDFLAG_LIBPATH)$(INET_GPLUS_PROJ)/src  -lINET$(D) -linet-gplus$(D)
 
 # Output directory
 PROJECT_OUTPUT_DIR = ../out
@@ -53,8 +53,9 @@ MSGFILES =
 # SM files
 SMFILES =
 
-INET_PROJ=/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5
-INETGPL_PROJ=/home/andy/git/inet-gpl
+# Other makefile variables (-K)
+INET4_5_PROJ=../../inet4.5
+INET_GPLUS_PROJ=../../inet-gplus
 
 #------------------------------------------------------------------------------
 
@@ -74,8 +75,11 @@ include $(CONFIGFILE)
 
 # Simulation kernel and user interface libraries
 OMNETPP_LIBS = $(OPPMAIN_LIB) $(USERIF_LIBS) $(KERNEL_LIBS) $(SYS_LIBS)
+ifneq ($(PLATFORM),win32)
+LIBS += -Wl,-rpath,$(abspath $(INET4_5_PROJ)/src) -Wl,-rpath,$(abspath $(INET_GPLUS_PROJ)/src)
+endif
 
-COPTS = $(CFLAGS) $(IMPORT_DEFINES)  $(INCLUDE_PATH) -I$(OMNETPP_INCL_DIR)
+COPTS = $(CFLAGS) $(IMPORT_DEFINES) -DINET_IMPORT -DINETGPL_IMPORT $(INCLUDE_PATH) -I$(OMNETPP_INCL_DIR)
 MSGCOPTS = $(INCLUDE_PATH)
 SMCOPTS =
 
@@ -111,7 +115,9 @@ $O/$(TARGET): $(OBJS)  $(wildcard $(EXTRA_OBJS)) Makefile $(CONFIGFILE)
 
 .PHONY: all clean cleanall depend msgheaders smheaders
 
-.SUFFIXES: .cc
+# disabling all implicit rules
+.SUFFIXES :
+.PRECIOUS : %_m.h %_m.cc
 
 $O/%.o: %.cc $(COPTS_FILE) | msgheaders smheaders
 	@$(MKPATH) $(dir $@)

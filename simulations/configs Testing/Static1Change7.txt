@@ -1,0 +1,1 @@
+./runAndExportSimConfig.sh -i parameterStudyConfiguration.ini -c Static1Change7 -s 1

@@ -40,11 +40,6 @@ namespace inet {
 
 Define_Module(TcpSimpleSshAppV2lite);
 
-int64_t expectingBytes;
-
-bool commandOutputReceived;
-
-
 TcpSimpleSshAppV2lite::~TcpSimpleSshAppV2lite()
 {
     cancelAndDelete(timeoutMsg);
@@ -153,7 +148,7 @@ void TcpSimpleSshAppV2lite::handleTimer(cMessage *msg)
             break;
 
         case MSGKIND_CLOSE:
-            EV_INFO << "user exits ssh program\n";
+            EV_INFO << "user exits ssh program\n" << endl;
             TcpAppBase::close();
             break;
     }
@@ -198,8 +193,10 @@ void TcpSimpleSshAppV2lite::socketDataArrived(TcpSocket *socket, Packet *msg, bo
 
     expectingBytes-=len;
     EV_INFO << "User is expecting " << expectingBytes << " bytes \n";
+    std::cout << "TEST for "<< socket <<" cmdoutlen, expecting, len: " << (int) par("commandOutputLength") << ", " << expectingBytes << ", "<<len <<" &expectingBytes: "<< &expectingBytes<<endl;
     // If command output has been sent and the user has no more expectingBytes it means that he/she has received the output to the command he typed.
     if (len >= (int) par("commandOutputLength") && expectingBytes == 0) {
+        std::cout << "TEST: im in if" << endl;
         simtime_t meanRtt = listener->getMeanRtt();
         double precision = (double) meanRtt.getScaleExp();
         finalRTT = (double) meanRtt.raw() * pow(10, precision);
@@ -208,7 +205,10 @@ void TcpSimpleSshAppV2lite::socketDataArrived(TcpSocket *socket, Packet *msg, bo
         EV_INFO << "User has received all expected bytes from the current command.\n";
         // If user has finished working, she closes the connection, otherwise
         // starts typing again after a delay
-        if (numLinesToType) numLinesToType--;
+        if (numLinesToType){
+            std::cout <<"TEST: in numlinestoType" << endl;
+            numLinesToType--;
+        } 
         if (timeoutMsg->isScheduled())
                 cancelEvent(timeoutMsg);
         timeoutMsg->setKind(MSGKIND_CLOSE);
@@ -216,7 +216,8 @@ void TcpSimpleSshAppV2lite::socketDataArrived(TcpSocket *socket, Packet *msg, bo
         commandOutputReceived = true;
         }
    else {
-        EV_INFO << "Number of commands left: "<< numLinesToType << "\n";
+        std::cout << "TEST: im in else" << endl;
+        std::cout << "TEST: Number of commands left: "<< numLinesToType << "\n";
         if (len >= (int) par("commandOutputLength")  &&  numLinesToType > 0) { //if command output has been received and there are more commands (=numLinesToType) schedule next one. Is this condition equivalent to the condition isScheduled() ?
             EV_INFO << "user looks at output, then starts typing next command\n";
             if (!timeoutMsg->isScheduled()) {

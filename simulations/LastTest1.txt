@@ -1,0 +1,1 @@
+./runAndExportHeatMaps.sh -i DynamicStudyConfig.ini -c LastTest1 -s 5

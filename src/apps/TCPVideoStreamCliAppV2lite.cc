@@ -26,6 +26,7 @@ namespace inet {
 #define MSGKIND_CONNECT     0
 #define MSGKIND_SEND        1
 #define MSGKIND_VIDEO_PLAY  2
+#define MSGKIND_ABORT 3
 
 //Register_Class(TCPVideoStreamCliAppV2lite);
 Define_Module(TCPVideoStreamCliAppV2lite);
@@ -122,6 +123,7 @@ void TCPVideoStreamCliAppV2lite::nextVidSetup() {
 
 void TCPVideoStreamCliAppV2lite::initialize(int stage) {
     TcpBasicClientApp::initialize(stage);
+    
     if (stage != 3)
         return;
     cumulatedReceivedBytes = 0;
@@ -129,6 +131,10 @@ void TCPVideoStreamCliAppV2lite::initialize(int stage) {
     const char *str = par("video_resolution").stringValue();
     video_resolution = cStringTokenizer(str).asIntVector(); //M:Number of kilobits per second in the video
     video_buffer_max_length = par("video_buffer_max_length"); //M:Maximal length of the video buffer in seconds EDIT? Do it in segments
+    
+    //std::cout << "stoptime before setting" << stopTime << endl;
+    //stopTime=par("stopTime");
+    //throw cRuntimeError("stoptime in initialize %ld", stopTime.raw());
     video_duration = par("video_duration");                   //M:EDIT? Do that also in segments?
     manifest_size = par("manifest_size");
     segment_length = par("segment_length");
@@ -204,6 +210,7 @@ void TCPVideoStreamCliAppV2lite::initialize(int stage) {
 }
 
 void TCPVideoStreamCliAppV2lite::sendRequest() {
+    std::cout << "Aborting here request? " << simTime() << endl;
     EV << "Send request function. ";
     if (video_buffer <= video_buffer_max_length - segment_length) {
         EV<< "Sending request, " << numRequestsToSend-1 << " more to go\n";
@@ -270,6 +277,7 @@ void TCPVideoStreamCliAppV2lite::sendRequest() {
 }
 
 void TCPVideoStreamCliAppV2lite::handleTimer(cMessage *msg) {
+    std::cout << "Aborting here timer? " << simTime() << " message is " << msg->getKind() << endl;
     EV << "Handling the timer\n";
 //    std::pair<simtime_t, double> timePlayingPair;
 //    std::pair<simtime_t, double> timeBufferPair;
@@ -286,7 +294,10 @@ void TCPVideoStreamCliAppV2lite::handleTimer(cMessage *msg) {
 
         connect(); // active OPEN
         break;
-
+    case MSGKIND_ABORT:
+        std::cout << "Aborting VID client at " << simTime() << endl;
+        abort();
+        break;
     case MSGKIND_SEND:          // Send a request to the server and ask for the next video segment
         EV << "Sending a request to the server\n";
         sendRequest();
@@ -323,10 +334,20 @@ void TCPVideoStreamCliAppV2lite::handleTimer(cMessage *msg) {
         }
         if (video_buffer > 0) {//M:When there is something in the buffer, schedule video playing event in one second
             simtime_t d = simTime() + 1; //M: This +1 is used to schedule a video play event in one second
+            if (d > stopTime && d < stopTime +1){
+                cMessage *videoPlaybackMsg = new cMessage("abort");
+                videoPlaybackMsg->setKind(MSGKIND_ABORT);
+                scheduleAt(stopTime, videoPlaybackMsg);
+            }
+            else if (d > stopTime+1){
+                abort();
+            }
+            else {
             cMessage *videoPlaybackMsg = new cMessage("playback");
             videoPlaybackMsg->setKind(MSGKIND_VIDEO_PLAY);
             scheduleAt(d, videoPlaybackMsg);
             //rescheduleAfterOrDeleteTimer(d, MSGKIND_VIDEO_PLAY);
+            }
         }
         if (!video_is_buffering && numRequestsToSend > 0 && video_buffer <= video_buffer_max_length - segment_length) { //M: Client is still loading segments (buffer not full) and there is still video left to download
             // Now the buffer has some space
@@ -360,6 +381,8 @@ void TCPVideoStreamCliAppV2lite::socketEstablished(TcpSocket *socket) { //M: Whe
 }
 
 void TCPVideoStreamCliAppV2lite::rescheduleAfterOrDeleteTimer(simtime_t d, short int msgKind) { //M: Not entirely sure how to describe what is happening here. It probably has something to do with the lifetime of the video client in the simulation
+    //throw cRuntimeError("stoptime %d", stopTime.raw());
+    std::cout << "Aborting here reschedule? " << simTime() << endl;
     EV << "rescheduleAfter or delete timer\n";                   //EDIT!
     cancelEvent (timeoutMsg);
 
@@ -373,6 +396,7 @@ void TCPVideoStreamCliAppV2lite::rescheduleAfterOrDeleteTimer(simtime_t d, short
 }
 
 void TCPVideoStreamCliAppV2lite::socketDataArrived(TcpSocket *socket, Packet *msg, bool urgent) {
+    std::cout << "VIDTEST socket: " << &socket << endl;
     int just_received_bytes = msg->getByteLength();
     EV << "Socket data arrived on connection ID: " << socket->getSocketId() << ". Client received " << just_received_bytes << " Bytes\n";
     TcpAppBase::socketDataArrived(socket, msg, urgent);            //EDIT!
@@ -718,6 +742,11 @@ void TCPVideoStreamCliAppV2lite::refreshDisplay() const
     char buf[64];
     sprintf(buf, "rcvd: %ld pks %ld bytes\nsent: %ld pks %ld bytes", msgsRcvd, bytesRcvd, msgsSent, bytesSent);
     getDisplayString().setTagArg("t", 0, buf);
+}
+
+void TCPVideoStreamCliAppV2lite::abort()
+{
+    socket.abort();
 }
 
 }

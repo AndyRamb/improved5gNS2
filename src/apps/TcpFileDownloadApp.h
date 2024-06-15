@@ -65,6 +65,7 @@ class INET_API TcpFileDownloadApp : public TcpAppBase
     virtual void handleCrashOperation(LifecycleOperation *operation) override;
 
     virtual void close() override;
+    virtual void abort();
 
   public:
     TcpFileDownloadApp() {}

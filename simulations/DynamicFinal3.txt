@@ -1,0 +1,9 @@
+./runAndExportHeatMaps.sh -i DynamicStudyConfig.ini -c DynamicFinal3-equal_R100_Q35_M100_C100_PFalse -s 5
+./runAndExportHeatMaps.sh -i DynamicStudyConfig.ini -c DynamicFinal3-weighted_R100_Q35_M100_C100_PFalse -s 5
+./runAndExportHeatMaps.sh -i DynamicStudyConfig.ini -c DynamicFinal3-cnsm_R100_Q35_M100_C100_PFalse -s 5
+./runAndExportHeatMaps.sh -i DynamicStudyConfig.ini -c DynamicFinal4-equal_R100_Q35_M100_C100_PFalse -s 5
+./runAndExportHeatMaps.sh -i DynamicStudyConfig.ini -c DynamicFinal4-weighted_R100_Q35_M100_C100_PFalse -s 5
+./runAndExportHeatMaps.sh -i DynamicStudyConfig.ini -c DynamicFinal4-cnsm_R100_Q35_M100_C100_PFalse -s 5
+./runAndExportHeatMaps.sh -i DynamicStudyConfig.ini -c DynamicFinal5-equal_R100_Q35_M100_C100_PFalse -s 5
+./runAndExportHeatMaps.sh -i DynamicStudyConfig.ini -c DynamicFinal5-weighted_R100_Q35_M100_C100_PFalse -s 5
+./runAndExportHeatMaps.sh -i DynamicStudyConfig.ini -c DynamicFinal5-cnsm_R100_Q35_M100_C100_PFalse -s 5

@@ -29,6 +29,7 @@ namespace inet {
 
 #define MSGKIND_CONNECT    0
 #define MSGKIND_SEND       1
+//#define MSGKIND_CLOSE      2
 
 Define_Module(TcpFileDownloadApp);
 
@@ -86,17 +87,19 @@ void TcpFileDownloadApp::sendRequest()
 {
     long requestLength = par("requestLength");
     replyLength = par("replyLength");
+    // bool serverClose = false; //AR: Sending server close flag true if stoptime is reached.
+    // if(simTime() > stopTime)
+    //     serverClose = true;
     if (requestLength < 1)
         requestLength = 1;
     if (replyLength < 1)
         replyLength = 1;
-
     const auto& payload = makeShared<GenericAppMsg>();
     Packet *packet = new Packet("data");
     payload->addTag<CreationTimeTag>()->setCreationTime(simTime());
     payload->setChunkLength(B(requestLength));
     payload->setExpectedReplyLength(B(replyLength));
-    payload->setServerClose(false);
+    payload->setServerClose(false); //AR: serverClose, was false before
     packet->insertAtBack(payload);
 
     EV_INFO << "sending request with " << requestLength << " bytes, expected reply length " << replyLength << " bytes,"
@@ -127,6 +130,10 @@ void TcpFileDownloadApp::handleTimer(cMessage *msg)
             // arrives (see socketDataArrived())
             break;
 
+        // case MSGKIND_CLOSE:
+        //     EV_INFO << "user stops File download\n";
+        //     close();
+        //     break;
         default:
             throw cRuntimeError("Invalid timer msg: kind=%d", msg->getKind());
     }
@@ -159,6 +166,8 @@ void TcpFileDownloadApp::rescheduleOrDeleteTimer(simtime_t d, short int msgKind)
     else {
         delete timeoutMsg;
         timeoutMsg = nullptr;
+        //std::cout << "FDTEST stoptime: "<< stopTime << " at simtime " << simTime() << endl;
+        //close(); // AR: Trying to stop the server once stoptime is reached. This is not the way to do it as reschedule isn't ran unless the numRequestsToSend > 0 aka. a new session starts. Also stopping the generic server for all apps not only one with close() or sending message with close flag.
     }
 }
 
@@ -166,7 +175,6 @@ void TcpFileDownloadApp::socketDataArrived(TcpSocket *socket, Packet *msg, bool 
 {
     bitsReceived += msg->getBitLength();
     TcpAppBase::socketDataArrived(socket, msg, urgent);
-
 
 
     if (bitsReceived >= replyLength*8) {
@@ -188,6 +196,10 @@ void TcpFileDownloadApp::socketDataArrived(TcpSocket *socket, Packet *msg, bool 
         emit(averageDownloadThroughputSignal, avgBandwidth);
         bitsReceived = 0;
     }
+    if (simTime() > stopTime) { //AR: If we receive a packet when stopTime is reached abort the tcpsocket connection.
+        //std::cout << "FDTEST: stoptime reached for " << socket << "at simtime " << simTime()<< endl;
+        abort();
+    }
 
     if (numRequestsToSend > 0) {
         EV_INFO << "reply arrived\n";
@@ -208,6 +220,12 @@ void TcpFileDownloadApp::close()
     TcpAppBase::close();
     cancelEvent(timeoutMsg);
 }
+
+void TcpFileDownloadApp::abort()
+{
+    socket.abort();
+}
+
 
 void TcpFileDownloadApp::socketClosed(TcpSocket *socket)
 {

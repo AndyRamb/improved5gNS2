@@ -3,6 +3,8 @@ import xml.etree.ElementTree as ET
 import numpy as np
 import math
 import qoeEstimation as qoeEst
+import csv
+import pandas as pd
 from algorithm import algorithm
 
 
@@ -31,11 +33,11 @@ def getBandForQoECli(host, desQoE):
 #New generation of admission times
 def generate_poisson_events(rate, time_duration):
     num_events = np.random.poisson(rate * time_duration)
-    event_times = np.sort(np.random.randint(0, time_duration, num_events))
+    event_times = np.sort(np.random.randint(1, time_duration, num_events))
     inter_arrival_times = np.diff(event_times)
     return num_events, event_times, inter_arrival_times
 
-def clientAdmissionHost(simTime, arrivalRate, serviceRate):
+def clientAdmissionHost(simTime, arrivalRate, serviceRate, type):
     startTimes=generate_poisson_events(arrivalRate,simTime-1)[1]
     #startTime=np.random.randint(1,8,clients)
     numClients=len(startTimes)
@@ -44,19 +46,41 @@ def clientAdmissionHost(simTime, arrivalRate, serviceRate):
 
     serviceTimes=np.random.poisson(serviceRate,numClients)
     endTimes=startTimes+serviceTimes+1
-    #numApps = np.arange(numClients) 
+    #numApps = np.arange(numClients)
+    for i,endTime in enumerate(endTimes):
+        if endTime > simTime-1:
+            endTimes[i] = simTime-1
+    
+    for i, startTime in enumerate(startTimes):
+        if type == 'VID' and startTime > simTime-150:
+            startTimes = startTimes[:i]
+            endTimes = endTimes[:i]
+            break
+        if type == 'LVD' and startTime > simTime-100:
+            startTimes = startTimes[:i]
+            endTimes = endTimes[:i]
+            break
+        elif startTime > simTime-50:
+            startTimes = startTimes[:i]
+            endTimes = endTimes[:i]
+            break
+    print(type, startTimes, endTimes)
 
     return np.vstack((startTimes, endTimes))
 
+#Do something like 320s for video,200s live, 250s FD, 300 VoIP, 150s SSH, make arrival rates match to get same application % split
 def allHostTypesAdmission(simTime):
-    ssh = clientAdmissionHost(simTime, 4, 5) #1
-    vip = clientAdmissionHost(simTime, 2, 6) #2
-    vid = clientAdmissionHost(simTime, 1, 7) #3
-    lvd = clientAdmissionHost(simTime, 4, 8) #4
-    fdo = clientAdmissionHost(simTime, 3, 10) #5
+    ssh = clientAdmissionHost(simTime, 0.05, 150, 'SSH') # SSH: 7.5 in 400s 7.5/150 = 0.05
+    vip = clientAdmissionHost(simTime, 0.15, 300, 'VIP') # VIP: 45 in 400s 45/300 = 0.15
+    vid = clientAdmissionHost(simTime, 0.1875, 320, 'VID') # VID: 60 in 400s 60/320 = 0.1875  Start only before 300s and no new after 300s
+    lvd = clientAdmissionHost(simTime, 0.15, 200, 'LVD') # LVD: 30 in 400s 30/200 = 0.15
+    fdo = clientAdmissionHost(simTime, 0.03, 250, 'FDO') # FDO: 7.5 in 400s 7.5/250 = 0.03
     return {"SSH": ssh,"VIP": vip, "VID": vid,"LVD": lvd,"FDO": fdo}
 
-#print(allHostTypesAdmission(10))
+# left = 100
+# present =  {"SSH": 10,"VIP": 40,"VID": 50,"LVD": 28,"FDO": 5}
+# tmp = [{'sliceSSH': left/5, 'sliceVIP': left/5, 'sliceVID': left/5, 'sliceLVD': left/5, 'sliceFDO': left/5}]
+# print(recalc(present, tmp[0], left))
 
 #ssh, vip, vid, lvd, fdo = allHostTypesAdmission(10)
 #print(ssh)
@@ -64,58 +88,187 @@ def allHostTypesAdmission(simTime):
 
 #print(np.unique(np.concatenate((ssh[0], ssh[1], vip[0], vip[1], vid[0], vid[1], lvd[0], lvd[1], fdo[0], fdo[1]))))
 
-
-
-def recalc(present, last):
-    sliceResources = algorithm({'sliceSSH' : {'hostSSH' : present["SSH"]}, 'sliceVIP' : {'hostVIP' : present["VIP"]}, 'sliceVID' : {'hostVID' : present["VID"]}, 'sliceLVD' : {'hostLVD' : present["LVD"]}, 'sliceFDO' : {'hostFDO' : present["FDO"]}}, {'sliceSSH' : last['sliceSSH'], 'sliceVIP' : last['sliceVIP'], 'sliceVID' : last['sliceVID'], 'sliceLVD' : last['sliceLVD'], 'sliceFDO' : last['sliceFDO']}, 1000, 0.0, 0, 1000, 100, False)
+def recalc(present, last, left):
+    sliceResources = algorithm({'sliceSSH' : {'hostSSH' : present["SSH"]}, 'sliceVIP' : {'hostVIP' : present["VIP"]}, 'sliceVID' : {'hostVID' : present["VID"]}, 'sliceLVD' : {'hostLVD' : present["LVD"]}, 'sliceFDO' : {'hostFDO' : present["FDO"]}}, {'sliceSSH' : last['sliceSSH'], 'sliceVIP' : last['sliceVIP'], 'sliceVID' : last['sliceVID'], 'sliceLVD' : last['sliceLVD'], 'sliceFDO' : last['sliceFDO']}, 1000, 0.0, 0, 1000, left, False)
     return sliceResources
 
-def calculateEvents(hosts, maxThroughput, desiredQoE):
-    tmp = [{'sliceSSH': 20, 'sliceVIP': 20, 'sliceVID': 20, 'sliceLVD': 20, 'sliceFDO': 20}]
+def calculateEvents(hosts, maxThroughput, desiredQoE, algo, maxSimTime, configName):
+    # CNSM PAPER:
+    #tmp = [{'sliceSSH': 0.053, 'sliceVIP': 0.964, 'sliceVID': 47.991, 'sliceLVD': 38.993, 'sliceFDO': 11.997}]
+    #sliceRates = {"sliceSSH": [0.053],"sliceVIP": [0.964],"sliceVID": [47.991],"sliceLVD": [38.993],"sliceFDO": [11.997]}
+
+
+    tmp = {'sliceSSH': 20, 'sliceVIP': 20, 'sliceVID': 20, 'sliceLVD': 20, 'sliceFDO': 20}
+    present =  {"SSH": 0,"VIP": 0,"VID": 0,"LVD": 0,"FDO": 0}
+    sliceRates = {"sliceSSH": [],"sliceVIP": [],"sliceVID": [],"sliceLVD": [],"sliceFDO": []}
+
+    # Default:
+    # tmp = [{'sliceSSH': 20, 'sliceVIP': 20, 'sliceVID': 20, 'sliceLVD': 20, 'sliceFDO': 20}]
+    # present =  {"SSH": 1,"VIP": 1,"VID": 1,"LVD": 1,"FDO": 1}
+    #sliceRates = {"sliceSSH": [20],"sliceVIP": [20],"sliceVID": [20],"sliceLVD": [20],"sliceFDO": [20]}
+
+
     changeTimes = np.unique(np.concatenate((hosts["SSH"][0], hosts["SSH"][1], hosts["VIP"][0], hosts["VIP"][1], hosts["VID"][0], hosts["VID"][1], hosts["LVD"][0], hosts["LVD"][1], hosts["FDO"][0], hosts["FDO"][1])))
     reqBitratesPerType={}
+    ceilBitrates = {}
+    assuredBitrates = {}
     for host in hosts:
-        reqBitratesPerType[host] = getBandForQoECli("host" + host, desiredQoE)
-        print('For a QoE of', desiredQoE, host, 'needs', reqBitratesPerType[host])
+        reqBitratesPerType[host] = int(getBandForQoECli('host'+host, desiredQoE))
+        if host == 'VID':
+            ceilBitrates['host'+host] = int(reqBitratesPerType[host] * 1.25)
+            assuredBitrates['host'+host] = int(reqBitratesPerType[host] * 0.85)
+        elif host == 'LVD':
+            ceilBitrates['host'+host] = int(reqBitratesPerType[host] * 1.50)
+            assuredBitrates['host'+host] = int(reqBitratesPerType[host] * 0.6)
+        elif host == 'FDO':
+            ceilBitrates['host'+host] = int(reqBitratesPerType[host] * 1.25)
+            assuredBitrates['host'+host] = int(reqBitratesPerType[host] * 1.0)
+        elif host == 'VIP':
+            ceilBitrates['host'+host] = int(reqBitratesPerType[host] * 2.0)
+            assuredBitrates['host'+host] = int(reqBitratesPerType[host] * 0.8)
+        elif host == 'SSH':
+            ceilBitrates['host'+host] = int(reqBitratesPerType[host] * 1.0)
+            assuredBitrates['host'+host] = int(reqBitratesPerType[host] * 0.5)
+        
+        # elif host == 'cVIP':
+        #     ceilBitrates['host'+host] = int(reqBitratesPerType[host] * 2.0)
+        #     assuredBitrates['host'+host] = int(reqBitratesPerType[host] * 0.7)
+        print('For a QoE of ' + str(desiredQoE) + ' ' + str(host) + ' needs ' + str(reqBitratesPerType[host]) + ' kbps. It translates to a GBR of ' + str(assuredBitrates['host'+host]) + ' kbps and a MBR of ' + str(ceilBitrates['host'+host]) + 'kbps.')
 
     newChangeTimes = []
-    sliceRates = {"sliceSSH": [],"sliceVIP": [],"sliceVID": [],"sliceLVD": [],"sliceFDO": [],}
-    present =  {"SSH": 1,"VIP": 1,"VID": 1,"LVD": 1,"FDO": 1,}
-    rejected = 0
+    totalStatic = {"SSH": 53,"VIP": 964,"VID": 47991,"LVD": 38993,"FDO": 11997}
+    
+    rejected =  {"SSH": 0,"VIP": 0,"VID": 0,"LVD": 0,"FDO": 0}
     total = maxThroughput * 1000
+    # with open('/mnt/data/analysis/Client_admission/'+configName+'.csv', 'a+', newline="") as file:
+    #         csvwriter = csv.writer(file)
+    #         csvwriter.writerow(['Type', 'Clients'])
+    #         csvwriter.writerow(present)
+    header = ['Time', 'VID', 'LVD', 'FDO', 'VIP', 'SSH', 'RVID', 'RLVD', 'RFDO', 'RVIP', 'RSSH']
+    header2 = ['Time', 'VID', 'LVD', 'FDO', 'VIP', 'SSH']
+    data=[]
+    resourceAllocdata=[]
+
+    print('tester changeTimes: '+ str(len(changeTimes)))
     for t in changeTimes:
+        print(t)
+        if t >= maxSimTime-1: #Maxtime reached
+            break
         print("Generating " + str(np.where(changeTimes==t)[0]/len(changeTimes) * 100) + "%")
-        print(present)
-        x=0
         for host in hosts:
-            #COMING
-            for a in np.arange(len(hosts[host][0])):
-                if hosts[host][0][a-x] == t:
-                    if total > reqBitratesPerType[host]:
-                        present[host]+=1
-                        total -= reqBitratesPerType[host]
-                    else:
-                        rejected += 1
-                        hosts[host] = np.delete(hosts[host], a-x, axis=1)
-                        x+=1      
-            #LEAVING
-            for a in np.arange(len(hosts[host][0])):
-                if hosts[host][1][a] == t:
-                    present[host]-=1
-                    total += reqBitratesPerType[host]
-        # if t > maxTime:
-            # break
-
-        old = tmp[0]
-        tmp = recalc(present, tmp[0])
-        #print(tmp[0])
-        if tmp[0] != old:
+            x=0
+            if algo == "static":
+                #COMING
+                for a in np.arange(len(hosts[host][0])):
+                    #print(a, a-x)
+                    if hosts[host][0][a-x] == t:
+                        if totalStatic[host] > assuredBitrates['host'+host]:
+                            present[host]+=1
+                            totalStatic[host] -= assuredBitrates['host'+host]
+                        else:
+                            rejected[host] += 1
+                            hosts[host] = np.delete(hosts[host], a-x, axis=1)
+                            print('#####################')
+                            print('tester rejected: ' + str(host)+ str(a-x) + ' at changetime ' + str(t) )
+                            x+=1
+                #LEAVING
+                for a in np.arange(len(hosts[host][0])):
+                    if hosts[host][1][a] == t:
+                        present[host]-=1
+                        totalStatic[host] += assuredBitrates['host'+host]
+            else:
+                #COMING
+                for a in np.arange(len(hosts[host][0])):
+                    #print(a, a-x)
+                    if hosts[host][0][a-x] == t:
+                        if total > assuredBitrates['host'+host]:
+                            present[host]+=1
+                            total -= assuredBitrates['host'+host]
+                        else:
+                            rejected[host] += 1
+                            hosts[host] = np.delete(hosts[host], a-x, axis=1)
+                            print('#####################')
+                            print('tester rejected: ' + str(host)+ str(a-x) + ' at changetime ' + str(t) )
+                            x+=1      
+                #LEAVING
+                for a in np.arange(len(hosts[host][0])):
+                    if hosts[host][1][a] == t:
+                        present[host]-=1
+                        total += assuredBitrates['host'+host]
+        print(present)
+        match algo:
+            case "equal":
+                #print("equal split of "+ str(total))
+                for type in present:
+                    tmp["slice" + type] = math.floor(present[type] * assuredBitrates['host'+type] + total/5)
+                #print(tmp)
+            case "weighted":
+                #print("weigheted split")
+                for type in present:
+                    split = present[type]/sum(present.values())
+                    #print(type, split)
+                    tmp["slice" + type] = math.floor(present[type] * assuredBitrates['host'+type] + total * split)
+                #print(tmp)
+            case "CNSM":
+                print("CNSM split function")
+                fagbr = {}
+                for type in present:
+                    fagbr[type] = present[type]/sum(present.values())*assuredBitrates['host'+type]
+                    # print(fagbr[type])
+                multiplier = maxThroughput * 1000/sum(fagbr.values())
+                # print(multiplier)
+                for type in present:
+                    tmp["slice" + type] = math.floor(multiplier * fagbr[type])
+            case "static":
+                print("static reosurce allocation, no change needed")
+        
+        for sli in tmp:
+            if (algo != "static"):
+                sliceRates[sli].append(tmp[sli])
+        resourceAllocdata.append([t, tmp['sliceVID'],tmp['sliceLVD'],tmp['sliceFDO'],tmp['sliceVIP'],tmp['sliceSSH']])
+        if (t != 1 and algo != "static"):
             newChangeTimes.append(t)
-            for sli in tmp[0]:
-                sliceRates[sli].append(tmp[0][sli])
-                
-    return hosts, reqBitratesPerType, newChangeTimes, sliceRates, rejected
+        data.append([t, present['VID'],present['LVD'],present['FDO'],present['VIP'],present['SSH'],rejected['VID'],rejected['LVD'],rejected['FDO'],rejected['VIP'],rejected['SSH']])
+        
 
+    if(algo == "static"):
+        sliceRates={"sliceSSH": [53],"sliceVIP": [964],"sliceVID": [47991],"sliceLVD": [38993],"sliceFDO": [11997]}
+        resourceAllocdata = [[0, sliceRates['sliceVID'][0],sliceRates['sliceLVD'][0],sliceRates['sliceFDO'][0],sliceRates['sliceVIP'][0],sliceRates['sliceSSH'][0]],[400, sliceRates['sliceVID'][0],sliceRates['sliceLVD'][0],sliceRates['sliceFDO'][0],sliceRates['sliceVIP'][0],sliceRates['sliceSSH'][0]]]
+    
+    data = pd.DataFrame(data, columns=header)
+    data.to_csv('/mnt/data/analysis/Pre/Client_admission/'+configName+'.csv', index=False)
+
+    
+    #print(resourceAllocdata)
+    resourceAllocdata = pd.DataFrame(resourceAllocdata, columns=header2)
+    resourceAllocdata.to_csv('/mnt/data/analysis/Pre/Resource_alloc/'+configName+'.csv', index=False)
+        #old = tmp[0]
+        # tmp = recalc(present, tmp[0])
+        # #print(tmp[0])
+        # if tmp[0] != old:
+        #     newChangeTimes.append(t)
+        #     for sli in tmp[0]:
+        #         sliceRates[sli].append(tmp[0][sli])
+    print(rejected)            
+    return hosts, reqBitratesPerType, newChangeTimes, sliceRates, rejected, assuredBitrates, ceilBitrates
+
+
+# hosts, reqBitratesPerType, newChangeTimes, sliceRates, rejected, assuredBitrates, ceilBitrates = calculateEvents(allHostTypesAdmission(400), 100, 3.5, "equal")
+# print(sliceRates)
+
+
+# hosts = {"SSH": np.vstack(([1,1,1,1,1,1,1,1,1,1],[399,399,399,399,399,399,399,399,399,399])),
+#             "VIP": np.vstack(([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],[399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399])),
+#             "VID": np.vstack(([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],[399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200])),
+#             "LVD": np.vstack(([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],[399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399])),
+#             "FDO": np.vstack(([1,1,1,1,1],[399,399,399,399,399]))
+#             }
+# hosts, reqBitratesPerType, newChangeTimes, sliceRates, rejected, assuredBitrates, ceilBitrates = calculateEvents(hosts, 100, 3.5, "CNSM")
+# print(sliceRates)
+# hosts, reqBitratesPerType, newChangeTimes, sliceRates, rejected, assuredBitrates, ceilBitrates = calculateEvents(hosts, 100, 3.5)
+# print(sliceRates, newChangeTimes)
+
+#print(recalc(present, tmp[0]))
 # hosts = allHostTypesAdmission(50)
 # hosts, reqBitratesPerType, newChangeTimes, sliceRates, rejected = calculateEvents(hosts, 100, 3.5)
 #print([a["sliceSSH"] for a in sliceRates])
@@ -163,7 +316,7 @@ def simpleAdmission(availBand, desiredQoE, cliTypes, maxNumCliType, ceilMultipli
 # simpleAdmission(200000, 3.5, ['hostVIP', 'hostSSH', 'hostVID', 'hostLVD', 'hostFDO'], 50)
 # simpleAdmission(200000, 4, ['hostVIP', 'hostSSH', 'hostVID', 'hostLVD', 'hostFDO'], 50)
 
-# print(simpleAdmission(100000, 2.5, ['hostVIP', 'hostSSH', 'hostVID', 'hostLVD', 'hostFDO'], 50, 2.0, 1.0))
+#print(simpleAdmission(100000, 2.5, ['hostVIP', 'hostSSH', 'hostVID', 'hostLVD', 'hostFDO'], 50, 2.0, 1.0))
 
 # getBandForQoECli('hostFDO', 3)
 
@@ -172,10 +325,10 @@ sampleDict = {
     "parentId": "NULL",
     "rate": 0,
     "ceil": 0,
-    "burst": 1600,
-    "cburst": 1600,
+    "burst": 2000,
+    "cburst": 2000,
     "level": 1,
-    "quantum": 1600,
+    "quantum": 1500,
     "mbuffer": 60
 }
 # {leafName:[assuredRate, ceilRate, priority, queueNum]}
@@ -215,7 +368,7 @@ def genHTBconfig(configName, linkSpeed, leafClassesConfigs):
 
 def genHTBconfigWithInner(configName, linkSpeed, leafClassesConfigs, innerClassesConfigs, numLevels, sliceRates): #Creates two layer HTB config in data array, root, inner and leaf classes, writes to json file
     data = []
-
+    
     fh = open('../simulations/configs/htbTree/'+configName+ '.json', 'a+')
 
     root = sampleDict.copy()
@@ -225,19 +378,43 @@ def genHTBconfigWithInner(configName, linkSpeed, leafClassesConfigs, innerClasse
     root["ceil"] = linkSpeed
     data.append(root)
 
-    tmp = 0
     for inner in innerClassesConfigs:
         tempDict = sampleDict.copy()
         tempDict["id"] = 'inner' + inner
         tempDict["parentId"] = innerClassesConfigs[inner][2]
-        tempDict["rate"] = innerClassesConfigs[inner][0]
-        i = 1
-        for rate in sliceRates["slice"+inner]:
-            if rate != tmp:
-                tmp = rate
-                tempDict["rate"+str(i)] = rate*1000
-            i+=1
-        tempDict["ceil"] = innerClassesConfigs[inner][1]
+        
+        tmp = 0
+        for x in range(len(sliceRates["slice"+inner])):
+            if x == 0:
+                tempDict["rate"] = int(sliceRates["slice"+inner][0])
+            else:
+                if sliceRates["slice"+inner][x] != tmp:
+                    tmp = sliceRates["slice"+inner][x]
+                    tempDict["rate"+str(x)] = int(sliceRates["slice"+inner][x])
+
+        # tempDict["rate"] = sliceRates["slice"+inner][0] * 1000
+        # i = 1
+        # for rate in sliceRates["slice"+inner]:
+        #     if rate != tmp:
+        #         tmp = rate
+        #         tempDict["rate"+str(i)] = rate*1000
+        #     i+=1
+        tmp = 0
+        for x in range(len(sliceRates["slice"+inner])):
+            if x == 0:
+                tempDict["ceil"] = int(sliceRates["slice"+inner][0])
+            else:
+                if sliceRates["slice"+inner][x] != tmp:
+                    tmp = sliceRates["slice"+inner][x]
+                    tempDict["ceil"+str(x)] = int(sliceRates["slice"+inner][x])
+
+        # tempDict["ceil"] = sliceRates["slice"+inner][0] * 1000
+        # i = 1
+        # for ceil in sliceRates["slice"+inner]:
+        #     if ceil != tmp:
+        #         tmp = ceil
+        #         tempDict["ceil"+str(i)] = ceil*1000
+        #     i+=1
         tempDict["burst"] = 2000
         tempDict["cburst"] = 2000
         tempDict["level"] = innerClassesConfigs[inner][3]
@@ -314,33 +491,36 @@ def genBaselineRoutingConfig(configName, hostTypes, hostNums, hostIPprefixes, se
 
 # genBaselineRoutingConfig('stasTest10a', ['hostFDO'], [2], {'hostFDO':'10.3'}, ['serverFDO'],  {'serverFDO':'10.6'})
 
-def startStopTimes(hosts, changeTimes):
-    configString = ""
+def startStopTimes(confName, hosts, changeTimes):
+    configStringStartStop = ""
+    
     for a in np.arange(len(hosts["SSH"][0])):
-        configString += '**.hostSSH[*].app['+ str(a) +'].startTime = ' + str(hosts["SSH"][0][a]) + 's\n' 
-        configString += '**.hostSSH[*].app['+ str(a) +'].stopTime = ' + str(hosts["SSH"][1][a]) + 's\n'
+        configStringStartStop += '**.hostSSH['+ str(a) +'].app[0].startTime = ' + str(hosts["SSH"][0][a]) + 's\n' 
+        configStringStartStop += '**.hostSSH['+ str(a) +'].app[0].stopTime = ' + str(hosts["SSH"][1][a]) + 's\n'
     
     for a in np.arange(len(hosts["VIP"][0])):
-        configString += '**.serverVIP.app['+ str(a) +'].startTime = ' + str(hosts["VIP"][0][a]) + 's\n' 
-        configString += '**.serverVIP.app['+ str(a) +'].stopTime = ' + str(hosts["VIP"][1][a]) + 's\n'
+        configStringStartStop += '**.serverVIP.app['+ str(a) +'].startTime = ' + str(hosts["VIP"][0][a]) + 's\n' 
+        configStringStartStop += '**.serverVIP.app['+ str(a) +'].stopTime = ' + str(hosts["VIP"][1][a]) + 's\n'
 
     for a in np.arange(len(hosts["VID"][0])):
-        configString += '**.hostVID[*].app['+ str(a) +'].startTime = ' + str(hosts["VID"][0][a]) + 's\n' 
-        configString += '**.hostVID[*].app['+ str(a) +'].stopTime = ' + str(hosts["VID"][1][a]) + 's\n'
+        configStringStartStop += '**.hostVID['+ str(a) +'].app[0].startTime = ' + str(hosts["VID"][0][a]) + 's\n' 
+        configStringStartStop += '**.hostVID['+ str(a) +'].app[0].stopTime = ' + str(hosts["VID"][1][a]) + 's\n'
     
     for a in np.arange(len(hosts["LVD"][0])):
-        configString += '*.hostLVD[*].app['+ str(a) +'].startTime = ' + str(hosts["LVD"][0][a]) + 's\n' 
-        configString += '*.hostLVD[*].app['+ str(a) +'].stopTime = ' + str(hosts["LVD"][1][a]) + 's\n'
+        configStringStartStop += '*.hostLVD['+ str(a) +'].app[0].startTime = ' + str(hosts["LVD"][0][a]) + 's\n' 
+        configStringStartStop += '*.hostLVD['+ str(a) +'].app[0].stopTime = ' + str(hosts["LVD"][1][a]) + 's\n'
     
     for a in np.arange(len(hosts["FDO"][0])):
-        configString += '*.hostFDO[*].app['+ str(a) +'].startTime = ' + str(hosts["FDO"][0][a]) + 's\n' 
-        configString += '*.hostFDO[*].app['+ str(a) +'].stopTime = ' + str(hosts["FDO"][1][a]) + 's\n'
+        configStringStartStop += '*.hostFDO['+ str(a) +'].app[0].startTime = ' + str(hosts["FDO"][0][a]) + 's\n' 
+        configStringStartStop += '*.hostFDO['+ str(a) +'].app[0].stopTime = ' + str(hosts["FDO"][1][a]) + 's\n'
     
-    configString += "*.router*.ppp[0].queue.scheduler.changeTimes = [" + ', '.join(str(c) for c in changeTimes) + "]\n"
+    configStringStartStop += "*.router*.ppp[0].queue.scheduler.changeTimes = [" + ', '.join(str(c) for c in changeTimes) + "]\n"
 
-    return configString
+    f = open('../simulations/configs/startStop/' + confName + 'StartStop.ini', 'a')
+    f.write(configStringStartStop)
+    f.close()
 
-def genBaselineIniConfig(confName, base, numHostsPerType, hostIPprefixes, availBand, ceilMultiplier, guaranteeMultiplier, hosts, changeTimes):
+def genBaselineIniConfig(confName, base, numHostsPerType, hostIPprefixes, availBand, ceilMultiplier, guaranteeMultiplier, hosts, changeTimes, rejected):
     sumHosts = 0
 
     #packFilters = '\"'
@@ -369,6 +549,7 @@ def genBaselineIniConfig(confName, base, numHostsPerType, hostIPprefixes, availB
     configString += 'description = \"Configuration for ' + confName + '. All five applications. QoS employed. Guarantee Multiplier: ' + str(guaranteeMultiplier) + '; Ceil multiplier: ' + str(ceilMultiplier) +'\"\n\n'
     configString += 'extends = ' + base + '\n\n'
     configString += '*.configurator.config = xmldoc(\"configs/routing/' + confName + 'Routing.xml\")\n\n'
+    configString += 'include ./configs/startStop/'+ confName +'StartStop.ini\n\n'
     if 'hostVID' in numHostsPerType:
         configString += '*.nVID = ' + str(numHostsPerType['hostVID']) + ' # Number of video clients\n'
     else: 
@@ -393,8 +574,7 @@ def genBaselineIniConfig(confName, base, numHostsPerType, hostIPprefixes, availB
         configString += '*.ncVIP = ' + str(numHostsPerType['hostcVIP']) + ' # Number of VoIP clients\n\n'
     else: 
         configString += '*.ncVIP = 0 # Number of critical VoIP clients\n\n'
-    
-    configString += startStopTimes(hosts, changeTimes)
+
     configString += '*.router*.ppp[0].queue.typename = \"HtbQueue\"\n'
     configString += '*.router*.ppp[0].queue.numQueues = ' + str(sumHosts) + '\n'
     configString += '*.router*.ppp[0].queue.queue[*].typename = \"DropTailQueue\"\n'
@@ -410,32 +590,37 @@ def genBaselineIniConfig(confName, base, numHostsPerType, hostIPprefixes, availB
     configString += '**.connFIX0.datarate = ' + str(math.ceil(availBand)) + 'Mbps\n'
     configString += '**.connFIX0.delay = 40ms\n\n\n'
 
-    f = open(confName+".txt", "w")
-    f.write(configString)
-    f.close()
+
 
     f2 = open('../simulations/DynamicStudyConfig.ini', 'a')
     f2.write(configString)
     f2.close()
     # print(configString)
+    configString += 'Rejected: ' + str(rejected) + '\n'
+    f = open(confName+".txt", "w")
+    f.write(configString)
+    f.close()
+    
+    startStopTimes(confName, hosts, changeTimes)
+
+    
 
 
-def genAllSliConfigsHTBRun(configName, baseName, availBand, desiredQoE, types, hostToSlice, sliceNames, maxNumCliType, baseNumCli, ceilMultiplier, guaranteeMultiplier, differentiatePrios):
+
+def genAllSliConfigsHTBRun(configName, baseName, availBand, desiredQoE, types, hostToSlice, sliceNames, maxNumCliType, baseNumCli, ceilMultiplier, guaranteeMultiplier, differentiatePrios, hosts, algo, maxsimtime):
     cliTypes = ['host'+x for x in types]
     serverTypes = ['server'+x for x in types]
     #numHostsPerType, reqBitratesPerType, ceilBitrates = simpleAdmission(availBand*1000, desiredQoE, ['host'+x for x in types], maxNumCliType, ceilMultiplier, guaranteeMultiplier)
     
-    hosts = allHostTypesAdmission(50)
-    hosts, reqBitratesPerType, newChangeTimes, sliceRates, rejected = calculateEvents(hosts, availBand, 3.5)
+    hosts, reqBitratesPerType, newChangeTimes, sliceRates, rejected, assuredBitrates, ceilBitrates = calculateEvents(hosts, availBand, 3.5, algo, maxsimtime, configName)
     print(str(rejected) + " Amount of clients got rejected because of limited bandwidth")
     print(hosts["LVD"][0])
     numHostsPerType = {}
-    ceilBitrates = {}
-    assuredBitrates = {}
+
     for host in hosts:
         numHostsPerType["host"+host] = len(hosts[host][0])
-        ceilBitrates[host] = reqBitratesPerType[host] * ceilMultiplier
-        assuredBitrates[host] = reqBitratesPerType[host] * guaranteeMultiplier
+        #ceilBitrates[host] = reqBitratesPerType[host] * ceilMultiplier
+        #assuredBitrates[host] = reqBitratesPerType[host] * guaranteeMultiplier
 
     hostIPprefixes = {}
     serverIPprefixes = {}
@@ -457,7 +642,7 @@ def genAllSliConfigsHTBRun(configName, baseName, availBand, desiredQoE, types, h
             if differentiatePrios == True and host != 'hostVIP' and host != 'hostSSH':
                 priority = 1
             for num in range(numHostsPerType[host]):
-                leafClassesConfigs[host+str(num)] = [reqBitratesPerType[hType], ceilBitrates[hType], priority, queueInt, parentName, 0]
+                leafClassesConfigs[host+str(num)] = [assuredBitrates[host], ceilBitrates[host], priority, queueInt, parentName, 0]
                 queueInt += 1
             #defaultBitrateHost = getBandForQoECli(host, desiredQoE)
             # print(defaultBitrateHost)
@@ -469,7 +654,7 @@ def genAllSliConfigsHTBRun(configName, baseName, availBand, desiredQoE, types, h
             #     print("numberCli:")
             #     print(baseNumCli, numHostsPerType[hType])
             #     raise ValueError('Slice GBR does not match!!')
-            print(maxNumCliType, numHostsPerType[host], reqBitratesPerType[hType], guaranteeMultiplier, sumGuaranteesBandSli, reqBitratesPerType[hType] * numHostsPerType[host])
+            #print(maxNumCliType, numHostsPerType[host], reqBitratesPerType[hType], guaranteeMultiplier, sumGuaranteesBandSli, reqBitratesPerType[hType] * numHostsPerType[host])
         if sliceNames[sliNum] != 'connFIX0':
             # For inner class: assured, guaranteed, parent, level
             innerClassConfigs[sliceNames[sliNum]] = [sumGuaranteesBandSli, sumGuaranteesBandSli, 'root', 1]
@@ -491,14 +676,81 @@ def genAllSliConfigsHTBRun(configName, baseName, availBand, desiredQoE, types, h
     genHTBconfigWithInner(configName, availBand*1000, leafClassesConfigs, innerClassConfigs, numLev, sliceRates)
     hostNums = [numHostsPerType[x] for x in numHostsPerType]
     genBaselineRoutingConfig(configName, cliTypes, hostNums, hostIPprefixes, serverTypes, serverIPprefixes)
-    genBaselineIniConfig(configName, baseName, numHostsPerType, hostIPprefixes, availBand, ceilMultiplier, guaranteeMultiplier, hosts, newChangeTimes)
+    genBaselineIniConfig(configName, baseName, numHostsPerType, hostIPprefixes, availBand, ceilMultiplier, guaranteeMultiplier, hosts, newChangeTimes, rejected)
     print('../simulations/'+configName.split('-')[0]+'.txt')
     f2 = open('../simulations/'+configName.split('-')[0]+'.txt', 'a+')
-    f2.write('./runAndExportSimConfig.sh -i parameterStudyConfiguration.ini -c ' + configName + ' -s 1\n')
+    f2.write('./runAndExportHeatMaps.sh -i DynamicStudyConfig.ini -c ' + configName + ' -s 5\n')
     f2.close()
 
 
-genAllSliConfigsHTBRun('testingConfigurator5slices', 'liteCbaselineTestTokenQoS_base', 100, 3.5, ['FDO','VID','LVD','SSH','VIP'], [['FDO'],['VID'],['LVD'],['SSH'],['VIP']], ['FDO', 'VID','LVD','SSH','VIP'], 100, 100, 2, 1, False)
+###########################
+# Dynamic runs with four different Resource allocations
+# offset = 1
+
+# maxsimtime = 400
+# for i in range(1):
+#     orighosts = allHostTypesAdmission(maxsimtime)
+
+#     #hosts, reqBitratesPerType, newChangeTimes, sliceRates, rejected, assuredBitrates, ceilBitrates = calculateEvents(hosts, 100, 3.5, 'equal', maxsimtime)
+#     genAllSliConfigsHTBRun('Final'+str(i+offset)+'-static_R100_Q35_M100_C100_PFalse', 'liteCbaselineTestTokenQoS_base', 100, 3.5, ['SSH','VIP','VID','LVD','FDO'], [['SSH'],['VIP'],['VID'],['LVD'],['FDO']], ['SSH','VIP','VID','LVD','FDO'], 100, 100, 1, 1, False, orighosts.copy(), "static", maxsimtime)
+#     genAllSliConfigsHTBRun('Final'+str(i+offset)+'-equal_R100_Q35_M100_C100_PFalse', 'liteCbaselineTestTokenQoS_base', 100, 3.5, ['SSH','VIP','VID','LVD','FDO'], [['SSH'],['VIP'],['VID'],['LVD'],['FDO']], ['SSH','VIP','VID','LVD','FDO'], 100, 100, 1, 1, False, orighosts.copy(), "equal", maxsimtime)
+#     genAllSliConfigsHTBRun('Final'+str(i+offset)+'-weighted_R100_Q35_M100_C100_PFalse', 'liteCbaselineTestTokenQoS_base', 100, 3.5, ['SSH','VIP','VID','LVD','FDO'], [['SSH'],['VIP'],['VID'],['LVD'],['FDO']], ['SSH','VIP','VID','LVD','FDO'], 100, 100, 1, 1, False, orighosts.copy(), "weighted", maxsimtime)
+#     genAllSliConfigsHTBRun('Final'+str(i+offset)+'-cnsm_R100_Q35_M100_C100_PFalse', 'liteCbaselineTestTokenQoS_base', 100, 3.5, ['SSH','VIP','VID','LVD','FDO'], [['SSH'],['VIP'],['VID'],['LVD'],['FDO']], ['SSH','VIP','VID','LVD','FDO'], 100, 100, 1, 1, False, orighosts.copy(), "CNSM", maxsimtime)
+
+
+##########################
+#Static slice with dynamic clients 
+# orighosts = allHostTypesAdmission(400)
+# hosts3, reqBitratesPerType, newChangeTimes, sliceRates, rejected, assuredBitrates, ceilBitrates = calculateEvents(orighosts.copy(), 100, 3.5, 'static', 400, 'testingCSVstatic')
+# hosts4, reqBitratesPerType, newChangeTimes, sliceRates, rejected2, assuredBitrates, ceilBitrates = calculateEvents(orighosts.copy(), 100, 3.5, 'equal', 400, 'testingCSVequal')
+# print(str(rejected) + " Amount of clients got rejected because of limited bandwidth")
+# print(str(rejected2) + " Amount of clients got rejected because of limited bandwidth")
+
+#genAllSliConfigsHTBRun('Testrun-static_R100_Q35_M100_C100_PFalse', 'liteCbaselineTestTokenQoS_base', 100, 3.5, ['SSH','VIP','VID','LVD','FDO'], [['SSH'],['VIP'],['VID'],['LVD'],['FDO']], ['SSH','VIP','VID','LVD','FDO'], 100, 100, 1, 1, False, hosts.copy(), "static", 400)
+#genAllSliConfigsHTBRun('Testrun-equal_R100_Q35_M100_C100_PFalse', 'liteCbaselineTestTokenQoS_base', 100, 3.5, ['SSH','VIP','VID','LVD','FDO'], [['SSH'],['VIP'],['VID'],['LVD'],['FDO']], ['SSH','VIP','VID','LVD','FDO'], 100, 100, 1, 1, False, hosts.copy(), "equal", 400)
+
+##########################
+#Extra long
+# hosts = allHostTypesAdmission(800)
+# genAllSliConfigsHTBRun('DynamicExtraLong-equal_R100_Q35_M100_C100_PFalse', 'liteCbaselineTestTokenQoS_base', 100, 3.5, ['SSH','VIP','VID','LVD','FDO'], [['SSH'],['VIP'],['VID'],['LVD'],['FDO']], ['SSH','VIP','VID','LVD','FDO'], 100, 100, 1, 1, False, hosts.copy(), "equal", 800)
+
+#########################
+# CNSM but halway half the video clients leave
+
+# orighosts = {"SSH": np.vstack(([1,1,1,1,1,1,1,1,1,1],[399,399,399,399,399,399,399,399,399,399])),
+#            "VIP": np.vstack(([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],[399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399])),
+#            "VID": np.vstack(([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],[399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200])),
+#            "LVD": np.vstack(([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],[399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399])),
+#            "FDO": np.vstack(([1,1,1,1,1],[399,399,399,399,399]))
+#            }
+# maxsimtime = 400
+
+# genAllSliConfigsHTBRun('HalfCNSMFinal-static_R100_Q35_M100_C100_PFalse', 'liteCbaselineTestTokenQoS_base', 100, 3.5, ['SSH','VIP','VID','LVD','FDO'], [['SSH'],['VIP'],['VID'],['LVD'],['FDO']], ['SSH','VIP','VID','LVD','FDO'], 100, 100, 1, 1, False, orighosts.copy(), "static", maxsimtime)
+# genAllSliConfigsHTBRun('HalfCNSMFinal-equal_R100_Q35_M100_C100_PFalse', 'liteCbaselineTestTokenQoS_base', 100, 3.5, ['SSH','VIP','VID','LVD','FDO'], [['SSH'],['VIP'],['VID'],['LVD'],['FDO']], ['SSH','VIP','VID','LVD','FDO'], 100, 100, 1, 1, False, orighosts.copy(), "equal", maxsimtime)
+# genAllSliConfigsHTBRun('HalfCNSMFinal-weighted_R100_Q35_M100_C100_PFalse', 'liteCbaselineTestTokenQoS_base', 100, 3.5, ['SSH','VIP','VID','LVD','FDO'], [['SSH'],['VIP'],['VID'],['LVD'],['FDO']], ['SSH','VIP','VID','LVD','FDO'], 100, 100, 1, 1, False, orighosts.copy(), "weighted", maxsimtime)
+# genAllSliConfigsHTBRun('HalfCNSMFinal-cnsm_R100_Q35_M100_C100_PFalse', 'liteCbaselineTestTokenQoS_base', 100, 3.5, ['SSH','VIP','VID','LVD','FDO'], [['SSH'],['VIP'],['VID'],['LVD'],['FDO']], ['SSH','VIP','VID','LVD','FDO'], 100, 100, 1, 1, False, orighosts.copy(), "CNSM", maxsimtime)
+
+# genllSliConfigsHTBRun('CNSM_halfVidFinal', 'liteCbaselineTestTokenQoS_base', 60, 3.5, ['SSH','VIP','FDO'], [['SSH'],['VIP'],['FDO']], ['SSH','VIP','FDO'], 100, 100, 2, 1, False)
+
+
+#########################
+# TESTING:
+orighosts = {"SSH": np.vstack(([1,1],[399,399])),
+           "VIP": np.vstack(([1,1],[399,399])),
+           "VID": np.vstack(([1,1],[399,399])),
+           "LVD": np.vstack(([1,1],[399,399])),
+           "FDO": np.vstack(([1,1],[399,399]))
+           }
+maxsimtime = 400
+
+genAllSliConfigsHTBRun('2Clients5slice-static_R100_Q35_M100_C100_PFalse', 'liteCbaselineTestTokenQoS_base', 100, 3.5, ['SSH','VIP','VID','LVD','FDO'], [['SSH'],['VIP'],['VID'],['LVD'],['FDO']], ['SSH','VIP','VID','LVD','FDO'], 100, 100, 1, 1, False, orighosts.copy(), "static", maxsimtime)
+
+
+#genAllSliConfigsHTBRun('LastTest1', 'liteCbaselineTestTokenQoS_base', 100, 3.5, ['SSH','VIP','VID','LVD','FDO'], [['SSH'],['VIP'],['VID'],['LVD'],['FDO']], ['SSH','VIP','VID','LVD','FDO'], 100, 100, 2, 1, False, hosts, "equal")
+
+
+#"SSH": ssh,"VIP": vip, "VID": vid,"LVD": lvd,"FDO": fdo
+
 #hei = algorithm({'sliceSSH' : {'hostSSH' : 50}, 'sliceVIP' : {'hostVIP' : 50}, 'sliceVID' : {'hostVID' : 50}, 'sliceLVD' : {'hostLVD' : 50}, 'sliceFDO' : {'hostFDO' : 50}}, {'sliceSSH' : 20, 'sliceVIP' : 20, 'sliceVID' : 20, 'sliceLVD' : 20, 'sliceFDO' : 20}, 1000, 0.0, 0, 1000, 100, False)
 #print("********")
 #print(hei[0])

@@ -1,0 +1,1 @@
+./runAndExportSimConfig.sh -i parameterStudyConfiguration.ini -c testingGen -s 1

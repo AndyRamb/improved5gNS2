@@ -1,4 +1,4 @@
-package improved5gns.apps;
+package improved5gns2.apps;
 
 @namespace(inet);
 import inet.applications.contract.IApp;

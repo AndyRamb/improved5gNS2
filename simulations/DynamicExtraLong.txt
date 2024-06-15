@@ -1,0 +1,1 @@
+./runAndExportHeatMaps.sh -i DynamicStudyConfig.ini -c DynamicExtraLong-equal_R100_Q35_M100_C100_PFalse -s 5

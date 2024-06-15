@@ -1,0 +1,2 @@
+./runAndExportHeatMaps.sh -i DynamicStudyConfig.ini -c Testrun-static_R100_Q35_M100_C100_PFalse -s 5
+./runAndExportHeatMaps.sh -i DynamicStudyConfig.ini -c Testrun-equal_R100_Q35_M100_C100_PFalse -s 5

@@ -1,0 +1,1 @@
+./runAndExportSimConfig.sh -i parameterStudyConfiguration.ini -c Dynamic5slices -s 1

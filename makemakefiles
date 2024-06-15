@@ -7,8 +7,9 @@
 
 MAKEMAKE=opp_makemake $(MMOPT)
 
-INET4_5_PROJ=../../Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5
-INETGPL_PROJ=../inet-gpl
+INET4_5_PROJ=../inet4.5
+INET_GPLUS_PROJ=../inet-gplus
 
 all:
-	cd src && $(MAKEMAKE) -f --deep -O out -KINET4_5_PROJ=/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5 -KINETGPL_PROJ=../../inet-gpl -DINET_IMPORT -DINETGPL_IMPORT -I. -I$$\(INET4_5_PROJ\)/src -I$$\(INETGPL_PROJ\)/src -L$$\(INET4_5_PROJ\)/src -L$$\(INETGPL_PROJ\)/src -lINET$$\(D\) -lINETGPL$$\(D\)
+	cd src && $(MAKEMAKE) -f --deep -O out -KINET4_5_PROJ=../../inet4.5 -KINET_GPLUS_PROJ=../../inet-gplus -DINET_IMPORT -DINETGPL_IMPORT -I. -I$$\(INET4_5_PROJ\)/src -I$$\(INET_GPLUS_PROJ\)/src -L$$\(INET4_5_PROJ\)/src -L$$\(INET_GPLUS_PROJ\)/src -lINET$$\(D\) -linet-gplus$$\(D\)
+	$(MAKEMAKE) --nolink -f --deep -O out -KINET4_5_PROJ=../inet4.5 -KINET_GPLUS_PROJ=../inet-gplus -DINET_IMPORT -DINETGPL_IMPORT -I. -I$$\(INET4_5_PROJ\)/src -I$$\(INET_GPLUS_PROJ\)/src -L$$\(INET4_5_PROJ\)/src -L$$\(INET_GPLUS_PROJ\)/src -lINET$$\(D\) -linet-gplus$$\(D\) -d src -X.

@@ -1,3 +1,3 @@
-package improved5gns;
+package improved5gns2;
 
 @license(LGPL);

@@ -26,6 +26,7 @@ namespace inet {
 #define MSGKIND_CONNECT     0
 #define MSGKIND_SEND        1
 #define MSGKIND_VIDEO_PLAY  2
+#define MSGKIND_ABORT 3
 
 //Register_Class(TCPLiveVideoStreamCliAppLite);
 Define_Module(TCPLiveVideoStreamCliAppLite);
@@ -315,9 +316,22 @@ void TCPLiveVideoStreamCliAppLite::scheduleVideoPlayEvent() {
     } else { // Invalid flag or vod. Just advance one second on playback
         d += 1.0;
     }
-    cMessage *videoPlaybackMsg = new cMessage("playback");
-    videoPlaybackMsg->setKind(MSGKIND_VIDEO_PLAY);
-    scheduleAt(d, videoPlaybackMsg);
+    if (d > stopTime){ //AR: Not optimal spot of doing the abort
+        std::cout << "Trying to abort at " << simTime() << "Scheduling stoptime " << stopTime << " d : " << d << endl;
+        if (simTime() > stopTime){
+            abort();
+        }
+        else{
+            cMessage *videoPlaybackMsg = new cMessage("abort");
+            videoPlaybackMsg->setKind(MSGKIND_ABORT);
+            scheduleAt(stopTime, videoPlaybackMsg);
+        }
+    }
+    else{
+        cMessage *videoPlaybackMsg = new cMessage("playback");
+        videoPlaybackMsg->setKind(MSGKIND_VIDEO_PLAY);
+        scheduleAt(d, videoPlaybackMsg);
+    }
 }
 
 void TCPLiveVideoStreamCliAppLite::handleTimer(cMessage *msg) {
@@ -343,7 +357,10 @@ void TCPLiveVideoStreamCliAppLite::handleTimer(cMessage *msg) {
 
         connect(); // active OPEN
         break;
-
+    case MSGKIND_ABORT:
+        std::cout << "Aborting VID client at " << simTime() << endl;
+        abort();
+        break;
     case MSGKIND_SEND:          // Send a request to the server and ask for the next video segment
         EV << "Sending a request to the server\n";
         if (existingUnacquired >= (simtime_t)segment_length) { // We can only send a request when there is a segment that exists which we do not have yet.
@@ -396,7 +413,7 @@ void TCPLiveVideoStreamCliAppLite::handleTimer(cMessage *msg) {
             rescheduleAfterOrDeleteTimer(d, MSGKIND_SEND);
         }
         if (video_buffer == 0 && numRequestsToSend == 0 && video_playback_pointer == video_duration) {    // Whole video has been played back. Calculate MOS and prepare for the next video to be played back
-            EV << "Entire video has been played." << endl;
+            std::cout << "Entire video has been played. at simtime " << simTime() << endl;
             // Calculate MOS here after the whole video has been played
 //            double mos = calculateMOS();
 //            EV << "Mean Opinion Score calculated for video. Value = " << mos << "\n";
@@ -430,6 +447,7 @@ void TCPLiveVideoStreamCliAppLite::rescheduleAfterOrDeleteTimer(simtime_t d, sho
     } else {
         delete timeoutMsg;
         timeoutMsg = NULL;
+        //close();
     }
 }
 
@@ -482,6 +500,7 @@ void TCPLiveVideoStreamCliAppLite::socketDataArrived(TcpSocket *socket, Packet *
 //        segmentByteSize.push_back((double)segmentBytes);
 //        segmentDownloadTime.push_back(simTime().dbl() - segmentRequestTime.dbl());
         segmentDownloadBitrate.push_back((double)segmentBytes * 8 / (1000*(simTime() - segmentRequestTime)));
+        std::cout << "TESTER, downloadbitrate =  " << (double)segmentBytes * 8 / (1000*(simTime() - segmentRequestTime)) << endl;
         int replySeconds = segment_length;
 
         if (numRequestsToSend == 0 && video_duration % segment_length > 0) {
@@ -542,7 +561,9 @@ void TCPLiveVideoStreamCliAppLite::socketDataArrived(TcpSocket *socket, Packet *
             int qmax = video_resolution.size() - 1;
 
             for (int i = qmax; i >= 0; i--) {
+                std::cout << "TESTER: Video resolution "<< i << " - " << video_resolution[i] <<endl;
                 if (estimatedBitRate * 0.9 >= getMaxBitrate(video_resolution[i])) {
+                    std::cout << "TESTER: Chose quality  " << video_resolution[i] << "with estimated bitrate" << estimatedBitRate << endl;
                     video_current_quality_index = i;
                     break;
                 } else {
@@ -824,6 +845,10 @@ void TCPLiveVideoStreamCliAppLite::refreshDisplay() const
     char buf[64];
     sprintf(buf, "rcvd: %ld pks %ld bytes\nsent: %ld pks %ld bytes", msgsRcvd, bytesRcvd, msgsSent, bytesSent);
     getDisplayString().setTagArg("t", 0, buf);
+}
+void TCPLiveVideoStreamCliAppLite::abort()
+{
+    socket.abort();
 }
 
 }

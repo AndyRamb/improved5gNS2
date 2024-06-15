@@ -1,34 +1,33 @@
-out/clang-release//src/apps/TcpRttListener.o: src/apps/TcpRttListener.cc \
-  src/apps/TcpRttListener.h \
-  /home/andy/Downloads/omnetpp-6.0.1/include/omnetpp.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/lifecycle/LifecycleOperation.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/INETDefs.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/precompiled_release.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/precompiled.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/opp_defines.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/features.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/Compat.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/InitStages.h \
-  /home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/InitStageRegistry.h
+../out/clang-release/src/apps/TcpRttListener.o: apps/TcpRttListener.cc \
+  apps/TcpRttListener.h \
+  /home/akramber/Omnet/omnetpp-6.0.2/include/omnetpp.h \
+  ../../inet4.5/src/inet/common/lifecycle/LifecycleOperation.h \
+  ../../inet4.5/src/inet/common/INETDefs.h \
+  ../../inet4.5/src/inet/common/precompiled_release.h \
+  ../../inet4.5/src/inet/common/precompiled.h \
+  ../../inet4.5/src/inet/opp_defines.h ../../inet4.5/src/inet/features.h \
+  ../../inet4.5/src/inet/common/Compat.h \
+  ../../inet4.5/src/inet/common/InitStages.h \
+  ../../inet4.5/src/inet/common/InitStageRegistry.h
 
-src/apps/TcpRttListener.h:
+apps/TcpRttListener.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/include/omnetpp.h:
+/home/akramber/Omnet/omnetpp-6.0.2/include/omnetpp.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/lifecycle/LifecycleOperation.h:
+../../inet4.5/src/inet/common/lifecycle/LifecycleOperation.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/INETDefs.h:
+../../inet4.5/src/inet/common/INETDefs.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/precompiled_release.h:
+../../inet4.5/src/inet/common/precompiled_release.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/precompiled.h:
+../../inet4.5/src/inet/common/precompiled.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/opp_defines.h:
+../../inet4.5/src/inet/opp_defines.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/features.h:
+../../inet4.5/src/inet/features.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/Compat.h:
+../../inet4.5/src/inet/common/Compat.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/InitStages.h:
+../../inet4.5/src/inet/common/InitStages.h:
 
-/home/andy/Downloads/omnetpp-6.0.1/project/Fordypningsprosjekt/inet4.5/src/inet/common/InitStageRegistry.h:
+../../inet4.5/src/inet/common/InitStageRegistry.h:

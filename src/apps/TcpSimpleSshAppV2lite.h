@@ -41,6 +41,9 @@ class INET_API TcpSimpleSshAppV2lite : public TcpAppBase//, public TcpSocket
     int numCharsToType = 0;    // characters the user will type for current line (command)
     simtime_t stopTime;
 
+    int64_t expectingBytes;
+    bool commandOutputReceived;
+
     simsignal_t rttSignal;
     simsignal_t mosValueSignal;
 
@@ -64,7 +67,6 @@ class INET_API TcpSimpleSshAppV2lite : public TcpAppBase//, public TcpSocket
     virtual void handleStartOperation(LifecycleOperation *operation) override;
     virtual void handleStopOperation(LifecycleOperation *operation) override;
     virtual void handleCrashOperation(LifecycleOperation *operation) override;
-
   public:
     TcpSimpleSshAppV2lite() {}
     virtual ~TcpSimpleSshAppV2lite();

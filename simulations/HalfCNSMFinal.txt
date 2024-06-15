@@ -1,0 +1,4 @@
+./runAndExportHeatMaps.sh -i DynamicStudyConfig.ini -c HalfCNSMFinal-static_R100_Q35_M100_C100_PFalse -s 5
+./runAndExportHeatMaps.sh -i DynamicStudyConfig.ini -c HalfCNSMFinal-equal_R100_Q35_M100_C100_PFalse -s 5
+./runAndExportHeatMaps.sh -i DynamicStudyConfig.ini -c HalfCNSMFinal-weighted_R100_Q35_M100_C100_PFalse -s 5
+./runAndExportHeatMaps.sh -i DynamicStudyConfig.ini -c HalfCNSMFinal-cnsm_R100_Q35_M100_C100_PFalse -s 5

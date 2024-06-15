@@ -48,8 +48,8 @@ protected:
 
     simtime_t refVidStartTime;
 
-    simtime_t startTime;
-    simtime_t stopTime;
+    //simtime_t startTime;
+    //simtime_t stopTime;
     cMessage *timeoutMsg;
 
     // Statistics collection variables
@@ -162,6 +162,7 @@ protected:
 
     virtual void refreshDisplay() const override;
 
+    virtual void abort();
 };
 } //namespace inet
 #endif

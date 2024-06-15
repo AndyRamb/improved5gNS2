@@ -40,8 +40,8 @@ protected:
     int video_buffer_min_rebuffering = 1; // if video_buffer < video_buffer_min_rebuffering then a rebuffering event occurs
     int manifest_size;
 
-    simtime_t startTime;
-    simtime_t stopTime;
+    //simtime_t startTime;
+    //simtime_t stopTime;
     cMessage *timeoutMsg;
 
     // Statistics collection variables
@@ -142,6 +142,7 @@ protected:
     virtual void socketFailure(TcpSocket *socket, int code) override;
 
     virtual void refreshDisplay() const override;
+    virtual void abort();
 
 };
 } //namespace inet

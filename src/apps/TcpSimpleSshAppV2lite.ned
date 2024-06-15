@@ -15,7 +15,7 @@
 // along with this program; if not, see <http://www.gnu.org/licenses/>.
 //
 
-package improved5gns.apps;
+package improved5gns2.apps;
 
 @namespace(inet);
 

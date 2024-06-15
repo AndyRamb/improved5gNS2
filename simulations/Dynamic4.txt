@@ -1,0 +1,3 @@
+./runAndExportHeatMaps.sh -i DynamicStudyConfig.ini -c Dynamic4-equal -s 5
+./runAndExportHeatMaps.sh -i DynamicStudyConfig.ini -c Dynamic4-weighted -s 5
+./runAndExportHeatMaps.sh -i DynamicStudyConfig.ini -c Dynamic4-cnsm -s 5

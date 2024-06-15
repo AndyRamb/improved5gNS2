@@ -1,0 +1,33 @@
+[Config switching_types]
+description = "Configuration for switching_types. All five applications. QoS employed. Guarantee Multiplier: 1; Ceil multiplier: 2"
+
+extends = liteCbaselineTestTokenQoS_base
+
+*.configurator.config = xmldoc("configs/routing/switching_typesRouting.xml")
+
+include ./configs/startStop/switching_typesStartStop.ini
+
+*.nVID = 2 # Number of video clients
+*.nLVD = 2 # Number of live video client
+*.nFDO = 2 # Number of file download clients
+*.nSSH = 2 # Number of SSH clients
+*.nVIP = 2 # Number of VoIP clients
+
+*.ncVIP = 0 # Number of critical VoIP clients
+
+*.router*.ppp[0].queue.typename = "HtbQueue"
+*.router*.ppp[0].queue.numQueues = 10
+*.router*.ppp[0].queue.queue[*].typename = "DropTailQueue"
+*.router*.ppp[0].queue.packetCapacity = -1
+*.router*.ppp[0].queue.htbHysterisis = false
+*.router*.ppp[0].queue.scheduler.adjustHTBTreeValuesForCorectness = false
+*.router*.ppp[0].queue.scheduler.checkHTBTreeValuesForCorectness = false
+*.router*.ppp[0].queue.htbTreeConfig = readJSON("configs/htbTree/switching_types.json")
+*.router*.ppp[0].queue.classifier.defaultGateIndex = 0
+*.router0.ppp[0].queue.classifier.packetFilters = [expr(ipv4.srcAddress.str() =~ "10.0.0.0"),expr(ipv4.srcAddress.str() =~ "10.0.0.4"),expr(ipv4.srcAddress.str() =~ "10.1.0.0"),expr(ipv4.srcAddress.str() =~ "10.1.0.4"),expr(ipv4.srcAddress.str() =~ "10.2.0.0"),expr(ipv4.srcAddress.str() =~ "10.2.0.4"),expr(ipv4.srcAddress.str() =~ "10.3.0.0"),expr(ipv4.srcAddress.str() =~ "10.3.0.4"),expr(ipv4.srcAddress.str() =~ "10.4.0.0"),expr(ipv4.srcAddress.str() =~ "10.4.0.4")]
+*.router1.ppp[0].queue.classifier.packetFilters = [expr(ipv4.destAddress.str() =~ "10.0.0.0"),expr(ipv4.destAddress.str() =~ "10.0.0.4"),expr(ipv4.destAddress.str() =~ "10.1.0.0"),expr(ipv4.destAddress.str() =~ "10.1.0.4"),expr(ipv4.destAddress.str() =~ "10.2.0.0"),expr(ipv4.destAddress.str() =~ "10.2.0.4"),expr(ipv4.destAddress.str() =~ "10.3.0.0"),expr(ipv4.destAddress.str() =~ "10.3.0.4"),expr(ipv4.destAddress.str() =~ "10.4.0.0"),expr(ipv4.destAddress.str() =~ "10.4.0.4")]
+
+**.connFIX0.datarate = 100Mbps
+**.connFIX0.delay = 40ms
+
+
