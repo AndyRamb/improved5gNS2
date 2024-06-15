@@ -23,4 +23,4 @@ Steps to make the simulations run:
   2. Generate and replace the simulation run command by manually copying the command in the graphical interface. (Some parameters is not needed, take a look at mine)
 2. Generate a new sim configuration with genSimConfig.py, make sure the uncommented simulation is what you want.
   1. A manual or automated client admission can be set, see the examples of how to set hosts array.
-3. Run the generated configName.txt in simulations folder with parallel -j <number of jobs in parallel> --ungroup -a <configName>.txt
+3. Run the generated configName.txt in simulations folder with parallel -j \<number of jobs in parallel\> --ungroup -a \<configName\>.txt
