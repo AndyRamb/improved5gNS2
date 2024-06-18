@@ -95,6 +95,7 @@ simple TCPLiveVideoStreamCliAppLite like IApp {
         @statistic[positionX](title="position of node on X axis"; source="positionX"; record=last);
         @signal[positionY](type=double);
         @statistic[positionY](title="position of node on Y axis"; source="positionY"; record=last);
+        @statistic[throughput](title="throughput"; unit=bps; source="throughput(packetReceived)"; record=vector);
         
         // Adaptive Video statistics
         @signal[DASHBufferLength](type="long"); //EDIT! changed from int to long in order for it to cooperate with this version of omnet

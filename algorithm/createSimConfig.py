@@ -735,18 +735,22 @@ def genAllSliConfigsHTBRun(configName, baseName, availBand, desiredQoE, types, h
 
 #########################
 # TESTING:
-orighosts = {"SSH": np.vstack(([1,1],[399,399])),
-           "VIP": np.vstack(([1,1],[399,399])),
-           "VID": np.vstack(([1,1],[399,399])),
-           "LVD": np.vstack(([1,1],[399,399])),
-           "FDO": np.vstack(([1,1],[399,399]))
-           }
+# orighosts = {"SSH": np.vstack(([1,1],[399,399])),
+#            "VIP": np.vstack(([1,1],[399,399])),
+#            "VID": np.vstack(([1,1],[399,399])),
+#            "LVD": np.vstack(([1,1],[399,399])),
+#            "FDO": np.vstack(([1,1],[399,399]))
+#            }
+# maxsimtime = 400
+
+# genAllSliConfigsHTBRun('2Clients5slice-static_R100_Q35_M100_C100_PFalse', 'liteCbaselineTestTokenQoS_base', 100, 3.5, ['SSH','VIP','VID','LVD','FDO'], [['SSH'],['VIP'],['VID'],['LVD'],['FDO']], ['SSH','VIP','VID','LVD','FDO'], 100, 100, 1, 1, False, orighosts.copy(), "static", maxsimtime)
+
+######
 maxsimtime = 400
+orighosts = allHostTypesAdmission(maxsimtime)
+calculateEvents(orighosts.copy(), 100, 3.5, "static", maxsimtime, 'showAdmission-static')
+calculateEvents(orighosts.copy(), 100, 3.5, "equal", maxsimtime, 'showAdmission-equal')
 
-genAllSliConfigsHTBRun('2Clients5slice-static_R100_Q35_M100_C100_PFalse', 'liteCbaselineTestTokenQoS_base', 100, 3.5, ['SSH','VIP','VID','LVD','FDO'], [['SSH'],['VIP'],['VID'],['LVD'],['FDO']], ['SSH','VIP','VID','LVD','FDO'], 100, 100, 1, 1, False, orighosts.copy(), "static", maxsimtime)
-
-
-#genAllSliConfigsHTBRun('LastTest1', 'liteCbaselineTestTokenQoS_base', 100, 3.5, ['SSH','VIP','VID','LVD','FDO'], [['SSH'],['VIP'],['VID'],['LVD'],['FDO']], ['SSH','VIP','VID','LVD','FDO'], 100, 100, 2, 1, False, hosts, "equal")
 
 
 #"SSH": ssh,"VIP": vip, "VID": vid,"LVD": lvd,"FDO": fdo
